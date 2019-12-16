@@ -4,15 +4,11 @@ apply from: "${rootDir}/gradle/publish-jar.gradle"
 dependencies {
     implementation 'com.google.errorprone:error_prone_refaster'
     implementation 'org.assertj:assertj-core'
-    implementation 'org.mockito:mockito-core'
 
     testCompile 'junit:junit'
     testCompile 'com.palantir.baseline:baseline-refaster-testing'
 }
 
-// Do not apply refaster rules
-// tasks.compileRefaster.enabled = sfalse
-// tasks.compileJava.onlyIf { project.properties.refasterApply == null }
-
-// Do not apply errorprone rules
-// tasks.compileJava.options.errorprone.enabled = false
+// we don't want to auto-fix all the @BeforeTemplates!
+tasks.compileRefaster.enabled = false
+tasks.compileJava.options.errorprone.enabled = false
