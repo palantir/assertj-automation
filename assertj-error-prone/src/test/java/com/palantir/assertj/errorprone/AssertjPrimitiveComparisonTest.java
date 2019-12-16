@@ -17,7 +17,6 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.errorprone.BugCheckerRefactoringTestHelper;
-import com.palantir.assertj.errorprone.AssertjPrimitiveComparison;
 import org.junit.jupiter.api.Test;
 
 class AssertjPrimitiveComparisonTest {

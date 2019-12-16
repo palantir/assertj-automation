@@ -60,8 +60,8 @@ public final class AssertjPrimitiveComparison extends BugChecker implements BugC
 
     private static final Matcher<ExpressionTree> BOOLEAN_ASSERT = Matchers.anyOf(IS_TRUE, IS_FALSE);
 
-    private final com.palantir.assertj.errorprone.AssertjSingleAssertMatcher
-            matcher = com.palantir.assertj.errorprone.AssertjSingleAssertMatcher.of(this::match);
+    private final AssertjSingleAssertMatcher
+            matcher = AssertjSingleAssertMatcher.of(this::match);
 
     @Override
     public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
@@ -71,7 +71,7 @@ public final class AssertjPrimitiveComparison extends BugChecker implements BugC
         return Description.NO_MATCH;
     }
 
-    private Description match(com.palantir.assertj.errorprone.AssertjSingleAssertMatcher.SingleAssertMatch match, VisitorState state) {
+    private Description match(AssertjSingleAssertMatcher.SingleAssertMatch match, VisitorState state) {
         boolean negated = IS_FALSE.matches(match.getCheck(), state);
         if (!negated && !IS_TRUE.matches(match.getCheck(), state)) {
             return Description.NO_MATCH;

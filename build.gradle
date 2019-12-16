@@ -34,6 +34,6 @@ allprojects {
     version rootProject.version
 }
 
-subproject {
+subprojects {
     apply plugin: 'org.inferred.processors'
 }

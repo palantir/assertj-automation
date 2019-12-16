@@ -18,7 +18,6 @@ package com.palantir.assertj.errorprone;
 
 import com.google.errorprone.BugCheckerRefactoringTestHelper;
 import com.google.errorprone.CompilationTestHelper;
-import com.palantir.assertj.errorprone.PreferAssertj;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -418,7 +417,7 @@ public class PreferAssertjTests {
 
     @Test
     public void fails_assertArrayEqualsDelta_double() {
-        CompilationTestHelper.newInstance(com.palantir.assertj.errorprone.PreferAssertj.class, getClass()).addSourceLines(
+        CompilationTestHelper.newInstance(PreferAssertj.class, getClass()).addSourceLines(
                 "Test.java",
                 "import static org.junit.Assert.assertArrayEquals;",
                 "class Test {",
@@ -434,7 +433,7 @@ public class PreferAssertjTests {
 
     @Test
     public void fails_assertArrayEqualsDelta_float() {
-        CompilationTestHelper.newInstance(com.palantir.assertj.errorprone.PreferAssertj.class, getClass()).addSourceLines(
+        CompilationTestHelper.newInstance(PreferAssertj.class, getClass()).addSourceLines(
                 "Test.java",
                 "import static org.junit.Assert.assertArrayEquals;",
                 "class Test {",

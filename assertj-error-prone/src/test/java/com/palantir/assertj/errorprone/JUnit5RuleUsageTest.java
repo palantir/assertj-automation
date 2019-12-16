@@ -17,7 +17,6 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.errorprone.CompilationTestHelper;
-import com.palantir.assertj.errorprone.JUnit5RuleUsage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
