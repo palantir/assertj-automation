@@ -29,7 +29,9 @@ public final class AssertjCollectionHasSizeGreaterThanWithDescription<T> {
 
     @BeforeTemplate
     void before1(Collection<T> things, int size, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.size() > size).describedAs(description, descriptionArgs).isTrue();
+        assertThat(things.size() > size)
+                .describedAs(description, descriptionArgs)
+                .isTrue();
     }
 
     @BeforeTemplate

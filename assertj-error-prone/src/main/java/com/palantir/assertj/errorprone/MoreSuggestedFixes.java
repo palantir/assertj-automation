@@ -22,14 +22,12 @@ import com.google.errorprone.fixes.SuggestedFixes;
 import com.sun.tools.javac.code.Type;
 import javax.annotation.Nullable;
 
-/**
- * Additional utility functionality for {@link SuggestedFix} objects.
- */
+/** Additional utility functionality for {@link SuggestedFix} objects. */
 final class MoreSuggestedFixes {
 
     /**
-     * Identical to {@link SuggestedFixes#qualifyType(VisitorState, SuggestedFix.Builder, String)} unless the
-     * compiling JVM is not supported by error-prone (JDK13) in which case a fallback is attempted.
+     * Identical to {@link SuggestedFixes#qualifyType(VisitorState, SuggestedFix.Builder, String)} unless the compiling
+     * JVM is not supported by error-prone (JDK13) in which case a fallback is attempted.
      */
     static String qualifyType(VisitorState state, SuggestedFix.Builder fix, String typeName) {
         try {
@@ -59,8 +57,8 @@ final class MoreSuggestedFixes {
     }
 
     /**
-     * Identical to {@link SuggestedFixes#prettyType(VisitorState, SuggestedFix.Builder, Type)} unless the
-     * compiling JVM is not supported by error-prone (JDK13) in which case a fallback is attempted.
+     * Identical to {@link SuggestedFixes#prettyType(VisitorState, SuggestedFix.Builder, Type)} unless the compiling JVM
+     * is not supported by error-prone (JDK13) in which case a fallback is attempted.
      */
     static String prettyType(@Nullable VisitorState state, @Nullable SuggestedFix.Builder fix, Type type) {
         try {

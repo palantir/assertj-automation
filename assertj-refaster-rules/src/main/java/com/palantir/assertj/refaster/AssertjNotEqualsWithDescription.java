@@ -26,29 +26,37 @@ import com.google.errorprone.refaster.annotation.UseImportPolicy;
 import java.util.Objects;
 
 /**
- * We have to guess as to which value is expected and which is the actual result, but either way failures will
- * produce significantly more helpful output.
+ * We have to guess as to which value is expected and which is the actual result, but either way failures will produce
+ * significantly more helpful output.
  */
 public final class AssertjNotEqualsWithDescription<T> {
 
     @BeforeTemplate
     void before1(T expected, T actual, String description, @Repeated Object descriptionArgs) {
-        assertThat(!actual.equals(expected)).describedAs(description, descriptionArgs).isTrue();
+        assertThat(!actual.equals(expected))
+                .describedAs(description, descriptionArgs)
+                .isTrue();
     }
 
     @BeforeTemplate
     void before2(T expected, T actual, String description, @Repeated Object descriptionArgs) {
-        assertThat(!Objects.equals(actual, expected)).describedAs(description, descriptionArgs).isTrue();
+        assertThat(!Objects.equals(actual, expected))
+                .describedAs(description, descriptionArgs)
+                .isTrue();
     }
 
     @BeforeTemplate
     void before3(T expected, T actual, String description, @Repeated Object descriptionArgs) {
-        assertThat(actual.equals(expected)).describedAs(description, descriptionArgs).isFalse();
+        assertThat(actual.equals(expected))
+                .describedAs(description, descriptionArgs)
+                .isFalse();
     }
 
     @BeforeTemplate
     void before4(T expected, T actual, String description, @Repeated Object descriptionArgs) {
-        assertThat(Objects.equals(actual, expected)).describedAs(description, descriptionArgs).isFalse();
+        assertThat(Objects.equals(actual, expected))
+                .describedAs(description, descriptionArgs)
+                .isFalse();
     }
 
     @AfterTemplate

@@ -25,8 +25,7 @@ public class AssertjOptionalPresenceTest {
 
     @Test
     public void isPresent_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjOptionalIsPresent.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalIsPresent.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -48,8 +47,7 @@ public class AssertjOptionalPresenceTest {
 
     @Test
     public void isPresent_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjOptionalIsPresentWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalIsPresentWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -74,8 +72,7 @@ public class AssertjOptionalPresenceTest {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper
-                .forRefactoring(AssertjOptionalIsNotPresent.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalIsNotPresent.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -106,8 +103,7 @@ public class AssertjOptionalPresenceTest {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper
-                .forRefactoring(AssertjOptionalIsNotPresentWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalIsNotPresentWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",

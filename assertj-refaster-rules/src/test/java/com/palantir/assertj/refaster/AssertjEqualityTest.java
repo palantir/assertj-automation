@@ -23,8 +23,7 @@ public class AssertjEqualityTest {
 
     @Test
     public void equals_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjEquals.class)
+        RefasterTestHelper.forRefactoring(AssertjEquals.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -50,8 +49,7 @@ public class AssertjEqualityTest {
 
     @Test
     public void equals_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjEqualsWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjEqualsWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -77,8 +75,7 @@ public class AssertjEqualityTest {
 
     @Test
     public void notEquals_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjNotEquals.class)
+        RefasterTestHelper.forRefactoring(AssertjNotEquals.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -106,8 +103,7 @@ public class AssertjEqualityTest {
 
     @Test
     public void notEquals_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjNotEqualsWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjNotEqualsWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",

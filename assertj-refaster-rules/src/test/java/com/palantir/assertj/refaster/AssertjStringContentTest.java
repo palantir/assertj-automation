@@ -23,8 +23,7 @@ public class AssertjStringContentTest {
 
     @Test
     public void contains_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjStringContains.class)
+        RefasterTestHelper.forRefactoring(AssertjStringContains.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -46,8 +45,7 @@ public class AssertjStringContentTest {
 
     @Test
     public void contains_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjStringContainsWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjStringContainsWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -69,8 +67,7 @@ public class AssertjStringContentTest {
 
     @Test
     public void notContain_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjStringDoesNotContain.class)
+        RefasterTestHelper.forRefactoring(AssertjStringDoesNotContain.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -92,8 +89,7 @@ public class AssertjStringContentTest {
 
     @Test
     public void notContain_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjStringDoesNotContainWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjStringDoesNotContainWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
