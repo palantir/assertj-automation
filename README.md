@@ -11,7 +11,7 @@ This repo publishes two jars:
 - `com.palantir.assertj-automation:assertj-error-prone`
 - `com.palantir.assertj-automation:assertj-refaster-rules`
 
-## Usage
+## Usage: `net.ltgt.errorprone`
 
 Error-prone is maintained by Google and can be used with [Bazel, Maven, Gradle, Ant](https://errorprone.info/docs/installation). Use the following Gradle:
 
@@ -22,7 +22,7 @@ plugins {
 }
 
 dependencies {
-  annotationProcessor "com.palantir.assertj:assertj-error-prone:<latest>" // see badge above
+  annotationProcessor "com.palantir.assertj-automation:assertj-error-prone:<latest>"
 
   errorprone "com.google.errorprone:error_prone_core:2.3.4"
   errorproneJavac "com.google.errorprone:javac:9+181-r4173-1"
@@ -36,11 +36,11 @@ tasks.withType(JavaCompile) {
 }
 ```
 
-<!-- TODO(dfox): I don't think refaster is actually usable from the ltgt plugin?? -->
+_Note: refaster rules can't yet be applied from the `net.ltgt.errorprone` plugin, see the `baseline` plugin below._
 
-### Shorthand usage
+### Alternative usage: `com.palantir.baseline`
 
-Palantir's [Baseline](https://github.com/palantir/gradle-baseline) family of plugins includes all this assertj automation. Run `./gradlew compileTestJava -PerrorProneApply -PrefasterApply` to apply the fixes.
+Palantir's [Baseline](https://github.com/palantir/gradle-baseline) family of plugins sets up error-prone and allows applying auto-fixes from both refaster and error-prone. Run `./gradlew compileTestJava -PerrorProneApply -PrefasterApply` to apply the fixes.
 
 ```
 plugins {
@@ -48,7 +48,16 @@ plugins {
 }
 ```
 
-<!-- TODO(dfox): mention the formatDiff command -->
+To ensure the automatically refactored code remain readable by humans, we then run the `./gradlew formatDiff` command provided by [palantir-java-format](https://github.com/palantir/palantir-java-format). This surgically reformats the lines of code that were touched, while preserving the rest of the file.
+
+```gradle
+buildscript {
+  dependencies{
+    classpath 'com.palantir.javaformat:gradle-palantir-java-format:0.3.9'
+  }
+}
+apply plugin: 'com.palantir.java-format'
+```
 
 ## Why
 
@@ -66,7 +75,7 @@ By tweaking the assertion code slightly, the failure message can be vastly impro
 ```
 java.lang.AssertionError:
 Expected size:<7> but was:<8> in:
-<["Africa", "Asia", "North America", "South America", "Antarctica", "Australia", "foo"]>
+<["Africa", "Asia", "Europe", "North America", "South America", "Antarctica", "Australia", "foo"]>
 ```
 
 Here is the code-change for the example above.
