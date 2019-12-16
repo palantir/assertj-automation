@@ -60,7 +60,7 @@ import javax.lang.model.type.TypeKind;
 @AutoService(BugChecker.class)
 @BugPattern(
         name = "PreferAssertj",
-        link = "https://github.com/palantir/gradle-baseline#baseline-error-prone-checks",
+        link = "https://github.com/palantir/assertj-automation",
         linkType = BugPattern.LinkType.CUSTOM,
         providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
         severity = BugPattern.SeverityLevel.SUGGESTION,

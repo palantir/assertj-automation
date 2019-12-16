@@ -39,7 +39,7 @@ import java.util.Optional;
 @AutoService(BugChecker.class)
 @BugPattern(
         name = "AssertjPrimitiveComparison",
-        link = "https://github.com/palantir/gradle-baseline#baseline-error-prone-checks",
+        link = "https://github.com/palantir/assertj-automation",
         linkType = BugPattern.LinkType.CUSTOM,
         providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
         severity = BugPattern.SeverityLevel.SUGGESTION,

@@ -31,7 +31,7 @@ import com.sun.tools.javac.code.Symbol;
 @AutoService(BugChecker.class)
 @BugPattern(
         name = "JUnit5RuleUsage",
-        link = "https://github.com/palantir/gradle-baseline#baseline-error-prone-checks",
+        link = "https://github.com/palantir/assertj-automation",
         linkType = BugPattern.LinkType.CUSTOM,
         severity = BugPattern.SeverityLevel.ERROR,
         summary = "Using Rule/ClassRules in Junit5 tests results in the rules silently not executing")
