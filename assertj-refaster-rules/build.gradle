@@ -11,7 +11,8 @@ dependencies {
 }
 
 // Do not apply refaster rules
-tasks.compileRefaster.enabled = false
-tasks.compileJava.onlyIf { project.properties.refasterApply == null }
+// tasks.compileRefaster.enabled = sfalse
+// tasks.compileJava.onlyIf { project.properties.refasterApply == null }
+
 // Do not apply errorprone rules
-tasks.compileJava.options.errorprone.enabled = false
+// tasks.compileJava.options.errorprone.enabled = false
