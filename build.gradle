@@ -30,7 +30,7 @@ allprojects {
         maven { url  "http://palantir.bintray.com/releases" }
     }
 
-    group 'com.palantir.assertj'
+    group 'com.palantir.assertj-automation'
     version rootProject.version
 }
 
