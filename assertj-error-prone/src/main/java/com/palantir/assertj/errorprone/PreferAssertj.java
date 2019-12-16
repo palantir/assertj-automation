@@ -256,12 +256,9 @@ public final class PreferAssertj extends BugChecker
         if (ASSERT_SAME_DESCRIPTION.matches(tree, state)) {
             return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
                     tree,
-                    assertThat
-                            + ".describedAs("
-                            + argSource(tree, state, 0)
-                            + ").isSameAs("
-                            + argSource(tree, state, 1)
-                            + ")"));
+                    String.format(
+                            "%s.describedAs(%s).isSameAs(%s)",
+                            assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
         }
         if (ASSERT_NOT_SAME.matches(tree, state)) {
             return withAssertThat(tree, state, 1, (assertThat, fix) ->
@@ -270,23 +267,18 @@ public final class PreferAssertj extends BugChecker
         if (ASSERT_NOT_SAME_DESCRIPTION.matches(tree, state)) {
             return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
                     tree,
-                    assertThat
-                            + ".describedAs("
-                            + argSource(tree, state, 0)
-                            + ").isNotSameAs("
-                            + argSource(tree, state, 1)
-                            + ")"));
+                    String.format(
+                            "%s.describedAs(%s).isNotSameAs(%s)",
+                            assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
         }
         if (FAIL_DESCRIPTION.matches(tree, state) || FAIL.matches(tree, state)) {
+            String replacement =
+                    String.format("fail(%s)", tree.getArguments().isEmpty() ? "\"fail\"" : argSource(tree, state, 0));
             return buildDescription(tree)
                     .addFix(SuggestedFix.builder()
                             .removeStaticImport("org.junit.Assert.fail")
                             .addStaticImport("org.assertj.core.api.Assertions.fail")
-                            .replace(
-                                    tree,
-                                    "fail("
-                                            + (tree.getArguments().isEmpty() ? "\"fail\"" : argSource(tree, state, 0))
-                                            + ")")
+                            .replace(tree, replacement)
                             .build())
                     .build();
         }
