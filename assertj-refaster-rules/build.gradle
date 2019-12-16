@@ -7,7 +7,7 @@ dependencies {
     implementation 'org.mockito:mockito-core'
 
     testCompile 'junit:junit'
-    testCompile project(':baseline-refaster-testing')
+    testCompile 'com.palantir.baseline:baseline-refaster-testing'
 }
 
 // Do not apply refaster rules
