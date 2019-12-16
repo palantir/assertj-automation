@@ -23,10 +23,7 @@ public class AssertjIsFalseTest {
 
     @Test
     public void test() {
-        RefasterTestHelper
-                .forRefactoring(
-                        AssertjIsFalse.class,
-                        AssertjIsFalseWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjIsFalse.class, AssertjIsFalseWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",

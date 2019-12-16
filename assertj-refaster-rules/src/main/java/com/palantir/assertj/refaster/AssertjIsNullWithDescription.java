@@ -39,12 +39,16 @@ public final class AssertjIsNullWithDescription {
 
     @BeforeTemplate
     void before3(Object input, String description, @Repeated Object descriptionArgs) {
-        assertThat(Objects.isNull(input)).describedAs(description, descriptionArgs).isTrue();
+        assertThat(Objects.isNull(input))
+                .describedAs(description, descriptionArgs)
+                .isTrue();
     }
 
     @BeforeTemplate
     void before4(Object input, String description, @Repeated Object descriptionArgs) {
-        assertThat(Objects.nonNull(input)).describedAs(description, descriptionArgs).isFalse();
+        assertThat(Objects.nonNull(input))
+                .describedAs(description, descriptionArgs)
+                .isFalse();
     }
 
     @AfterTemplate
@@ -52,5 +56,4 @@ public final class AssertjIsNullWithDescription {
     void after(Object input, String description, @Repeated Object descriptionArgs) {
         assertThat(input).describedAs(description, descriptionArgs).isNull();
     }
-
 }

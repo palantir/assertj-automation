@@ -29,7 +29,9 @@ public final class AssertjInstanceOfWithDescription<T, E> {
 
     @BeforeTemplate
     void before(T input, String description, @Repeated Object descriptionArgs) {
-        assertThat(Refaster.<E>isInstance(input)).describedAs(description, descriptionArgs).isTrue();
+        assertThat(Refaster.<E>isInstance(input))
+                .describedAs(description, descriptionArgs)
+                .isTrue();
     }
 
     @AfterTemplate

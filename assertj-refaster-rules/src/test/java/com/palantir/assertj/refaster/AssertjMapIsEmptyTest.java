@@ -25,8 +25,7 @@ public class AssertjMapIsEmptyTest {
 
     @Test
     public void simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjMapIsEmpty.class)
+        RefasterTestHelper.forRefactoring(AssertjMapIsEmpty.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -54,8 +53,7 @@ public class AssertjMapIsEmptyTest {
 
     @Test
     public void description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjMapIsEmptyWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjMapIsEmptyWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -86,8 +84,7 @@ public class AssertjMapIsEmptyTest {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper
-                .forRefactoring(AssertjMapIsEmpty2.class)
+        RefasterTestHelper.forRefactoring(AssertjMapIsEmpty2.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -120,5 +117,4 @@ public class AssertjMapIsEmptyTest {
                         "  }",
                         "}");
     }
-
 }

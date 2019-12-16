@@ -23,8 +23,8 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void testComparisons() {
-        fix()
-                .addInputLines("Test.java",
+        fix().addInputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "class Test {",
                         "  void f() {",
@@ -51,7 +51,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(3D > 1).isTrue();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "class Test {",
                         "  void f() {",
@@ -83,8 +84,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void less_than() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -94,7 +94,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a >= b).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -108,8 +109,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void less_than_with_description() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -119,7 +119,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a >= b).describedAs(desc).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -133,8 +134,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void greater_than() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -144,7 +144,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a <= b).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -158,8 +159,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void greater_than_with_description() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -169,7 +169,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a <= b).describedAs(desc).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -183,8 +184,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void less_than_or_equal_to() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -194,7 +194,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a > b).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -208,8 +209,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void less_than_or_equal_to_with_description() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -219,7 +219,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a > b).describedAs(desc).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -233,8 +234,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void greater_than_or_equal_to() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -244,7 +244,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a < b).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -258,8 +259,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void greater_than_or_equal_to_with_description() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
@@ -269,7 +269,8 @@ class AssertjPrimitiveComparisonTest {
                         "    assertThat(a < b).describedAs(desc).isFalse();",
                         "  }",
                         "}")
-                .addOutputLines("Test.java",
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
@@ -283,8 +284,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void bytes() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -303,8 +303,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void shorts() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -323,8 +322,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void ints() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -343,8 +341,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void longs() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -363,8 +360,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void floats() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -383,8 +379,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void doubles() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -403,8 +398,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void chars() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
@@ -423,8 +417,7 @@ class AssertjPrimitiveComparisonTest {
 
     @Test
     void booleans() {
-        fix()
-                .addInputLines(
+        fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",

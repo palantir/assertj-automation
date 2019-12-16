@@ -29,7 +29,9 @@ public final class AssertjMapDoesNotContainKeyWithDescription<K, V> {
 
     @BeforeTemplate
     void before1(Map<K, V> things, K key, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.containsKey(key)).describedAs(description, descriptionArgs).isFalse();
+        assertThat(things.containsKey(key))
+                .describedAs(description, descriptionArgs)
+                .isFalse();
     }
 
     @BeforeTemplate
@@ -40,7 +42,9 @@ public final class AssertjMapDoesNotContainKeyWithDescription<K, V> {
     @BeforeTemplate
     @SuppressWarnings("RedundantCollectionOperation") // It's what we're fixing
     void before3(Map<K, V> things, K key, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.keySet().contains(key)).describedAs(description, descriptionArgs).isFalse();
+        assertThat(things.keySet().contains(key))
+                .describedAs(description, descriptionArgs)
+                .isFalse();
     }
 
     @AfterTemplate

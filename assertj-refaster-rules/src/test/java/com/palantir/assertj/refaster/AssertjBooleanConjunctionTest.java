@@ -23,10 +23,8 @@ public class AssertjBooleanConjunctionTest {
 
     @Test
     public void test() {
-        RefasterTestHelper
-                .forRefactoring(
-                        AssertjBooleanConjunction.class,
-                        AssertjBooleanConjunctionWithDescription.class)
+        RefasterTestHelper.forRefactoring(
+                        AssertjBooleanConjunction.class, AssertjBooleanConjunctionWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",

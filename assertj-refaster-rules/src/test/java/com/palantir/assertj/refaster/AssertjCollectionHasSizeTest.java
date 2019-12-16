@@ -23,8 +23,7 @@ public class AssertjCollectionHasSizeTest {
 
     @Test
     public void exactSize_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjCollectionHasSizeExactly.class)
+        RefasterTestHelper.forRefactoring(AssertjCollectionHasSizeExactly.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -48,8 +47,7 @@ public class AssertjCollectionHasSizeTest {
 
     @Test
     public void exactSize_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjCollectionHasSizeExactlyWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjCollectionHasSizeExactlyWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -77,8 +75,7 @@ public class AssertjCollectionHasSizeTest {
 
     @Test
     public void greaterThan_simple() {
-        RefasterTestHelper
-                .forRefactoring(AssertjCollectionHasSizeGreaterThan.class)
+        RefasterTestHelper.forRefactoring(AssertjCollectionHasSizeGreaterThan.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -102,8 +99,7 @@ public class AssertjCollectionHasSizeTest {
 
     @Test
     public void greaterThan_description() {
-        RefasterTestHelper
-                .forRefactoring(AssertjCollectionHasSizeGreaterThanWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjCollectionHasSizeGreaterThanWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",

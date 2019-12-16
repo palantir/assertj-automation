@@ -28,12 +28,16 @@ public final class AssertjStringContainsWithDescription {
 
     @BeforeTemplate
     void before1(String input, CharSequence contains, String description, @Repeated Object descriptionArgs) {
-        assertThat(input.contains(contains)).describedAs(description, descriptionArgs).isTrue();
+        assertThat(input.contains(contains))
+                .describedAs(description, descriptionArgs)
+                .isTrue();
     }
 
     @BeforeTemplate
     void before2(String input, CharSequence contains, String description, @Repeated Object descriptionArgs) {
-        assertThat(!input.contains(contains)).describedAs(description, descriptionArgs).isFalse();
+        assertThat(!input.contains(contains))
+                .describedAs(description, descriptionArgs)
+                .isFalse();
     }
 
     @AfterTemplate
