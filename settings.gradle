@@ -1,4 +1,4 @@
-rootProject.name = "gradle-baseline"
+rootProject.name = "assertj-automation-root"
 
 include "baseline-error-prone"
 include "baseline-refaster-javac-plugin"
