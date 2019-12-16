@@ -1,3 +1,4 @@
+com.palantir.baseline:baseline-refaster-testing = 2.43.0
 com.diffplug.spotless:spotless-plugin-gradle = 3.26.1
 com.google.auto.service:auto-service = 1.0-rc4
 com.google.errorprone:error_prone_annotations = 2.3.4
