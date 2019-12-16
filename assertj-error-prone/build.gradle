@@ -1,0 +1,29 @@
+apply plugin: 'java-library'
+apply from: "${rootDir}/gradle/publish-jar.gradle"
+
+dependencies {
+    implementation 'com.google.errorprone:error_prone_core'
+    implementation 'com.google.code.findbugs:jsr305'
+    implementation 'com.google.errorprone:error_prone_annotation'
+    implementation 'com.google.errorprone:error_prone_check_api'
+    implementation 'com.google.errorprone:javac'
+    implementation 'com.google.guava:guava'
+    implementation 'org.assertj:assertj-core'
+
+    testImplementation 'com.google.errorprone:error_prone_test_helpers'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-migrationsupport'
+
+    annotationProcessor 'com.google.auto.service:auto-service'
+    compileOnly 'com.google.auto.service:auto-service'
+}
+
+// Incorrectly identifies tests as junit4 usage
+tasks.checkJUnitDependencies.enabled = false
+tasks.withType(JavaCompile) {
+    options.errorprone.errorproneArgs += [
+        '-Xep:StrictUnusedVariable:OFF',
+        '-Xep:PreferSafeLoggingPreconditions:OFF'
+    ]
+}

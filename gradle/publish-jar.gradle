@@ -25,7 +25,7 @@ bintray {
     publish = true
     pkg {
         repo = 'releases'
-        name = 'gradle-baseline'
+        name = 'assertj-automation'
         userOrg = 'palantir'
         licenses = ['Apache-2.0']
         publications = ['nebula']

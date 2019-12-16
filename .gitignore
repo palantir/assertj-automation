@@ -15,3 +15,5 @@ build
 out/
 docs/node_modules/
 generated_src
+*.log
+*.hprof

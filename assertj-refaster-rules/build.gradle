@@ -1,0 +1,14 @@
+apply plugin: 'java-library'
+apply from: "${rootDir}/gradle/publish-jar.gradle"
+
+dependencies {
+    implementation 'com.google.errorprone:error_prone_refaster'
+    implementation 'org.assertj:assertj-core'
+
+    testCompile 'junit:junit'
+    testCompile 'com.palantir.baseline:baseline-refaster-testing'
+}
+
+// we don't want to auto-fix all the @BeforeTemplates!
+tasks.compileRefaster.enabled = false
+tasks.compileJava.options.errorprone.enabled = false
