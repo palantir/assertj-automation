@@ -27,22 +27,12 @@ import com.google.errorprone.refaster.annotation.UseImportPolicy;
 public final class AssertjIsTrueWithDescription {
 
     @BeforeTemplate
-    void before(boolean bool, String description, @Repeated Object descriptionArgs) {
-        assertThat(bool).describedAs(description, descriptionArgs).isEqualTo(true);
-    }
-
-    @BeforeTemplate
-    void before2(boolean bool, String description, @Repeated Object descriptionArgs) {
+    void before1(boolean bool, String description, @Repeated Object descriptionArgs) {
         assertThat(true).describedAs(description, descriptionArgs).isEqualTo(bool);
     }
 
     @BeforeTemplate
-    void before3(boolean bool, String description, @Repeated Object descriptionArgs) {
-        assertThat(bool).describedAs(description, descriptionArgs).isEqualTo(Boolean.TRUE);
-    }
-
-    @BeforeTemplate
-    void before4(boolean bool, String description, @Repeated Object descriptionArgs) {
+    void before2(boolean bool, String description, @Repeated Object descriptionArgs) {
         assertThat(Boolean.TRUE).describedAs(description, descriptionArgs).isEqualTo(bool);
     }
 

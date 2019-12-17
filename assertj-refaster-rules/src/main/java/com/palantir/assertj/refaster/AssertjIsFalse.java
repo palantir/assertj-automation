@@ -26,22 +26,12 @@ import com.google.errorprone.refaster.annotation.UseImportPolicy;
 public final class AssertjIsFalse {
 
     @BeforeTemplate
-    void before(boolean bool) {
-        assertThat(bool).isEqualTo(false);
-    }
-
-    @BeforeTemplate
-    void before2(boolean bool) {
+    void before1(boolean bool) {
         assertThat(false).isEqualTo(bool);
     }
 
     @BeforeTemplate
-    void before3(boolean bool) {
-        assertThat(bool).isEqualTo(Boolean.FALSE);
-    }
-
-    @BeforeTemplate
-    void before4(boolean bool) {
+    void before2(boolean bool) {
         assertThat(Boolean.FALSE).isEqualTo(bool);
     }
 
