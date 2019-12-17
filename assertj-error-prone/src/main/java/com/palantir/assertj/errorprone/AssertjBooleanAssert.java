@@ -67,8 +67,7 @@ public final class AssertjBooleanAssert extends BugChecker implements BugChecker
 
     /**
      * Matches references to Boolean.TRUE and Boolean.FALSE. This method differs from Matchers.booleanConstant because
-     * it does not match the opposite value.
-     * See https://github.com/google/error-prone/issues/1454.
+     * it does not match the opposite value. See https://github.com/google/error-prone/issues/1454.
      */
     static Matcher<ExpressionTree> booleanConstant(boolean value) {
         return (expressionTree, state) -> {
