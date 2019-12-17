@@ -61,7 +61,7 @@ dependencies {
 
 tasks.withType(JavaCompile) {
   options.errorprone.errorproneArgs += [
-    '-Xep:AssertJPrimitiveComparison:ERROR',
+    '-Xep:PreferAssertj:ERROR',
     // ... include other rules too
   ]
 }
