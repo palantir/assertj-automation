@@ -49,10 +49,10 @@ public final class AssertjBooleanAssert implements AssertjChecker {
             .named("isNotEqualTo");
 
     private static final Matcher<ExpressionTree> booleanTrue =
-            Matchers.anyOf(Matchers.booleanLiteral(true), booleanConstant(true));
+            Matchers.ignoreParens(Matchers.anyOf(Matchers.booleanLiteral(true), booleanConstant(true)));
 
     private static final Matcher<ExpressionTree> booleanFalse =
-            Matchers.anyOf(Matchers.booleanLiteral(false), booleanConstant(false));
+            Matchers.ignoreParens(Matchers.anyOf(Matchers.booleanLiteral(false), booleanConstant(false)));
 
     private static final Matcher<ExpressionTree> matcher = Matchers.methodInvocation(
             Matchers.anyOf(booleanEqualMatcher, booleanNotEqualMatcher),
