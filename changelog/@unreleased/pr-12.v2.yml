@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Migrate refaster size comparisons to assertj
+  links:
+  - https://github.com/palantir/assertj-automation/pull/12
