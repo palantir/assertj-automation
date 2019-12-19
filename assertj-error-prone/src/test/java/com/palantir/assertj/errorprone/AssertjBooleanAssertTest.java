@@ -86,6 +86,6 @@ class AssertjBooleanAssertTest {
     }
 
     private RefactoringValidator test() {
-        return RefactoringValidator.of(new AssertjBooleanAssert(), getClass());
+        return RefactoringValidator.of(new AssertjRefactoring(new AssertjBooleanAssert()), getClass());
     }
 }

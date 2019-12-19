@@ -18,13 +18,10 @@ package com.palantir.assertj.errorprone;
 
 import com.google.auto.service.AutoService;
 import com.google.common.collect.Iterables;
-import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
-import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.fixes.SuggestedFix;
 import com.google.errorprone.fixes.SuggestedFixes;
 import com.google.errorprone.matchers.ChildMultiMatcher;
-import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
@@ -35,16 +32,13 @@ import com.sun.tools.javac.code.Symbol;
 import com.sun.tools.javac.code.TypeTag;
 import com.sun.tools.javac.tree.JCTree;
 import java.util.List;
+import java.util.Optional;
 
-@AutoService(BugChecker.class)
-@BugPattern(
-        name = "AssertjBooleanAssert",
-        link = "https://github.com/palantir/assertj-automation",
-        linkType = BugPattern.LinkType.CUSTOM,
-        providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
-        severity = BugPattern.SeverityLevel.SUGGESTION,
-        summary = "Prefer using AssertJ boolean matchers instead of equality checks with a constant boolean.")
-public final class AssertjBooleanAssert extends BugChecker implements BugChecker.MethodInvocationTreeMatcher {
+@AutoService(AssertjChecker.class)
+public final class AssertjBooleanAssert implements AssertjChecker {
+
+    private static final String DESCRIPTION =
+            "Prefer using AssertJ boolean matchers instead of equality checks with a constant boolean.";
 
     private static final Matcher<ExpressionTree> booleanEqualMatcher = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.AbstractBooleanAssert")
@@ -86,24 +80,25 @@ public final class AssertjBooleanAssert extends BugChecker implements BugChecker
     }
 
     @Override
-    public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
+    public Optional<AssertjCheckerResult> matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
         if (!matcher.matches(tree, state)) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         List<? extends ExpressionTree> arguments = tree.getArguments();
         if (arguments.size() != 1) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         ExpressionTree argument = Iterables.getOnlyElement(arguments);
         boolean expectTrue = booleanTrue.matches(argument, state);
         if (booleanNotEqualMatcher.matches(tree, state)) {
             expectTrue = !expectTrue;
         }
-        return buildDescription(tree)
-                .addFix(SuggestedFix.builder()
+        return Optional.of(AssertjCheckerResult.builder()
+                .description(DESCRIPTION)
+                .fix(SuggestedFix.builder()
                         .merge(SuggestedFixes.renameMethodInvocation(tree, expectTrue ? "isTrue" : "isFalse", state))
                         .replace(argument, "")
                         .build())
-                .build();
+                .build());
     }
 }

@@ -25,7 +25,7 @@ final class AssertjCheckerResult {
     private final String description;
     private final Optional<SuggestedFix> fix;
 
-    AssertjCheckerResult(String description, Optional<SuggestedFix> fix) {
+    private AssertjCheckerResult(String description, Optional<SuggestedFix> fix) {
         this.description = description;
         this.fix = fix;
     }
