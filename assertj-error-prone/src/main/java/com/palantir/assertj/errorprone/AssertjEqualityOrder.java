@@ -22,6 +22,7 @@ import com.google.errorprone.VisitorState;
 import com.google.errorprone.fixes.SuggestedFix;
 import com.google.errorprone.matchers.CompileTimeConstantExpressionMatcher;
 import com.google.errorprone.matchers.Matcher;
+import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
@@ -39,7 +40,12 @@ public final class AssertjEqualityOrder implements AssertjChecker {
             .onDescendantOf("org.assertj.core.api.Assert")
             .namedAnyOf("isEqualTo", "isNotEqualTo", "isSameAs", "isNotSameAs");
 
-    private final Matcher<ExpressionTree> constant = new CompileTimeConstantExpressionMatcher();
+    private final Matcher<ExpressionTree> constant = Matchers.ignoreParens(Matchers.anyOf(
+            Matchers.nonNullLiteral(),
+            Matchers.booleanConstant(true),
+            Matchers.booleanConstant(false),
+            new CompileTimeConstantExpressionMatcher()));
+
     private final AssertjSingleAssertMatcher matcher = AssertjSingleAssertMatcher.of(this::match);
 
     @Override

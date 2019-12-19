@@ -28,7 +28,7 @@ class AssertjEqualityOrderTest {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
-                        "  void test(int a, int b, String desc) {",
+                        "  void test(int a, int b, String desc, boolean bool) {",
                         "    assertThat(a).describedAs(desc).isEqualTo(1);",
                         "    assertThat(1).describedAs(desc).isEqualTo(a);",
                         "    assertThat(a).isEqualTo(1);",
@@ -38,6 +38,9 @@ class AssertjEqualityOrderTest {
                         "    assertThat(1).isNotEqualTo(a);",
                         "    assertThat(1).isSameAs(a);",
                         "    assertThat(1).isNotSameAs(a);",
+                        "    assertThat(false).isEqualTo(bool);",
+                        "    assertThat(Boolean.FALSE).isEqualTo(bool);",
+                        "    assertThat((1)).isEqualTo(a);",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -45,7 +48,7 @@ class AssertjEqualityOrderTest {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "public class Test {",
-                        "  void test(int a, int b, String desc) {",
+                        "  void test(int a, int b, String desc, boolean bool) {",
                         "    assertThat(a).describedAs(desc).isEqualTo(1);",
                         "    assertThat(a).describedAs(desc).isEqualTo(1);",
                         "    assertThat(a).isEqualTo(1);",
@@ -55,6 +58,9 @@ class AssertjEqualityOrderTest {
                         "    assertThat(a).isNotEqualTo(1);",
                         "    assertThat(a).isSameAs(1);",
                         "    assertThat(a).isNotSameAs(1);",
+                        "    assertThat(bool).isEqualTo(false);",
+                        "    assertThat(bool).isEqualTo(Boolean.FALSE);",
+                        "    assertThat(a).isEqualTo((1));",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
