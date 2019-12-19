@@ -1,0 +1,7 @@
+type: improvement
+improvement:
+  description: |-
+    Migrate most AssertjIsTrue/AssertjIsFalse functionality to error-prone `AssertjRefactoring`.
+    This check will work on java 11, and correctly matches any subtype of AbstractBooleanAssert.
+  links:
+  - https://github.com/palantir/assertj-automation/pull/8
