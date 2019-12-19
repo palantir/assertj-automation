@@ -101,7 +101,7 @@ public final class AssertjSize implements AssertjChecker {
 
     private Optional<AssertjCheckerResult> match(
             AssertjSingleAssertMatcher.SingleAssertMatch match, VisitorState state) {
-        ExpressionTree tree = match.getAssertThat().getArguments().get(0);
+        ExpressionTree tree = ASTHelpers.stripParentheses(match.getAssertThat().getArguments().get(0));
         if (!sizeMatcher.matches(tree, state)) {
             return Optional.empty();
         }

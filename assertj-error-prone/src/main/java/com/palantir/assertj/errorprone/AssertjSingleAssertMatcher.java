@@ -89,10 +89,11 @@ final class AssertjSingleAssertMatcher {
     }
 
     private static Optional<List<MethodInvocationTree>> matchAssertj(
-            ExpressionTree expressionTree, VisitorState state) {
-        if (expressionTree == null) {
+            ExpressionTree inputExpressionTree, VisitorState state) {
+        if (inputExpressionTree == null) {
             return Optional.empty();
         }
+        ExpressionTree expressionTree = ASTHelpers.stripParentheses(inputExpressionTree);
         if (expressionTree instanceof MethodInvocationTree) {
             MethodInvocationTree methodInvocationTree = (MethodInvocationTree) expressionTree;
             if (ASSERT_THAT.matches(methodInvocationTree, state) && methodInvocationTree.getArguments().size() == 1) {
