@@ -17,11 +17,8 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.auto.service.AutoService;
-import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
-import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.fixes.SuggestedFix;
-import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
@@ -36,18 +33,13 @@ import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.code.Types;
 import java.util.Optional;
 
-@AutoService(BugChecker.class)
-@BugPattern(
-        name = "AssertjPrimitiveComparison",
-        link = "https://github.com/palantir/assertj-automation",
-        linkType = BugPattern.LinkType.CUSTOM,
-        providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
-        severity = BugPattern.SeverityLevel.SUGGESTION,
-        summary =
-                "Prefer using AssertJ fluent comparisons over logic in an assertThat statement for better "
-                        + "failure output. assertThat(a == b).isTrue() failures report 'expected true' where "
-                        + "assertThat(a).isEqualTo(b) provides the expected and actual values.")
-public final class AssertjPrimitiveComparison extends BugChecker implements BugChecker.MethodInvocationTreeMatcher {
+@AutoService(AssertjChecker.class)
+public final class AssertjPrimitiveComparison implements AssertjChecker {
+
+    private static final String DESCRIPTION =
+            "Prefer using AssertJ fluent comparisons over logic in an assertThat statement for better "
+                    + "failure output. assertThat(a == b).isTrue() failures report 'expected true' where "
+                    + "assertThat(a).isEqualTo(b) provides the expected and actual values.";
 
     private static final Matcher<ExpressionTree> IS_TRUE = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.Assert")
@@ -64,33 +56,34 @@ public final class AssertjPrimitiveComparison extends BugChecker implements BugC
     private final AssertjSingleAssertMatcher matcher = AssertjSingleAssertMatcher.of(this::match);
 
     @Override
-    public Description matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
+    public Optional<AssertjCheckerResult> matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {
         if (BOOLEAN_ASSERT.matches(tree, state)) {
             return matcher.matches(tree, state);
         }
-        return Description.NO_MATCH;
+        return Optional.empty();
     }
 
-    private Description match(AssertjSingleAssertMatcher.SingleAssertMatch match, VisitorState state) {
+    private Optional<AssertjCheckerResult> match(
+            AssertjSingleAssertMatcher.SingleAssertMatch match, VisitorState state) {
         boolean negated = IS_FALSE.matches(match.getCheck(), state);
         if (!negated && !IS_TRUE.matches(match.getCheck(), state)) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         ExpressionTree target = match.getAssertThat().getArguments().get(0);
         if (!(target instanceof BinaryTree)) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         BinaryTree binaryTree = (BinaryTree) target;
         Optional<Type> maybeTarget = getPromotionType(binaryTree.getLeftOperand(), binaryTree.getRightOperand(), state);
         if (!maybeTarget.isPresent()) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         Type targetType = maybeTarget.get();
         Optional<String> comparison = negated
                 ? negate(binaryTree.getKind()).flatMap(AssertjPrimitiveComparison::getAssertionName)
                 : getAssertionName(binaryTree.getKind());
         if (!comparison.isPresent()) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         ExpressionTree expected = binaryTree.getRightOperand();
         ExpressionTree actual = binaryTree.getLeftOperand();
@@ -102,7 +95,7 @@ public final class AssertjPrimitiveComparison extends BugChecker implements BugC
                                 ".%s(%s)", comparison.get(), getExpressionSource(expected, targetType, state, false)))
                 .replace(target, getExpressionSource(actual, targetType, state, true))
                 .build();
-        return buildDescription(match.getAssertThat()).addFix(fix).build();
+        return Optional.of(AssertjCheckerResult.builder().description(DESCRIPTION).fix(fix).build());
     }
 
     private static String getExpressionSource(

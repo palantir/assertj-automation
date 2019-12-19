@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Replace the `AssertjPrimitiveComparison` check with `AssertjRefactoring`
+  links:
+  - https://github.com/palantir/assertj-automation/pull/11
