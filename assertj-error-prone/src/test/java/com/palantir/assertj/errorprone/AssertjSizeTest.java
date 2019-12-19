@@ -61,6 +61,7 @@ class AssertjSizeTest {
                         "    assertThat(string.length()).isLessThan(1);",
                         "    assertThat(map.size()).isLessThan(1);",
                         "    assertThat(list.size()).isLessThan(1);",
+                        "    assertThat(map.keySet().size()).isLessThan(1);",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -73,6 +74,7 @@ class AssertjSizeTest {
                         "    assertThat(string).hasSizeLessThan(1);",
                         "    assertThat(map).hasSizeLessThan(1);",
                         "    assertThat(list).hasSizeLessThan(1);",
+                        "    assertThat(map.keySet()).hasSizeLessThan(1);",
                         "  }",
                         "}")
                 .doTest();
