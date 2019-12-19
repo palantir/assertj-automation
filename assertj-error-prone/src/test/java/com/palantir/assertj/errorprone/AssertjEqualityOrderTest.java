@@ -58,12 +58,14 @@ class AssertjEqualityOrderTest {
                         "    assertThat(a).isNotEqualTo(1);",
                         "    assertThat(a).isSameAs(1);",
                         "    assertThat(a).isNotSameAs(1);",
+                        "    // BUG: Diagnostic contains: boolean matcher",
                         "    assertThat(bool).isEqualTo(false);",
+                        "    // BUG: Diagnostic contains: boolean matcher",
                         "    assertThat(bool).isEqualTo(Boolean.FALSE);",
                         "    assertThat(a).isEqualTo((1));",
                         "  }",
                         "}")
-                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
+                .doTest(BugCheckerRefactoringTestHelper.TestMode.AST_MATCH);
     }
 
     private RefactoringValidator fix() {
