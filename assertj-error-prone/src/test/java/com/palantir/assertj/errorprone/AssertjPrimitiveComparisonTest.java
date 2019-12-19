@@ -435,6 +435,6 @@ class AssertjPrimitiveComparisonTest {
     }
 
     private RefactoringValidator fix() {
-        return RefactoringValidator.of(new AssertjPrimitiveComparison(), getClass());
+        return RefactoringValidator.of(new AssertjRefactoring(new AssertjPrimitiveComparison()), getClass());
     }
 }

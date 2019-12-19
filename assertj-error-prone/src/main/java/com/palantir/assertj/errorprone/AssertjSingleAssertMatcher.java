@@ -17,7 +17,6 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.errorprone.VisitorState;
-import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
@@ -65,28 +64,29 @@ final class AssertjSingleAssertMatcher {
                                     .getKind()
                             == TypeKind.VOID));
 
-    private final BiFunction<SingleAssertMatch, VisitorState, Description> function;
+    private final BiFunction<SingleAssertMatch, VisitorState, Optional<AssertjCheckerResult>> function;
 
-    static AssertjSingleAssertMatcher of(BiFunction<SingleAssertMatch, VisitorState, Description> function) {
+    static AssertjSingleAssertMatcher of(
+            BiFunction<SingleAssertMatch, VisitorState, Optional<AssertjCheckerResult>> function) {
         return new AssertjSingleAssertMatcher(function);
     }
 
-    private AssertjSingleAssertMatcher(BiFunction<SingleAssertMatch, VisitorState, Description> function) {
+    private AssertjSingleAssertMatcher(
+            BiFunction<SingleAssertMatch, VisitorState, Optional<AssertjCheckerResult>> function) {
         this.function = function;
     }
 
-    public Description matches(ExpressionTree tree, VisitorState state) {
+    public Optional<AssertjCheckerResult> matches(ExpressionTree tree, VisitorState state) {
         // Only match full statements, otherwise dangling statements may expect the wrong type.
         if (!SINGLE_STATEMENT.matches(tree, state)) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         return matchAssertj(tree, state)
                 .flatMap(list ->
                         list.size() == 2
                                 ? Optional.of(new SingleAssertMatch(list.get(0), list.get(1)))
                                 : Optional.empty())
-                .map(result -> function.apply(result, state))
-                .orElse(Description.NO_MATCH);
+                .flatMap(result -> function.apply(result, state));
     }
 
     private static Optional<List<MethodInvocationTree>> matchAssertj(
