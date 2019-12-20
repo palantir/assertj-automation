@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 @AutoService(AssertjChecker.class)
-public final class AssertjEmptyAssert implements AssertjChecker {
+public final class AssertjEmptyStringAssert implements AssertjChecker {
 
     private static final String DESCRIPTION =
             "Prefer using AssertJ isEmpty/isNotEmpty matchers instead of equality checks with a constant \"\".";

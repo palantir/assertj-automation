@@ -68,6 +68,6 @@ class AssertjEmptyAssertTest {
     }
 
     private RefactoringValidator test() {
-        return RefactoringValidator.of(new AssertjRefactoring(new AssertjEmptyAssert()), getClass());
+        return RefactoringValidator.of(new AssertjRefactoring(new AssertjEmptyStringAssert()), getClass());
     }
 }
