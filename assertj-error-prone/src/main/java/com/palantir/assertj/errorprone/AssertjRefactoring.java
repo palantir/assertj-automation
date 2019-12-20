@@ -142,10 +142,11 @@ public final class AssertjRefactoring extends BugChecker
                 BugChecker.WildcardTreeMatcher {
 
     private static final ImmutableList<AssertjChecker> discoveredChecks =
-            ImmutableList.copyOf(ServiceLoader.load(AssertjChecker.class));
+            ImmutableList.copyOf(ServiceLoader.load(AssertjChecker.class, AssertjRefactoring.class.getClassLoader()));
 
     private final AssertjChecker[] checks;
 
+    @SuppressWarnings("unused") // Required by ServiceLoader
     public AssertjRefactoring() {
         this(discoveredChecks.toArray(new AssertjChecker[0]));
     }
