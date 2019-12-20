@@ -44,8 +44,7 @@ public final class AssertjEmptyAssert implements AssertjChecker {
             .onDescendantOf("org.assertj.core.api.AbstractStringAssert")
             .named("isNotEqualTo");
 
-    private static final Matcher<ExpressionTree> empty =
-            Matchers.ignoreParens(Matchers.stringLiteral(""));
+    private static final Matcher<ExpressionTree> empty = Matchers.ignoreParens(Matchers.stringLiteral(""));
 
     private static final Matcher<ExpressionTree> matcher = Matchers.methodInvocation(
             Matchers.anyOf(stringEqualMatcher, stringNotEqualMatcher),
@@ -66,8 +65,8 @@ public final class AssertjEmptyAssert implements AssertjChecker {
         return Optional.of(AssertjCheckerResult.builder()
                 .description(DESCRIPTION)
                 .fix(SuggestedFix.builder()
-                        .merge(SuggestedFixes.renameMethodInvocation(tree, expectEmpty ? "isEmpty" : "isNotEmpty",
-                                state))
+                        .merge(SuggestedFixes.renameMethodInvocation(
+                                tree, expectEmpty ? "isEmpty" : "isNotEmpty", state))
                         .replace(argument, "")
                         .build())
                 .build());
