@@ -37,11 +37,11 @@ public final class AssertjEmptyAssert implements AssertjChecker {
             "Prefer using AssertJ isEmpty/isNotEmpty matchers instead of equality checks with a constant \"\".";
 
     private static final Matcher<ExpressionTree> stringEqualMatcher = MethodMatchers.instanceMethod()
-            .onDescendantOf("org.assertj.core.api.AbstractStringAssert")
+            .onDescendantOf("org.assertj.core.api.AbstractCharSequenceAssert")
             .named("isEqualTo");
 
     private static final Matcher<ExpressionTree> stringNotEqualMatcher = MethodMatchers.instanceMethod()
-            .onDescendantOf("org.assertj.core.api.AbstractStringAssert")
+            .onDescendantOf("org.assertj.core.api.AbstractCharSequenceAssert")
             .named("isNotEqualTo");
 
     private static final Matcher<ExpressionTree> empty = Matchers.ignoreParens(Matchers.stringLiteral(""));
