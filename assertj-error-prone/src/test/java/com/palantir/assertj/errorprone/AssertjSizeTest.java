@@ -225,6 +225,48 @@ class AssertjSizeTest {
                 .doTest();
     }
 
+    @Test
+    void testIterableMap() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void test(IMap<String, String> map) {",
+                        "    assertThat(map.size()).isNotZero();",
+                        "    assertThat(map.size()).isEqualTo(1);",
+                        "  }",
+                        "  interface IMap<K, V> extends Map<K, V>, Iterable<K> {}",
+                        "}")
+                .expectUnchanged()
+                .doTest();
+    }
+
+    @Test
+    void testIncompatibleTypes() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void test(Map<String, String> map) {",
+                        "    assertThat(map.size()).isEqualTo(1L);",
+                        "    assertThat(map.size()).isEqualTo(1L + 2L);",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void test(Map<String, String> map) {",
+                        "    assertThat(map).hasSize((int) 1L);",
+                        "    assertThat(map).hasSize((int) (1L + 2L));",
+                        "  }",
+                        "}")
+                .doTest();
+    }
+
     private RefactoringValidator fix() {
         return RefactoringValidator.of(new AssertjRefactoring(new AssertjSize()), getClass());
     }

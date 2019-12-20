@@ -17,12 +17,14 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.auto.service.AutoService;
+import com.google.common.collect.Iterables;
 import com.google.errorprone.VisitorState;
 import com.google.errorprone.fixes.SuggestedFix;
 import com.google.errorprone.fixes.SuggestedFixes;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
+import com.google.errorprone.predicates.TypePredicates;
 import com.google.errorprone.util.ASTHelpers;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
@@ -43,7 +45,11 @@ public final class AssertjSize implements AssertjChecker {
                     .named("length")
                     .withParameters(),
             MethodMatchers.instanceMethod()
-                    .onDescendantOf(Map.class.getName())
+                    // Avoid refactoring maps which implement iterable due to ambiguity between assertThat(Iterable)
+                    // and assertThat(Map). This could be improved in a later change to cast to a Map and refactor.
+                    .onClass(TypePredicates.allOf(
+                            TypePredicates.isDescendantOf(Map.class.getName()),
+                            TypePredicates.not(TypePredicates.isDescendantOf(Iterable.class.getName()))))
                     .named("size")
                     .withParameters(),
             MethodMatchers.instanceMethod()
@@ -105,15 +111,19 @@ public final class AssertjSize implements AssertjChecker {
         if (!sizeMatcher.matches(tree, state)) {
             return Optional.empty();
         }
-        String replacementName = sizeComparisonName(match.getCheck(), state);
-        return Optional.of(AssertjCheckerResult.builder()
-                .description(DESCRIPTION)
-                .fix(SuggestedFix.builder()
-                        .replace(
-                                tree, state.getSourceForNode(ASTHelpers.getReceiver(ASTHelpers.stripParentheses(tree))))
-                        .merge(SuggestedFixes.renameMethodInvocation(match.getCheck(), replacementName, state))
-                        .build())
-                .build());
+        MethodInvocationTree check = match.getCheck();
+        String replacementName = sizeComparisonName(check, state);
+        SuggestedFix.Builder fix = SuggestedFix.builder()
+                .replace(tree, state.getSourceForNode(ASTHelpers.getReceiver(ASTHelpers.stripParentheses(tree))))
+                .merge(SuggestedFixes.renameMethodInvocation(check, replacementName, state));
+        if (check.getArguments().size() == 1) {
+            ExpressionTree rawArgument = Iterables.getOnlyElement(check.getArguments());
+            ExpressionTree argument = ASTHelpers.stripParentheses(rawArgument);
+            if (!state.getTypes().isAssignable(ASTHelpers.getType(argument), state.getSymtab().intType)) {
+                fix.replace(rawArgument, SuggestedFixes.castTree(argument, "int", state));
+            }
+        }
+        return Optional.of(AssertjCheckerResult.builder().description(DESCRIPTION).fix(fix.build()).build());
     }
 
     private static String sizeComparisonName(ExpressionTree tree, VisitorState state) {
