@@ -1,15 +1,6 @@
 type: improvement
 improvement:
   description: |-
-    Add isEmpty String error prone check
-
-    ## Before this PR
-    isEqualTo("") and isNotEqualTo("") are allowed
-
-    ## After this PR
-    They are changed to isEmpty() and isNotEmpty()
-
-    ## Possible downsides?
-    isEmpty also checks null, so we are now matching another case. I'm guessing that assertThat(aNullString).isNotEqualTo("") was a bug to begin with though.
+    AssertjRefactoring rewrites assertThat(string).isEqualTo("") as assertThat(string).isEmpty()
   links:
   - https://github.com/palantir/assertj-automation/pull/15
