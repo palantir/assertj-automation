@@ -51,6 +51,78 @@ class AssertjSameSizeAsTest {
                 .doTest();
     }
 
+    @Test
+    public void test() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.List;",
+                        "import java.util.Collection;",
+                        "public class Test {",
+                        "  void f(List<String> a, Collection<String> b, Iterable<String> c, List<String> target) {",
+                        "    assertThat(a).hasSize(target.size());",
+                        "    assertThat(b).hasSize(target.size());",
+                        "    assertThat(c).hasSize(target.size());",
+                        "    assertThat(a).describedAs(\"desc\").hasSize(target.size());",
+                        "    assertThat(b).describedAs(\"desc\").hasSize(target.size());",
+                        "    assertThat(c).describedAs(\"desc\").hasSize(target.size());",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.List;",
+                        "import java.util.Collection;",
+                        "public class Test {",
+                        "  void f(List<String> a, Collection<String> b, Iterable<String> c, List<String> target) {",
+                        "    assertThat(a).hasSameSizeAs(target);",
+                        "    assertThat(b).hasSameSizeAs(target);",
+                        "    assertThat(c).hasSameSizeAs(target);",
+                        "    assertThat(a).describedAs(\"desc\").hasSameSizeAs(target);",
+                        "    assertThat(b).describedAs(\"desc\").hasSameSizeAs(target);",
+                        "    assertThat(c).describedAs(\"desc\").hasSameSizeAs(target);",
+                        "  }",
+                        "}")
+                .doTest();
+    }
+
+    @Test
+    public void testArray() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.List;",
+                        "import java.util.Collection;",
+                        "public class Test {",
+                        "  void f(List<String> a, Collection<String> b, Iterable<String> c, String[] target) {",
+                        "    assertThat(a).hasSize(target.length);",
+                        "    assertThat(b).hasSize(target.length);",
+                        "    assertThat(c).hasSize(target.length);",
+                        "    assertThat(a).describedAs(\"desc\").hasSize(target.length);",
+                        "    assertThat(b).describedAs(\"desc\").hasSize(target.length);",
+                        "    assertThat(c).describedAs(\"desc\").hasSize(target.length);",
+                        "    assertThat(c).describedAs(\"foo %s\", \"bar\").hasSize(target.length);",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.List;",
+                        "import java.util.Collection;",
+                        "public class Test {",
+                        "  void f(List<String> a, Collection<String> b, Iterable<String> c, String[] target) {",
+                        "    assertThat(a).hasSameSizeAs(target);",
+                        "    assertThat(b).hasSameSizeAs(target);",
+                        "    assertThat(c).hasSameSizeAs(target);",
+                        "    assertThat(a).describedAs(\"desc\").hasSameSizeAs(target);",
+                        "    assertThat(b).describedAs(\"desc\").hasSameSizeAs(target);",
+                        "    assertThat(c).describedAs(\"desc\").hasSameSizeAs(target);",
+                        "    assertThat(c).describedAs(\"foo %s\", \"bar\").hasSameSizeAs(target);",
+                        "  }",
+                        "}")
+                .doTest();
+    }
+
     private RefactoringValidator fix() {
         return RefactoringValidator.of(new AssertjRefactoring(new AssertjSameSizeAs()), getClass());
     }
