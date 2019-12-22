@@ -25,6 +25,7 @@ import com.google.errorprone.matchers.ChildMultiMatcher;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
+import com.google.errorprone.predicates.TypePredicates;
 import com.google.errorprone.util.ASTHelpers;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
@@ -44,6 +45,14 @@ public final class AssertjSameSizeAs implements AssertjChecker {
             .onDescendantOf("org.assertj.core.api.EnumerableAssert")
             .named("hasSize");
 
+    private static final Matcher<ExpressionTree> mapHasSizeMatcher = MethodMatchers.instanceMethod()
+            .onDescendantOf("org.assertj.core.api.AbstractMapAssert")
+            .named("hasSize");
+
+    private static final Matcher<ExpressionTree> csHasSizeMatcher = MethodMatchers.instanceMethod()
+            .onDescendantOf("org.assertj.core.api.AbstractCharSequenceAssert")
+            .named("hasSize");
+
     private static final Matcher<ExpressionTree> sizeMatcher = Matchers.ignoreParens(Matchers.anyOf(
             MethodMatchers.instanceMethod()
                     .onDescendantOf(Collection.class.getName())
@@ -58,8 +67,24 @@ public final class AssertjSameSizeAs implements AssertjChecker {
                         && state.getTypes().isArray(ASTHelpers.getReceiverType(expressionTree));
             }));
 
-    private static final Matcher<ExpressionTree> matcher =
-            Matchers.methodInvocation(hasSizeMatcher, ChildMultiMatcher.MatchType.ALL, Matchers.anyOf(sizeMatcher));
+    private static final Matcher<ExpressionTree> mapSizeMatcher = Matchers.ignoreParens(MethodMatchers.instanceMethod()
+            .onClass(TypePredicates.allOf(
+                    TypePredicates.isDescendantOf(Map.class.getName()),
+                    TypePredicates.not(TypePredicates.isDescendantOf(Iterable.class.getName()))))
+            .named("size")
+            .withParameters());
+
+    private static final Matcher<ExpressionTree> csSizeMatcher = Matchers.ignoreParens(MethodMatchers.instanceMethod()
+            .onDescendantOf(CharSequence.class.getName())
+            .named("length")
+            .withParameters());
+
+    private static final Matcher<ExpressionTree> matcher = Matchers.anyOf(
+            Matchers.methodInvocation(hasSizeMatcher, ChildMultiMatcher.MatchType.ALL, Matchers.anyOf(sizeMatcher)),
+            Matchers.methodInvocation(
+                    mapHasSizeMatcher, ChildMultiMatcher.MatchType.ALL, Matchers.anyOf(mapSizeMatcher)),
+            Matchers.methodInvocation(
+                    csHasSizeMatcher, ChildMultiMatcher.MatchType.ALL, Matchers.anyOf(csSizeMatcher)));
 
     @Override
     public Optional<AssertjCheckerResult> matchMethodInvocation(MethodInvocationTree tree, VisitorState state) {

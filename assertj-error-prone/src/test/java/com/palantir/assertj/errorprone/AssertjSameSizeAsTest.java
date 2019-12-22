@@ -33,6 +33,8 @@ class AssertjSameSizeAsTest {
                         "    assertThat(string).hasSize(map.size());",
                         "    assertThat(list).hasSize((array.length));",
                         "    assertThat(string).hasSize(map.size());",
+                        "    assertThat(map).hasSize(map.size());",
+                        "    assertThat(string).hasSize(string.length());",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -46,13 +48,15 @@ class AssertjSameSizeAsTest {
                         "    assertThat(string).hasSize(map.size());",
                         "    assertThat(list).hasSameSizeAs(array);",
                         "    assertThat(string).hasSize(map.size());",
+                        "    assertThat(map).hasSameSizeAs(map);",
+                        "    assertThat(string).hasSameSizeAs(string);",
                         "  }",
                         "}")
                 .doTest();
     }
 
     @Test
-    public void test() {
+    void test() {
         fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -87,7 +91,7 @@ class AssertjSameSizeAsTest {
     }
 
     @Test
-    public void testArray() {
+    void testArray() {
         fix().addInputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -120,6 +124,22 @@ class AssertjSameSizeAsTest {
                         "    assertThat(c).describedAs(\"foo %s\", \"bar\").hasSameSizeAs(target);",
                         "  }",
                         "}")
+                .doTest();
+    }
+
+    @Test
+    void testIterableMap() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void f(IterableMap imap, Map<String, String> map) {",
+                        "    assertThat(map).hasSize(imap.size());",
+                        "  }",
+                        "  interface IterableMap extends Iterable<String>, Map<String, String> {}",
+                        "}")
+                .expectUnchanged()
                 .doTest();
     }
 
