@@ -46,14 +46,6 @@ public final class AssertjSameSizeAs implements AssertjChecker {
 
     private static final Matcher<ExpressionTree> sizeMatcher = Matchers.ignoreParens(Matchers.anyOf(
             MethodMatchers.instanceMethod()
-                    .onDescendantOf(CharSequence.class.getName())
-                    .named("length")
-                    .withParameters(),
-            MethodMatchers.instanceMethod()
-                    .onDescendantOf(Map.class.getName())
-                    .named("size")
-                    .withParameters(),
-            MethodMatchers.instanceMethod()
                     .onDescendantOf(Collection.class.getName())
                     .named("size")
                     .withParameters(),

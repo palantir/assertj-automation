@@ -31,8 +31,8 @@ class AssertjSameSizeAsTest {
                         "    assertThat(array).hasSize(list.size());",
                         "    assertThat(array).hasSize(string.length());",
                         "    assertThat(string).hasSize(map.size());",
-                        "    assertThat(list).hasSize(array.length);",
-                        "    assertThat(string).hasSize((map.size()));",
+                        "    assertThat(list).hasSize((array.length));",
+                        "    assertThat(string).hasSize(map.size());",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -42,10 +42,10 @@ class AssertjSameSizeAsTest {
                         "public class Test {",
                         "  void test(List<String> list, String string, Map<String, String> map, String[] array) {",
                         "    assertThat(array).hasSameSizeAs(list);",
-                        "    assertThat(array).hasSameSizeAs(string);",
-                        "    assertThat(string).hasSameSizeAs(map);",
+                        "    assertThat(array).hasSize(string.length());",
+                        "    assertThat(string).hasSize(map.size());",
                         "    assertThat(list).hasSameSizeAs(array);",
-                        "    assertThat(string).hasSameSizeAs(map);",
+                        "    assertThat(string).hasSize(map.size());",
                         "  }",
                         "}")
                 .doTest();
