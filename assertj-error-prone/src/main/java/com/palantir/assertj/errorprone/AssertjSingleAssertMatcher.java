@@ -23,7 +23,6 @@ import com.google.errorprone.matchers.method.MethodMatchers;
 import com.google.errorprone.util.ASTHelpers;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.LambdaExpressionTree;
-import com.sun.source.tree.MemberSelectTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.source.tree.Tree;
 import java.util.ArrayList;
@@ -94,9 +93,6 @@ final class AssertjSingleAssertMatcher {
         if (expressionTree == null) {
             return Optional.empty();
         }
-        if (expressionTree instanceof MemberSelectTree) {
-            return matchAssertj(((MemberSelectTree) expressionTree).getExpression(), state);
-        }
         if (expressionTree instanceof MethodInvocationTree) {
             MethodInvocationTree methodInvocationTree = (MethodInvocationTree) expressionTree;
             if (ASSERT_THAT.matches(methodInvocationTree, state) && methodInvocationTree.getArguments().size() == 1) {
@@ -104,10 +100,10 @@ final class AssertjSingleAssertMatcher {
                 results.add(methodInvocationTree);
                 return Optional.of(results);
             } else if (METADATA_METHOD.matches(methodInvocationTree, state)) {
-                return matchAssertj(methodInvocationTree.getMethodSelect(), state);
+                return matchAssertj(ASTHelpers.getReceiver(methodInvocationTree), state);
             } else if (ASSERTION.matches(methodInvocationTree, state)) {
                 Optional<List<MethodInvocationTree>> result =
-                        matchAssertj(methodInvocationTree.getMethodSelect(), state);
+                        matchAssertj(ASTHelpers.getReceiver(methodInvocationTree), state);
                 result.ifPresent(list -> list.add(methodInvocationTree));
                 return result;
             }
@@ -130,6 +126,11 @@ final class AssertjSingleAssertMatcher {
 
         MethodInvocationTree getCheck() {
             return check;
+        }
+
+        @Override
+        public String toString() {
+            return "SingleAssertMatch{assertThat=" + assertThat + ", check=" + check + '}';
         }
     }
 }
