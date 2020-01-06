@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: AssertjRefactoring replaces hasSize(value.size()) with hasSameSize(value)
+  links:
+  - https://github.com/palantir/assertj-automation/pull/16

@@ -14,23 +14,51 @@
  * limitations under the License.
  */
 
-package com.palantir.assertj.refaster;
+package com.palantir.assertj.errorprone;
 
-import static org.assertj.core.api.Assumptions.assumeThat;
+import org.junit.jupiter.api.Test;
 
-import com.palantir.baseline.refaster.RefasterTestHelper;
-import org.junit.Test;
-
-public class AssertjCollectionHasSameSizeAsTest {
+class AssertjSameSizeAsTest {
 
     @Test
-    public void test() {
-        assumeThat(System.getProperty("java.specification.version"))
-                .describedAs("Refaster does not currently support fluent refactors on java 11")
-                .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjCollectionHasSameSizeAs.class)
-                .withInputLines(
-                        "Test",
+    void testFix() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void test(List<String> list, String string, Map<String, String> map, String[] array) {",
+                        "    assertThat(array).hasSize(list.size());",
+                        "    assertThat(array).hasSize(string.length());",
+                        "    assertThat(string).hasSize(map.size());",
+                        "    assertThat(list).hasSize((array.length));",
+                        "    assertThat(string).hasSize(map.size());",
+                        "    assertThat(map).hasSize(map.size());",
+                        "    assertThat(string).hasSize(string.length());",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void test(List<String> list, String string, Map<String, String> map, String[] array) {",
+                        "    assertThat(array).hasSameSizeAs(list);",
+                        "    assertThat(array).hasSize(string.length());",
+                        "    assertThat(string).hasSize(map.size());",
+                        "    assertThat(list).hasSameSizeAs(array);",
+                        "    assertThat(string).hasSize(map.size());",
+                        "    assertThat(map).hasSameSizeAs(map);",
+                        "    assertThat(string).hasSameSizeAs(string);",
+                        "  }",
+                        "}")
+                .doTest();
+    }
+
+    @Test
+    void test() {
+        fix().addInputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "import java.util.Collection;",
@@ -44,7 +72,8 @@ public class AssertjCollectionHasSameSizeAsTest {
                         "    assertThat(c).describedAs(\"desc\").hasSize(target.size());",
                         "  }",
                         "}")
-                .hasOutputLines(
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "import java.util.Collection;",
@@ -57,17 +86,14 @@ public class AssertjCollectionHasSameSizeAsTest {
                         "    assertThat(b).describedAs(\"desc\").hasSameSizeAs(target);",
                         "    assertThat(c).describedAs(\"desc\").hasSameSizeAs(target);",
                         "  }",
-                        "}");
+                        "}")
+                .doTest();
     }
 
     @Test
-    public void testArray() {
-        assumeThat(System.getProperty("java.specification.version"))
-                .describedAs("Refaster does not currently support fluent refactors on java 11")
-                .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjCollectionHasSameSizeAsArray.class)
-                .withInputLines(
-                        "Test",
+    void testArray() {
+        fix().addInputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "import java.util.Collection;",
@@ -82,7 +108,8 @@ public class AssertjCollectionHasSameSizeAsTest {
                         "    assertThat(c).describedAs(\"foo %s\", \"bar\").hasSize(target.length);",
                         "  }",
                         "}")
-                .hasOutputLines(
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.List;",
                         "import java.util.Collection;",
@@ -96,6 +123,27 @@ public class AssertjCollectionHasSameSizeAsTest {
                         "    assertThat(c).describedAs(\"desc\").hasSameSizeAs(target);",
                         "    assertThat(c).describedAs(\"foo %s\", \"bar\").hasSameSizeAs(target);",
                         "  }",
-                        "}");
+                        "}")
+                .doTest();
+    }
+
+    @Test
+    void testIterableMap() {
+        fix().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import java.util.*;",
+                        "public class Test {",
+                        "  void f(IterableMap imap, Map<String, String> map) {",
+                        "    assertThat(map).hasSize(imap.size());",
+                        "  }",
+                        "  interface IterableMap extends Iterable<String>, Map<String, String> {}",
+                        "}")
+                .expectUnchanged()
+                .doTest();
+    }
+
+    private RefactoringValidator fix() {
+        return RefactoringValidator.of(new AssertjRefactoring(new AssertjSameSizeAs()), getClass());
     }
 }
