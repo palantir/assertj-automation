@@ -1,5 +1,5 @@
 /*
- * (c) Copyright 2019 Palantir Technologies Inc. All rights reserved.
+ * (c) Copyright 2020 Palantir Technologies Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package com.palantir.assertj.refaster;
+package com.palantir.assertj.errorprone;
 
-import com.palantir.baseline.refaster.RefasterTestHelper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class AssertjBooleanConjunctionTest {
+class AssertjBooleanConjunctionTest {
 
     @Test
-    public void test() {
-        RefasterTestHelper.forRefactoring(
-                        AssertjBooleanConjunction.class, AssertjBooleanConjunctionWithDescription.class)
-                .withInputLines(
-                        "Test",
+    void testFix() {
+        test().addInputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
                         "  void f(boolean bool1, boolean bool2) {",
@@ -36,7 +33,8 @@ public class AssertjBooleanConjunctionTest {
                         "    assertThat(bool1 && bool2).describedAs(\"desc\").isTrue();",
                         "  }",
                         "}")
-                .hasOutputLines(
+                .addOutputLines(
+                        "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "public class Test {",
                         "  void f(boolean bool1, boolean bool2) {",
@@ -47,6 +45,26 @@ public class AssertjBooleanConjunctionTest {
                         "    assertThat(bool1).describedAs(\"desc\").isTrue();",
                         "assertThat(bool2).describedAs(\"desc\").isTrue();",
                         "  }",
-                        "}");
+                        "}")
+                .doTest();
+    }
+
+    @Test
+    void testNegativeLambda() {
+        test().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "public class Test {",
+                        "  Runnable f(boolean bool1, boolean bool2) {",
+                        // Rewriting this would break the lambda structure
+                        "    return () -> assertThat(bool1 && bool2).isTrue();",
+                        "  }",
+                        "}")
+                .expectUnchanged()
+                .doTest();
+    }
+
+    private RefactoringValidator test() {
+        return RefactoringValidator.of(new AssertjRefactoring(new AssertjBooleanConjunction()), getClass());
     }
 }
