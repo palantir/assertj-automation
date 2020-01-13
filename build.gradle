@@ -2,7 +2,7 @@ buildscript {
     repositories {
         jcenter()
         gradlePluginPortal()
-        maven { url  "http://palantir.bintray.com/releases" }
+        maven { url  'https://palantir.bintray.com/releases'}
     }
 
     dependencies {
@@ -30,7 +30,7 @@ version System.env.CIRCLE_TAG ?: gitVersion()
 allprojects {
     repositories {
         jcenter()
-        maven { url  "http://palantir.bintray.com/releases" }
+        maven { url  'https://palantir.bintray.com/releases'}
     }
 
     group 'com.palantir.assertj-automation'
