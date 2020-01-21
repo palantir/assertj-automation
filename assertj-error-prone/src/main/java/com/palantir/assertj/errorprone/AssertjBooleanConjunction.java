@@ -64,7 +64,8 @@ public final class AssertjBooleanConjunction implements AssertjChecker {
         if (arguments.size() != 1) {
             return Optional.empty();
         }
-        ExpressionTree argument = ASTHelpers.stripParentheses(match.getAssertThat().getArguments().get(0));
+        ExpressionTree argument =
+                ASTHelpers.stripParentheses(match.getAssertThat().getArguments().get(0));
         if (!conditionalAnd.matches(argument, state)) {
             return Optional.empty();
         }

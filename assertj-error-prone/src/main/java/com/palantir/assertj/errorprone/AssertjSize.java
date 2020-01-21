@@ -107,7 +107,8 @@ public final class AssertjSize implements AssertjChecker {
 
     private Optional<AssertjCheckerResult> match(
             AssertjSingleAssertMatcher.SingleAssertMatch match, VisitorState state) {
-        ExpressionTree tree = ASTHelpers.stripParentheses(match.getAssertThat().getArguments().get(0));
+        ExpressionTree tree =
+                ASTHelpers.stripParentheses(match.getAssertThat().getArguments().get(0));
         if (!sizeMatcher.matches(tree, state)) {
             return Optional.empty();
         }
@@ -123,7 +124,10 @@ public final class AssertjSize implements AssertjChecker {
                 fix.replace(rawArgument, SuggestedFixes.castTree(argument, "int", state));
             }
         }
-        return Optional.of(AssertjCheckerResult.builder().description(DESCRIPTION).fix(fix.build()).build());
+        return Optional.of(AssertjCheckerResult.builder()
+                .description(DESCRIPTION)
+                .fix(fix.build())
+                .build());
     }
 
     private static String sizeComparisonName(ExpressionTree tree, VisitorState state) {

@@ -89,13 +89,15 @@ public final class AssertjPrimitiveComparison implements AssertjChecker {
         ExpressionTree actual = binaryTree.getLeftOperand();
         SuggestedFix fix = SuggestedFix.builder()
                 .replace(
-                        state.getEndPosition(((MemberSelectTree) match.getCheck().getMethodSelect()).getExpression()),
+                        state.getEndPosition(
+                                ((MemberSelectTree) match.getCheck().getMethodSelect()).getExpression()),
                         state.getEndPosition(match.getCheck()),
                         String.format(
                                 ".%s(%s)", comparison.get(), getExpressionSource(expected, targetType, state, false)))
                 .replace(target, getExpressionSource(actual, targetType, state, true))
                 .build();
-        return Optional.of(AssertjCheckerResult.builder().description(DESCRIPTION).fix(fix).build());
+        return Optional.of(
+                AssertjCheckerResult.builder().description(DESCRIPTION).fix(fix).build());
     }
 
     private static String getExpressionSource(

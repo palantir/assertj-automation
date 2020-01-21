@@ -67,7 +67,8 @@ public final class AssertjBooleanAssert implements AssertjChecker {
         return (expressionTree, state) -> {
             if (expressionTree instanceof JCTree.JCFieldAccess) {
                 Symbol symbol = ASTHelpers.getSymbol(expressionTree);
-                if (symbol.isStatic() && state.getTypes().unboxedTypeOrType(symbol.type).getTag() == TypeTag.BOOLEAN) {
+                if (symbol.isStatic()
+                        && state.getTypes().unboxedTypeOrType(symbol.type).getTag() == TypeTag.BOOLEAN) {
                     if (value) {
                         return symbol.getSimpleName().contentEquals("TRUE");
                     } else {
