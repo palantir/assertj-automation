@@ -567,7 +567,10 @@ public final class AssertjRefactoring extends BugChecker
     private void describe(Optional<AssertjCheckerResult> result, Tree tree, VisitorState state) {
         if (result.isPresent()) {
             AssertjCheckerResult value = result.get();
-            state.reportMatch(buildDescription(tree).setMessage(value.description()).addFix(value.fix()).build());
+            state.reportMatch(buildDescription(tree)
+                    .setMessage(value.description())
+                    .addFix(value.fix())
+                    .build());
         }
     }
 }

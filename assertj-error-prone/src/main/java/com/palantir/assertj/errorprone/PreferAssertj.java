@@ -535,10 +535,13 @@ public final class PreferAssertj extends BugChecker
 
     private static String argSource(MethodInvocationTree invocation, VisitorState state, int index) {
         checkArgument(index >= 0, "Index must be non-negative");
-        List<? extends ExpressionTree> arguments = checkNotNull(invocation, "MethodInvocationTree").getArguments();
+        List<? extends ExpressionTree> arguments =
+                checkNotNull(invocation, "MethodInvocationTree").getArguments();
         checkArgument(index < arguments.size(), "Index is out of bounds");
         ExpressionTree argument = arguments.get(index);
-        Symbol.VarSymbol symbol = checkNotNull(ASTHelpers.getSymbol(invocation), "symbol").getParameters().get(index);
+        Symbol.VarSymbol symbol = checkNotNull(ASTHelpers.getSymbol(invocation), "symbol")
+                .getParameters()
+                .get(index);
         String argumentSource = checkNotNull(state.getSourceForNode(argument), "Failed to find argument source");
         if (symbol.type.isPrimitive()
                 // Limit to only float and double because assertEquals for ints uses assertEquals(long, long),

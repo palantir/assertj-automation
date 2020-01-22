@@ -62,7 +62,8 @@ public final class AssertjEqualityOrder implements AssertjChecker {
         if (checkArguments.size() != 1) {
             return Optional.empty();
         }
-        List<? extends ExpressionTree> assertThatArguments = match.getAssertThat().getArguments();
+        List<? extends ExpressionTree> assertThatArguments =
+                match.getAssertThat().getArguments();
         if (assertThatArguments.size() != 1) {
             return Optional.empty();
         }
