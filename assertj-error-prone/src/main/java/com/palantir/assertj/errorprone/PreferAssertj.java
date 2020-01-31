@@ -69,7 +69,11 @@ public final class PreferAssertj extends BugChecker
         implements BugChecker.AssertTreeMatcher, BugChecker.MethodInvocationTreeMatcher {
 
     private static final ImmutableSet<String> LEGACY_ASSERT_CLASSES = ImmutableSet.of(
-            "org.hamcrest.MatcherAssert", "org.junit.Assert", "junit.framework.TestCase", "junit.framework.Assert");
+            "junit.framework.Assert",
+            "junit.framework.TestCase",
+            "org.hamcrest.MatcherAssert",
+            "org.junit.Assert",
+            "org.junit.jupiter.api.Assertions");
 
     // Must match everything otherwise matched by this check, used to avoid
     // additional checks for each method invocation.
@@ -109,6 +113,11 @@ public final class PreferAssertj extends BugChecker
             .named("assertNull")
             .withParameters(String.class.getName(), Object.class.getName());
 
+    private static final Matcher<ExpressionTree> ASSERT_NULL_DESCRIPTION_END = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .named("assertNull")
+            .withParameters(Object.class.getName(), String.class.getName());
+
     private static final Matcher<ExpressionTree> ASSERT_NOT_NULL = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
             .named("assertNotNull")
@@ -118,6 +127,11 @@ public final class PreferAssertj extends BugChecker
             .onClassAny(LEGACY_ASSERT_CLASSES)
             .named("assertNotNull")
             .withParameters(String.class.getName(), Object.class.getName());
+
+    private static final Matcher<ExpressionTree> ASSERT_NOT_NULL_DESCRIPTION_END = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .named("assertNotNull")
+            .withParameters(Object.class.getName(), String.class.getName());
 
     private static final Matcher<ExpressionTree> ASSERT_SAME = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
@@ -129,6 +143,11 @@ public final class PreferAssertj extends BugChecker
             .named("assertSame")
             .withParameters(String.class.getName(), Object.class.getName(), Object.class.getName());
 
+    private static final Matcher<ExpressionTree> ASSERT_SAME_DESCRIPTION_END = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .named("assertSame")
+            .withParameters(Object.class.getName(), Object.class.getName(), String.class.getName());
+
     private static final Matcher<ExpressionTree> ASSERT_NOT_SAME = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
             .named("assertNotSame")
@@ -138,6 +157,11 @@ public final class PreferAssertj extends BugChecker
             .onClassAny(LEGACY_ASSERT_CLASSES)
             .named("assertNotSame")
             .withParameters(String.class.getName(), Object.class.getName(), Object.class.getName());
+
+    private static final Matcher<ExpressionTree> ASSERT_NOT_SAME_DESCRIPTION_END = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .named("assertNotSame")
+            .withParameters(Object.class.getName(), Object.class.getName(), String.class.getName());
 
     private static final Matcher<ExpressionTree> FAIL = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
@@ -169,6 +193,16 @@ public final class PreferAssertj extends BugChecker
                     .named("assertEquals")
                     .withParameters(String.class.getName(), "float", "float", "float"));
 
+    private static final Matcher<ExpressionTree> ASSERT_EQUALS_FLOATING_DESCRIPTION_END = Matchers.anyOf(
+            MethodMatchers.staticMethod()
+                    .onClassAny(LEGACY_ASSERT_CLASSES)
+                    .named("assertEquals")
+                    .withParameters("double", "double", "double", String.class.getName()),
+            MethodMatchers.staticMethod()
+                    .onClassAny(LEGACY_ASSERT_CLASSES)
+                    .named("assertEquals")
+                    .withParameters("float", "float", "float", String.class.getName()));
+
     private static final Matcher<ExpressionTree> ASSERT_NOT_EQUALS_FLOATING = Matchers.anyOf(
             MethodMatchers.staticMethod()
                     .onClassAny(LEGACY_ASSERT_CLASSES)
@@ -188,6 +222,16 @@ public final class PreferAssertj extends BugChecker
                     .onClassAny(LEGACY_ASSERT_CLASSES)
                     .named("assertNotEquals")
                     .withParameters(String.class.getName(), "float", "float", "float"));
+
+    private static final Matcher<ExpressionTree> ASSERT_NOT_EQUALS_FLOATING_DESCRIPTION_END = Matchers.anyOf(
+            MethodMatchers.staticMethod()
+                    .onClassAny(LEGACY_ASSERT_CLASSES)
+                    .named("assertNotEquals")
+                    .withParameters("double", "double", "double", String.class.getName()),
+            MethodMatchers.staticMethod()
+                    .onClassAny(LEGACY_ASSERT_CLASSES)
+                    .named("assertNotEquals")
+                    .withParameters("float", "float", "float", String.class.getName()));
 
     private static final Matcher<ExpressionTree> ASSERT_THAT = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
@@ -212,6 +256,16 @@ public final class PreferAssertj extends BugChecker
             .onClassAny(LEGACY_ASSERT_CLASSES)
             // There is no Assert.assertArrayNotEquals
             .named("assertNotEquals");
+
+    private static final Matcher<ExpressionTree> ASSERT_THROWS = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .namedAnyOf("assertThrows")
+            .withParameters(Class.class.getName(), "org.junit.jupiter.api.function.Executable");
+
+    private static final Matcher<ExpressionTree> ASSERT_DOES_NOT_THROW = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .namedAnyOf("assertDoesNotThrow")
+            .withParameters("org.junit.jupiter.api.function.Executable");
 
     @Override
     @SuppressWarnings({"CyclomaticComplexity", "MethodLength"})
@@ -242,12 +296,20 @@ public final class PreferAssertj extends BugChecker
             return withAssertThat(tree, state, 1, (assertThat, fix) ->
                     fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isNull()"));
         }
+        if (ASSERT_NULL_DESCRIPTION_END.matches(tree, state)) {
+            return withAssertThat(tree, state, 0, (assertThat, fix) ->
+                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 1) + ").isNull()"));
+        }
         if (ASSERT_NOT_NULL.matches(tree, state)) {
             return withAssertThat(tree, state, 0, (assertThat, fix) -> fix.replace(tree, assertThat + ".isNotNull()"));
         }
         if (ASSERT_NOT_NULL_DESCRIPTION.matches(tree, state)) {
             return withAssertThat(tree, state, 1, (assertThat, fix) ->
                     fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isNotNull()"));
+        }
+        if (ASSERT_NOT_NULL_DESCRIPTION_END.matches(tree, state)) {
+            return withAssertThat(tree, state, 0, (assertThat, fix) ->
+                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 1) + ").isNotNull()"));
         }
         if (ASSERT_SAME.matches(tree, state)) {
             return withAssertThat(tree, state, 1, (assertThat, fix) ->
@@ -260,6 +322,13 @@ public final class PreferAssertj extends BugChecker
                             "%s.describedAs(%s).isSameAs(%s)",
                             assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
         }
+        if (ASSERT_SAME_DESCRIPTION_END.matches(tree, state)) {
+            return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                    tree,
+                    String.format(
+                            "%s.describedAs(%s).isSameAs(%s)",
+                            assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
+        }
         if (ASSERT_NOT_SAME.matches(tree, state)) {
             return withAssertThat(tree, state, 1, (assertThat, fix) ->
                     fix.replace(tree, assertThat + ".isNotSameAs(" + argSource(tree, state, 0) + ")"));
@@ -270,6 +339,13 @@ public final class PreferAssertj extends BugChecker
                     String.format(
                             "%s.describedAs(%s).isNotSameAs(%s)",
                             assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+        }
+        if (ASSERT_NOT_SAME_DESCRIPTION_END.matches(tree, state)) {
+            return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                    tree,
+                    String.format(
+                            "%s.describedAs(%s).isNotSameAs(%s)",
+                            assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
         }
         if (FAIL_DESCRIPTION.matches(tree, state) || FAIL.matches(tree, state)) {
             String replacement =
@@ -309,6 +385,20 @@ public final class PreferAssertj extends BugChecker
                 fix.addStaticImport("org.assertj.core.api.Assertions.within").replace(tree, replacement);
             });
         }
+        if (ASSERT_EQUALS_FLOATING_DESCRIPTION_END.matches(tree, state)) {
+            return withAssertThat(tree, state, 1, (assertThat, fix) -> {
+                String replacement = String.format(
+                        "%s.describedAs(%s)%s",
+                        assertThat,
+                        argSource(tree, state, 3),
+                        isConstantZero(tree.getArguments().get(2))
+                                ? String.format(".isEqualTo(%s)", argSource(tree, state, 0))
+                                : String.format(
+                                        ".isCloseTo(%s, within(%s))",
+                                        argSource(tree, state, 0), argSource(tree, state, 2)));
+                fix.addStaticImport("org.assertj.core.api.Assertions.within").replace(tree, replacement);
+            });
+        }
         if (ASSERT_NOT_EQUALS_FLOATING.matches(tree, state)) {
             return withAssertThat(tree, state, 1, (assertThat, fix) -> {
                 String replacement = String.format(
@@ -333,6 +423,20 @@ public final class PreferAssertj extends BugChecker
                                 : String.format(
                                         ".isNotCloseTo(%s, within(%s))",
                                         argSource(tree, state, 1), argSource(tree, state, 3)));
+                fix.addStaticImport("org.assertj.core.api.Assertions.within").replace(tree, replacement);
+            });
+        }
+        if (ASSERT_NOT_EQUALS_FLOATING_DESCRIPTION_END.matches(tree, state)) {
+            return withAssertThat(tree, state, 1, (assertThat, fix) -> {
+                String replacement = String.format(
+                        "%s.describedAs(%s)%s",
+                        assertThat,
+                        argSource(tree, state, 3),
+                        isConstantZero(tree.getArguments().get(2))
+                                ? String.format(".isNotEqualTo(%s)", argSource(tree, state, 0))
+                                : String.format(
+                                        ".isNotCloseTo(%s, within(%s))",
+                                        argSource(tree, state, 0), argSource(tree, state, 2)));
                 fix.addStaticImport("org.assertj.core.api.Assertions.within").replace(tree, replacement);
             });
         }
@@ -379,15 +483,32 @@ public final class PreferAssertj extends BugChecker
                                 + ").isEqualTo("
                                 + argSource(tree, state, 1)
                                 + ")"));
-            } else if (parameters == 3 && isFloatingPointArrayEqualsWithZeroDelta(tree, state)) {
+            } else if (parameters == 3
+                    && ASTHelpers.isSameType(
+                            getParameterType(tree, 2), state.getTypeFromString(String.class.getName()), state)) {
+                return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                        tree,
+                        assertThat
+                                + ".describedAs("
+                                + argSource(tree, state, 2)
+                                + ").isEqualTo("
+                                + argSource(tree, state, 0)
+                                + ")"));
+            } else if (parameters == 3 && isFloatingPointArrayEqualsWithZeroDelta(tree, state, 2)) {
                 return withAssertThat(tree, state, 1, (assertThat, fix) ->
                         fix.replace(tree, assertThat + ".isEqualTo(" + argSource(tree, state, 0) + ")"));
-            } else if (parameters == 4 && isFloatingPointArrayEqualsWithZeroDelta(tree, state)) {
+            } else if (parameters == 4 && isFloatingPointArrayEqualsWithZeroDelta(tree, state, 3)) {
                 return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
                         tree,
                         String.format(
                                 "%s.describedAs(%s).isEqualTo(%s)",
                                 assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+            } else if (parameters == 4 && isFloatingPointArrayEqualsWithZeroDelta(tree, state, 2)) {
+                return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                        tree,
+                        String.format(
+                                "%s.describedAs(%s).isEqualTo(%s)",
+                                assertThat, argSource(tree, state, 3), argSource(tree, state, 0))));
             } else {
                 // Does not fix assertArrayEquals(double[], double[], double)
                 // or assertArrayEquals(float[], float[], float)
@@ -401,18 +522,46 @@ public final class PreferAssertj extends BugChecker
                         fix.replace(tree, assertThat + ".isNotEqualTo(" + argSource(tree, state, 0) + ")"));
             } else if (parameters == 3
                     && ASTHelpers.isSameType(
-                            ASTHelpers.getType(tree.getArguments().get(0)),
-                            state.getTypeFromString(String.class.getName()),
-                            state)) {
+                            getParameterType(tree, 0), state.getTypeFromString(String.class.getName()), state)) {
                 return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
                         tree,
                         String.format(
                                 "%s.describedAs(%s).isNotEqualTo(%s)",
                                 assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+            } else if (parameters == 3
+                    && ASTHelpers.isSameType(
+                            getParameterType(tree, 2), state.getTypeFromString(String.class.getName()), state)) {
+                return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                        tree,
+                        String.format(
+                                "%s.describedAs(%s).isNotEqualTo(%s)",
+                                assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
             } else {
                 // I'm not aware of anything that should hit this.
                 return describeMatch(tree);
             }
+        }
+        if (ASSERT_THROWS.matches(tree, state)) {
+            String replacement = String.format(
+                    "assertThatThrownBy(%s).isInstanceOf(%s)", argSource(tree, state, 1), argSource(tree, state, 0));
+            return buildDescription(tree)
+                    .addFix(SuggestedFix.builder()
+                            .removeStaticImport("org.junit.jupiter.api.Assertions.assertThrows")
+                            .addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy")
+                            .replace(tree, replacement)
+                            .build())
+                    .build();
+        }
+        if (ASSERT_DOES_NOT_THROW.matches(tree, state)) {
+            String replacement =
+                    String.format("assertThatCode(%s).doesNotThrowAnyException()", argSource(tree, state, 0));
+            return buildDescription(tree)
+                    .addFix(SuggestedFix.builder()
+                            .removeStaticImport("org.junit.jupiter.api.Assertions.assertDoesNotThrow")
+                            .addStaticImport("org.assertj.core.api.Assertions.assertThatCode")
+                            .replace(tree, replacement)
+                            .build())
+                    .build();
         }
         return Description.NO_MATCH;
     }
@@ -784,14 +933,13 @@ public final class PreferAssertj extends BugChecker
         return methodSymbol.getParameters().get(parameterIndex).type;
     }
 
-    private static boolean isFloatingPointArrayEqualsWithZeroDelta(MethodInvocationTree tree, VisitorState state) {
+    private static boolean isFloatingPointArrayEqualsWithZeroDelta(
+            MethodInvocationTree tree, VisitorState state, int deltaParameterIndex) {
         if (!ASSERT_ARRAY_EQUALS_CATCHALL.matches(tree, state)) {
             return false;
         }
-        int parameters = tree.getArguments().size();
         Type floatType = state.getTypeFromString("float");
         Type doubleType = state.getTypeFromString("double");
-        int deltaParameterIndex = parameters - 1;
         return (ASTHelpers.isSameType(getParameterType(tree, deltaParameterIndex), floatType, state)
                         || ASTHelpers.isSameType(getParameterType(tree, deltaParameterIndex), doubleType, state))
                 && isConstantZero(tree.getArguments().get(deltaParameterIndex));
