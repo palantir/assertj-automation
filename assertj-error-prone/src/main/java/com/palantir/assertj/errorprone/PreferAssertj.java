@@ -38,6 +38,7 @@ import com.google.errorprone.util.ASTHelpers;
 import com.sun.source.tree.AssertTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.ImportTree;
+import com.sun.source.tree.LambdaExpressionTree;
 import com.sun.source.tree.MemberSelectTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.source.tree.Tree;
@@ -262,10 +263,20 @@ public final class PreferAssertj extends BugChecker
             .namedAnyOf("assertThrows")
             .withParameters(Class.class.getName(), "org.junit.jupiter.api.function.Executable");
 
+    private static final Matcher<ExpressionTree> ASSERT_THROWS_DESCRIPTION = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .namedAnyOf("assertThrows")
+            .withParameters(Class.class.getName(), "org.junit.jupiter.api.function.Executable", String.class.getName());
+
     private static final Matcher<ExpressionTree> ASSERT_DOES_NOT_THROW = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
             .namedAnyOf("assertDoesNotThrow")
             .withParameters("org.junit.jupiter.api.function.Executable");
+
+    private static final Matcher<ExpressionTree> ASSERT_DOES_NOT_THROW_DESCRIPTION = MethodMatchers.staticMethod()
+            .onClassAny(LEGACY_ASSERT_CLASSES)
+            .namedAnyOf("assertDoesNotThrow")
+            .withParameters("org.junit.jupiter.api.function.Executable", String.class.getName());
 
     @Override
     @SuppressWarnings({"CyclomaticComplexity", "MethodLength"})
@@ -542,26 +553,67 @@ public final class PreferAssertj extends BugChecker
             }
         }
         if (ASSERT_THROWS.matches(tree, state)) {
-            String replacement = String.format(
-                    "assertThatThrownBy(%s).isInstanceOf(%s)", argSource(tree, state, 1), argSource(tree, state, 0));
-            return buildDescription(tree)
-                    .addFix(SuggestedFix.builder()
-                            .removeStaticImport("org.junit.jupiter.api.Assertions.assertThrows")
-                            .addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy")
-                            .replace(tree, replacement)
-                            .build())
-                    .build();
+            if (tree.getArguments().get(1) instanceof LambdaExpressionTree) {
+                String replacement = String.format(
+                        "assertThatThrownBy(%s).isInstanceOf(%s)",
+                        argSource(tree, state, 1), argSource(tree, state, 0));
+                return buildDescription(tree)
+                        .addFix(SuggestedFix.builder()
+                                .addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy")
+                                .replace(tree, replacement)
+                                .build())
+                        .build();
+            } else {
+                // Can't replace Executable that isn't a lambda
+                return describeMatch(tree);
+            }
+        }
+        if (ASSERT_THROWS_DESCRIPTION.matches(tree, state)) {
+            if (tree.getArguments().get(1) instanceof LambdaExpressionTree) {
+                String replacement = String.format(
+                        "assertThatThrownBy(%s).describedAs(%s).isInstanceOf(%s)",
+                        argSource(tree, state, 1), argSource(tree, state, 2), argSource(tree, state, 0));
+                return buildDescription(tree)
+                        .addFix(SuggestedFix.builder()
+                                .addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy")
+                                .replace(tree, replacement)
+                                .build())
+                        .build();
+            } else {
+                // Can't replace Executable that isn't a lambda
+                return describeMatch(tree);
+            }
         }
         if (ASSERT_DOES_NOT_THROW.matches(tree, state)) {
-            String replacement =
-                    String.format("assertThatCode(%s).doesNotThrowAnyException()", argSource(tree, state, 0));
-            return buildDescription(tree)
-                    .addFix(SuggestedFix.builder()
-                            .removeStaticImport("org.junit.jupiter.api.Assertions.assertDoesNotThrow")
-                            .addStaticImport("org.assertj.core.api.Assertions.assertThatCode")
-                            .replace(tree, replacement)
-                            .build())
-                    .build();
+            if (tree.getArguments().get(0) instanceof LambdaExpressionTree) {
+                String replacement =
+                        String.format("assertThatCode(%s).doesNotThrowAnyException()", argSource(tree, state, 0));
+                return buildDescription(tree)
+                        .addFix(SuggestedFix.builder()
+                                .addStaticImport("org.assertj.core.api.Assertions.assertThatCode")
+                                .replace(tree, replacement)
+                                .build())
+                        .build();
+            } else {
+                // Can't replace Executable that isn't a lambda
+                return describeMatch(tree);
+            }
+        }
+        if (ASSERT_DOES_NOT_THROW_DESCRIPTION.matches(tree, state)) {
+            if (tree.getArguments().get(0) instanceof LambdaExpressionTree) {
+                String replacement = String.format(
+                        "assertThatCode(%s).describedAs(%s).doesNotThrowAnyException()",
+                        argSource(tree, state, 0), argSource(tree, state, 1));
+                return buildDescription(tree)
+                        .addFix(SuggestedFix.builder()
+                                .addStaticImport("org.assertj.core.api.Assertions.assertThatCode")
+                                .replace(tree, replacement)
+                                .build())
+                        .build();
+            } else {
+                // Can't replace Executable that isn't a lambda
+                return describeMatch(tree);
+            }
         }
         return Description.NO_MATCH;
     }
