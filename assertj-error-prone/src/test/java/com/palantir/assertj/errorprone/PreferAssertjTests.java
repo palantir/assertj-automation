@@ -33,10 +33,13 @@ public class PreferAssertjTests {
                         "import static org.hamcrest.MatcherAssert.assertThat;",
                         "",
                         "import org.junit.Assert;",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(boolean b) {",
                         "    Assert.assertFalse(b);",
                         "    Assert.assertFalse(\"desc\", b);",
+                        "    Assert.assertTrue(b);",
+                        "    Assert.assertTrue(\"desc\", b);",
                         "    Assert.assertTrue(b);",
                         "    Assert.assertTrue(\"desc\", b);",
                         "    assertThat(\"desc\", b);",
@@ -50,10 +53,13 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "",
                         "import org.junit.Assert;",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(boolean b) {",
                         "    assertThat(b).isFalse();",
                         "    assertThat(b).describedAs(\"desc\").isFalse();",
+                        "    assertThat(b).isTrue();",
+                        "    assertThat(b).describedAs(\"desc\").isTrue();",
                         "    assertThat(b).isTrue();",
                         "    assertThat(b).describedAs(\"desc\").isTrue();",
                         "    assertThat(b).describedAs(\"desc\").isTrue();",
@@ -72,10 +78,12 @@ public class PreferAssertjTests {
                         "import static org.junit.Assert.assertThat;",
                         "",
                         "import org.junit.Assert;",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(boolean b) {",
                         "    assertThat(true, org.hamcrest.CoreMatchers.equalTo(false));",
                         "    Assert.assertFalse(b);",
+                        "    Assertions.assertFalse(b);",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -83,9 +91,11 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "",
                         "import org.junit.Assert;",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(boolean b) {",
                         "    assertThat(true).isEqualTo(false);",
+                        "    assertThat(b).isFalse();",
                         "    assertThat(b).isFalse();",
                         "  }",
                         "}")
@@ -98,12 +108,18 @@ public class PreferAssertjTests {
                         "Test.java",
                         "import static org.junit.Assert.assertNull;",
                         "import static org.junit.Assert.assertNotNull;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(String s) {",
                         "    assertNull(s);",
                         "    assertNull(\"desc\", s);",
                         "    assertNotNull(s);",
                         "    assertNotNull(\"desc\", s);",
+                        "    Assertions.assertNull(s);",
+                        "    Assertions.assertNull(s, \"desc\");",
+                        "    Assertions.assertNotNull(s);",
+                        "    Assertions.assertNotNull(s, \"desc\");",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -111,8 +127,14 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import static org.junit.Assert.assertNotNull;",
                         "import static org.junit.Assert.assertNull;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(String s) {",
+                        "    assertThat(s).isNull();",
+                        "    assertThat(s).describedAs(\"desc\").isNull();",
+                        "    assertThat(s).isNotNull();",
+                        "    assertThat(s).describedAs(\"desc\").isNotNull();",
                         "    assertThat(s).isNull();",
                         "    assertThat(s).describedAs(\"desc\").isNull();",
                         "    assertThat(s).isNotNull();",
@@ -128,12 +150,18 @@ public class PreferAssertjTests {
                         "Test.java",
                         "import static org.junit.Assert.assertSame;",
                         "import static org.junit.Assert.assertNotSame;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(String a, String b) {",
                         "    assertSame(a, b);",
                         "    assertSame(\"desc\", a, b);",
                         "    assertNotSame(a, b);",
                         "    assertNotSame(\"desc\", a, b);",
+                        "    Assertions.assertSame(a, b);",
+                        "    Assertions.assertSame(a, b, \"desc\");",
+                        "    Assertions.assertNotSame(a, b);",
+                        "    Assertions.assertNotSame(a, b, \"desc\");",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -141,8 +169,14 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import static org.junit.Assert.assertNotSame;",
                         "import static org.junit.Assert.assertSame;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(String a, String b) {",
+                        "    assertThat(b).isSameAs(a);",
+                        "    assertThat(b).describedAs(\"desc\").isSameAs(a);",
+                        "    assertThat(b).isNotSameAs(a);",
+                        "    assertThat(b).describedAs(\"desc\").isNotSameAs(a);",
                         "    assertThat(b).isSameAs(a);",
                         "    assertThat(b).describedAs(\"desc\").isSameAs(a);",
                         "    assertThat(b).isNotSameAs(a);",
@@ -159,11 +193,15 @@ public class PreferAssertjTests {
                         "import static org.junit.Assert.fail;",
                         "",
                         "import org.junit.Assert;",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo() {",
                         "    fail();",
                         "    fail(\"desc\");",
+                        "    Assert.fail();",
                         "    Assert.fail(\"desc\");",
+                        "    Assertions.fail();",
+                        "    Assertions.fail(\"desc\");",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -171,10 +209,14 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.fail;",
                         "",
                         "import org.junit.Assert;",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo() {",
                         "    fail(\"fail\");",
                         "    fail(\"desc\");",
+                        "    fail(\"fail\");",
+                        "    fail(\"desc\");",
+                        "    fail(\"fail\");",
                         "    fail(\"desc\");",
                         "  }",
                         "}")
@@ -187,6 +229,8 @@ public class PreferAssertjTests {
                         "Test.java",
                         "import static org.junit.Assert.assertEquals;",
                         "import static org.junit.Assert.assertNotEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(float fl, double db) {",
                         "    assertEquals(.1f, fl, .01f);",
@@ -207,6 +251,25 @@ public class PreferAssertjTests {
                         "    assertNotEquals(\"desc\", 1f, db, 1D);",
                         "    assertEquals(1f, fl, 1);",
                         "    assertNotEquals(1, fl, 1f);",
+                        "",
+                        "    Assertions.assertEquals(.1f, fl, .01f);",
+                        "    Assertions.assertEquals(.1f, fl, .01f, \"desc\");",
+                        "    Assertions.assertEquals(.1D, db, .01D);",
+                        "    Assertions.assertEquals(.1D, db, .01D, \"desc\");",
+                        "    Assertions.assertEquals(.1D, db, 0, \"desc\");",
+                        "    Assertions.assertEquals(.1D, db, 0D);",
+                        "    Assertions.assertNotEquals(.1f, fl, .01f);",
+                        "    Assertions.assertNotEquals(.1f, fl, .01f, \"desc\");",
+                        "    Assertions.assertNotEquals(.1D, db, .01D);",
+                        "    Assertions.assertNotEquals(.1D, db, .01D, \"desc\");",
+                        "    Assertions.assertNotEquals(.1D, db, 0.0, \"desc\");",
+                        "    Assertions.assertNotEquals(.1D, db, 0D);",
+                        "    Assertions.assertEquals(1D, db, 1);",
+                        "    Assertions.assertEquals(1, db, 1D);",
+                        "    Assertions.assertEquals(1D, db, 1f);",
+                        "    Assertions.assertNotEquals(1f, db, 1D, \"desc\");",
+                        "    Assertions.assertEquals(1f, fl, 1);",
+                        "    Assertions.assertNotEquals(1, fl, 1f);",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -215,6 +278,8 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.within;",
                         "import static org.junit.Assert.assertEquals;",
                         "import static org.junit.Assert.assertNotEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(float fl, double db) {",
                         "    assertThat(fl).isCloseTo(.1f, within(.01f));",
@@ -235,6 +300,26 @@ public class PreferAssertjTests {
                         "    assertThat(db).describedAs(\"desc\").isNotCloseTo((double) 1f, within(1D));",
                         "    assertThat(fl).isCloseTo(1f, within((float) 1));",
                         "    assertThat(fl).isNotCloseTo((float) 1, within(1f));",
+                        "",
+                        "    assertThat(fl).isCloseTo(.1f, within(.01f));",
+                        "    assertThat(fl).describedAs(\"desc\").isCloseTo(.1f, within(.01f));",
+                        "    assertThat(db).isCloseTo(.1D, within(.01D));",
+                        "    assertThat(db).describedAs(\"desc\").isCloseTo(.1D, within(.01D));",
+                        "    assertThat(db).describedAs(\"desc\").isEqualTo(.1D);",
+                        "    assertThat(db).isEqualTo(.1D);",
+                        "    assertThat(fl).isNotCloseTo(.1f, within(.01f));",
+                        "    assertThat(fl).describedAs(\"desc\").isNotCloseTo(.1f, within(.01f));",
+                        "    assertThat(db).isNotCloseTo(.1D, within(.01D));",
+                        "    assertThat(db).describedAs(\"desc\").isNotCloseTo(.1D, within(.01D));",
+                        "    assertThat(db).describedAs(\"desc\").isNotEqualTo(.1D);",
+                        "    assertThat(db).isNotEqualTo(.1D);",
+                        "    assertThat(db).isCloseTo(1D, within((double) 1));",
+                        "    assertThat(db).isCloseTo((double) 1, within(1D));",
+                        "    assertThat(db).isCloseTo(1D, within((double) 1f));",
+                        "    assertThat(db).describedAs(\"desc\").isNotCloseTo((double) 1f, within(1D));",
+                        "    assertThat(fl).isCloseTo(1f, within((float) 1));",
+                        "    assertThat(fl).isNotCloseTo((float) 1, within(1f));",
+                        "",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
@@ -245,18 +330,38 @@ public class PreferAssertjTests {
         test().addInputLines(
                         "Test.java",
                         "import static org.junit.Assert.assertEquals;",
+                        "import static org.junit.Assert.assertNotEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(int value) {",
                         "    assertEquals(1, value);",
+                        "    assertEquals(\"desc\", 1, value);",
+                        "    assertNotEquals(1, value);",
+                        "    assertNotEquals(\"desc\", 1, value);",
+                        "    Assertions.assertEquals(1, value);",
+                        "    Assertions.assertEquals(1, value, \"desc\");",
+                        "    Assertions.assertNotEquals(1, value);",
+                        "    Assertions.assertNotEquals(1, value, \"desc\");",
                         "  }",
                         "}")
                 .addOutputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import static org.junit.Assert.assertEquals;",
+                        "import static org.junit.Assert.assertNotEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(int value) {",
                         "    assertThat(value).isEqualTo(1);",
+                        "    assertThat(value).describedAs(\"desc\").isEqualTo(1);",
+                        "    assertThat(value).isNotEqualTo(1);",
+                        "    assertThat(value).describedAs(\"desc\").isNotEqualTo(1);",
+                        "    assertThat(value).isEqualTo(1);",
+                        "    assertThat(value).describedAs(\"desc\").isEqualTo(1);",
+                        "    assertThat(value).isNotEqualTo(1);",
+                        "    assertThat(value).describedAs(\"desc\").isNotEqualTo(1);",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
@@ -268,12 +373,18 @@ public class PreferAssertjTests {
                         "Test.java",
                         "import static org.junit.Assert.assertEquals;",
                         "import static org.junit.Assert.assertNotEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(String value) {",
                         "    assertEquals(\"1\", value);",
                         "    assertEquals(\"desc\", \"1\", value);",
                         "    assertNotEquals(\"1\", value);",
                         "    assertNotEquals(\"desc\", \"1\", value);",
+                        "    Assertions.assertEquals(\"1\", value);",
+                        "    Assertions.assertEquals(\"1\", value, \"desc\");",
+                        "    Assertions.assertNotEquals(\"1\", value);",
+                        "    Assertions.assertNotEquals(\"1\", value, \"desc\");",
                         "  }",
                         "}")
                 .addOutputLines(
@@ -281,8 +392,14 @@ public class PreferAssertjTests {
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import static org.junit.Assert.assertEquals;",
                         "import static org.junit.Assert.assertNotEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(String value) {",
+                        "    assertThat(value).isEqualTo(\"1\");",
+                        "    assertThat(value).describedAs(\"desc\").isEqualTo(\"1\");",
+                        "    assertThat(value).isNotEqualTo(\"1\");",
+                        "    assertThat(value).describedAs(\"desc\").isNotEqualTo(\"1\");",
                         "    assertThat(value).isEqualTo(\"1\");",
                         "    assertThat(value).describedAs(\"desc\").isEqualTo(\"1\");",
                         "    assertThat(value).isNotEqualTo(\"1\");",
@@ -337,65 +454,31 @@ public class PreferAssertjTests {
     }
 
     @Test
-    public void fix_assertEqualsIntDescription() {
-        test().addInputLines(
-                        "Test.java",
-                        "import static org.junit.Assert.assertEquals;",
-                        "class Test {",
-                        "  void foo(int value) {",
-                        "    assertEquals(\"desc\", 1, value);",
-                        "  }",
-                        "}")
-                .addOutputLines(
-                        "Test.java",
-                        "import static org.assertj.core.api.Assertions.assertThat;",
-                        "import static org.junit.Assert.assertEquals;",
-                        "class Test {",
-                        "  void foo(int value) {",
-                        "    assertThat(value).describedAs(\"desc\").isEqualTo(1);",
-                        "  }",
-                        "}")
-                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
-    }
-
-    @Test
-    public void fix_assertArrayEqualsInt() {
+    public void fix_assertArrayEquals_int() {
         test().addInputLines(
                         "Test.java",
                         "import static org.junit.Assert.assertArrayEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(int[] value) {",
                         "    assertArrayEquals(new int[] { 1 }, value);",
+                        "    assertArrayEquals(\"desc\", new int[] { 1 }, value);",
+                        "    Assertions.assertArrayEquals(new int[] { 1 }, value);",
+                        "    Assertions.assertArrayEquals(new int[] { 1 }, value, \"desc\");",
                         "  }",
                         "}")
                 .addOutputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import static org.junit.Assert.assertArrayEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(int[] value) {",
                         "    assertThat(value).isEqualTo(new int[] { 1 });",
-                        "  }",
-                        "}")
-                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
-    }
-
-    @Test
-    public void fix_assertArrayEqualsIntDescription() {
-        test().addInputLines(
-                        "Test.java",
-                        "import static org.junit.Assert.assertArrayEquals;",
-                        "class Test {",
-                        "  void foo(int[] value) {",
-                        "    assertArrayEquals(\"desc\", new int[] { 1 }, value);",
-                        "  }",
-                        "}")
-                .addOutputLines(
-                        "Test.java",
-                        "import static org.assertj.core.api.Assertions.assertThat;",
-                        "import static org.junit.Assert.assertArrayEquals;",
-                        "class Test {",
-                        "  void foo(int[] value) {",
+                        "    assertThat(value).describedAs(\"desc\").isEqualTo(new int[] { 1 });",
+                        "    assertThat(value).isEqualTo(new int[] { 1 });",
                         "    assertThat(value).describedAs(\"desc\").isEqualTo(new int[] { 1 });",
                         "  }",
                         "}")
@@ -408,12 +491,18 @@ public class PreferAssertjTests {
                 .addSourceLines(
                         "Test.java",
                         "import static org.junit.Assert.assertArrayEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void f(double[] param) {",
                         "    // BUG: Diagnostic contains: Prefer AssertJ",
                         "    assertArrayEquals(param, new double[] { 1D }, .1D);",
                         "    // BUG: Diagnostic contains: Prefer AssertJ",
                         "    assertArrayEquals(\"desc\", param, new double[] { 1D }, .1D);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    Assertions.assertArrayEquals(param, new double[] { 1D }, .1D);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    Assertions.assertArrayEquals(param, new double[] { 1D }, .1D, \"desc\");",
                         "  }",
                         "}")
                 .doTest();
@@ -425,12 +514,18 @@ public class PreferAssertjTests {
                 .addSourceLines(
                         "Test.java",
                         "import static org.junit.Assert.assertArrayEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void f(float[] param) {",
                         "    // BUG: Diagnostic contains: Prefer AssertJ",
                         "    assertArrayEquals(param, new float[] { 1f }, .1f);",
                         "    // BUG: Diagnostic contains: Prefer AssertJ",
                         "    assertArrayEquals(\"desc\", param, new float[] { 1f }, .1f);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    Assertions.assertArrayEquals(param, new float[] { 1f }, .1f);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    Assertions.assertArrayEquals(param, new float[] { 1f }, .1f, \"desc\");",
                         "  }",
                         "}")
                 .doTest();
@@ -441,60 +536,57 @@ public class PreferAssertjTests {
         test().addInputLines(
                         "Test.java",
                         "import static org.junit.Assert.assertArrayEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(float[] floatArray, double[] doubleArray) {",
                         "    assertArrayEquals(\"desc\", new float[] { 1f }, floatArray, 0);",
                         "    assertArrayEquals(new float[] { 1f }, floatArray, 0);",
                         "    assertArrayEquals(\"desc\", new double[] { 1D }, doubleArray, 0);",
                         "    assertArrayEquals(new double[] { 1D }, doubleArray, 0);",
+                        "    Assertions.assertArrayEquals(new float[] { 1f }, floatArray, 0, \"desc\");",
+                        "    Assertions.assertArrayEquals(new float[] { 1f }, floatArray, 0);",
+                        "    Assertions.assertArrayEquals(new double[] { 1D }, doubleArray, 0, \"desc\");",
+                        "    Assertions.assertArrayEquals(new double[] { 1D }, doubleArray, 0);",
                         // nonzero delta doesn't have a migration path
                         "    assertArrayEquals(\"desc\", new float[] { 1f }, floatArray, .1f);",
                         "    assertArrayEquals(\"desc\", new double[] { 1D }, doubleArray, .1D);",
                         "    assertArrayEquals(new float[] { 1f }, floatArray, .1f);",
                         "    assertArrayEquals(new double[] { 1D }, doubleArray, .1D);",
+                        "    Assertions.assertArrayEquals(new float[] { 1f }, floatArray, .1f, \"desc\");",
+                        "    Assertions.assertArrayEquals(new double[] { 1D }, doubleArray, .1D, \"desc\");",
+                        "    Assertions.assertArrayEquals(new float[] { 1f }, floatArray, .1f);",
+                        "    Assertions.assertArrayEquals(new double[] { 1D }, doubleArray, .1D);",
                         "  }",
                         "}")
                 .addOutputLines(
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import static org.junit.Assert.assertArrayEquals;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo(float[] floatArray, double[] doubleArray) {",
                         "    assertThat(floatArray).describedAs(\"desc\").isEqualTo(new float[] { 1f });",
                         "    assertThat(floatArray).isEqualTo(new float[] { 1f });",
                         "    assertThat(doubleArray).describedAs(\"desc\").isEqualTo(new double[] { 1D });",
                         "    assertThat(doubleArray).isEqualTo(new double[] { 1D });",
+                        "    assertThat(floatArray).describedAs(\"desc\").isEqualTo(new float[] { 1f });",
+                        "    assertThat(floatArray).isEqualTo(new float[] { 1f });",
+                        "    assertThat(doubleArray).describedAs(\"desc\").isEqualTo(new double[] { 1D });",
+                        "    assertThat(doubleArray).isEqualTo(new double[] { 1D });",
+                        // nonzero delta doesn't have a migration path
                         "    assertArrayEquals(\"desc\", new float[] { 1f }, floatArray, .1f);",
                         "    assertArrayEquals(\"desc\", new double[] { 1D }, doubleArray, .1D);",
                         "    assertArrayEquals(new float[] { 1f }, floatArray, .1f);",
                         "    assertArrayEquals(new double[] { 1D }, doubleArray, .1D);",
+                        "    Assertions.assertArrayEquals(new float[] { 1f }, floatArray, .1f, \"desc\");",
+                        "    Assertions.assertArrayEquals(new double[] { 1D }, doubleArray, .1D, \"desc\");",
+                        "    Assertions.assertArrayEquals(new float[] { 1f }, floatArray, .1f);",
+                        "    Assertions.assertArrayEquals(new double[] { 1D }, doubleArray, .1D);",
                         "  }",
                         "}")
                 .doTestExpectingFailure(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
-    }
-
-    @Test
-    public void fix_assertNotEqualsInt() {
-        test().addInputLines(
-                        "Test.java",
-                        "import static org.junit.Assert.assertNotEquals;",
-                        "class Test {",
-                        "  void foo(int value) {",
-                        "    assertNotEquals(1, value);",
-                        "    assertNotEquals(\"desc\", 1, value);",
-                        "  }",
-                        "}")
-                .addOutputLines(
-                        "Test.java",
-                        "import static org.assertj.core.api.Assertions.assertThat;",
-                        "import static org.junit.Assert.assertNotEquals;",
-                        "class Test {",
-                        "  void foo(int value) {",
-                        "    assertThat(value).isNotEqualTo(1);",
-                        "    assertThat(value).describedAs(\"desc\").isNotEqualTo(1);",
-                        "  }",
-                        "}")
-                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
     }
 
     @Test
@@ -926,6 +1018,78 @@ public class PreferAssertjTests {
                         "    assertThat((Map<K, V>) actual).describedAs(\"desc\").isEqualTo(expected);",
                         "    assertThat((Map<K, V>) actual).isNull();",
                         "    assertThat((Map<K, V>) actual).describedAs(\"desc\").isNull();",
+                        "  }",
+                        "}")
+                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
+    }
+
+    @Test
+    public void fix_assertThrows() {
+        test().addInputLines(
+                        "Test.java",
+                        "import static org.junit.jupiter.api.Assertions.assertThrows;",
+                        "",
+                        "import org.junit.jupiter.api.function.Executable;",
+                        "class Test {",
+                        "  void foo(Executable value) {",
+                        "    assertThrows(RuntimeException.class, () -> {});",
+                        "    assertThrows(RuntimeException.class, () -> {}, \"desc\");",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertThrows(RuntimeException.class, value);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertThrows(RuntimeException.class, value, \"desc\");",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThatThrownBy;",
+                        "import static org.junit.jupiter.api.Assertions.assertThrows;",
+                        "",
+                        "import org.junit.jupiter.api.function.Executable;",
+                        "class Test {",
+                        "  void foo(Executable value) {",
+                        "    assertThatThrownBy(() -> {}).isInstanceOf(RuntimeException.class);",
+                        "    assertThatThrownBy(() -> {}).describedAs(\"desc\").isInstanceOf(RuntimeException.class);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertThrows(RuntimeException.class, value);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertThrows(RuntimeException.class, value, \"desc\");",
+                        "  }",
+                        "}")
+                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
+    }
+
+    @Test
+    public void fix_assertDoesNotThrow() {
+        test().addInputLines(
+                        "Test.java",
+                        "import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;",
+                        "",
+                        "import org.junit.jupiter.api.function.Executable;",
+                        "class Test {",
+                        "  void foo(Executable value) {",
+                        "    assertDoesNotThrow(() -> {});",
+                        "    assertDoesNotThrow(() -> {}, \"desc\");",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertDoesNotThrow(value);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertDoesNotThrow(value, \"desc\");",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThatCode;",
+                        "import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;",
+                        "",
+                        "import org.junit.jupiter.api.function.Executable;",
+                        "class Test {",
+                        "  void foo(Executable value) {",
+                        "    assertThatCode(() -> {}).doesNotThrowAnyException();",
+                        "    assertThatCode(() -> {}).describedAs(\"desc\").doesNotThrowAnyException();",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertDoesNotThrow(value);",
+                        "    // BUG: Diagnostic contains: Prefer AssertJ",
+                        "    assertDoesNotThrow(value, \"desc\");",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
