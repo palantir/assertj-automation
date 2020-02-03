@@ -1,0 +1,6 @@
+type: fix
+fix:
+  description: The `PreferAssertJ` check now removes JUnit5 static imports when they
+    are replaced.
+  links:
+  - https://github.com/palantir/assertj-automation/pull/49
