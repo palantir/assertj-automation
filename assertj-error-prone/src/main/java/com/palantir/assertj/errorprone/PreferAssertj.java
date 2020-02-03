@@ -364,6 +364,7 @@ public final class PreferAssertj extends BugChecker
             return buildDescription(tree)
                     .addFix(SuggestedFix.builder()
                             .removeStaticImport("org.junit.Assert.fail")
+                            .removeStaticImport("org.junit.jupiter.api.Assertions.fail")
                             .addStaticImport("org.assertj.core.api.Assertions.fail")
                             .replace(tree, replacement)
                             .build())
