@@ -187,19 +187,47 @@ public class PreferAssertjTests {
     }
 
     @Test
-    public void fix_fail() {
+    public void fix_fail_junit4() {
         test().addInputLines(
                         "Test.java",
                         "import static org.junit.Assert.fail;",
                         "",
                         "import org.junit.Assert;",
-                        "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo() {",
                         "    fail();",
                         "    fail(\"desc\");",
                         "    Assert.fail();",
                         "    Assert.fail(\"desc\");",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.fail;",
+                        "",
+                        "import org.junit.Assert;",
+                        "class Test {",
+                        "  void foo() {",
+                        "    fail(\"fail\");",
+                        "    fail(\"desc\");",
+                        "    fail(\"fail\");",
+                        "    fail(\"desc\");",
+                        "  }",
+                        "}")
+                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
+    }
+
+    @Test
+    public void fix_fail_junit5() {
+        test().addInputLines(
+                        "Test.java",
+                        "import static org.junit.jupiter.api.Assertions.fail;",
+                        "",
+                        "import org.junit.jupiter.api.Assertions;",
+                        "class Test {",
+                        "  void foo() {",
+                        "    fail();",
+                        "    fail(\"desc\");",
                         "    Assertions.fail();",
                         "    Assertions.fail(\"desc\");",
                         "  }",
@@ -208,12 +236,9 @@ public class PreferAssertjTests {
                         "Test.java",
                         "import static org.assertj.core.api.Assertions.fail;",
                         "",
-                        "import org.junit.Assert;",
                         "import org.junit.jupiter.api.Assertions;",
                         "class Test {",
                         "  void foo() {",
-                        "    fail(\"fail\");",
-                        "    fail(\"desc\");",
                         "    fail(\"fail\");",
                         "    fail(\"desc\");",
                         "    fail(\"fail\");",
