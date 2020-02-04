@@ -81,10 +81,9 @@ final class AssertjSingleAssertMatcher {
             return Optional.empty();
         }
         return matchAssertj(tree, state)
-                .flatMap(list ->
-                        list.size() == 2
-                                ? Optional.of(new SingleAssertMatch(list.get(0), list.get(1)))
-                                : Optional.empty())
+                .flatMap(list -> list.size() == 2
+                        ? Optional.of(new SingleAssertMatch(list.get(0), list.get(1)))
+                        : Optional.empty())
                 .flatMap(result -> function.apply(result, state));
     }
 
