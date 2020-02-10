@@ -290,73 +290,121 @@ public final class PreferAssertj extends BugChecker
             return withAssertThat(tree, state, 0, (assertThat, fix) -> fix.replace(tree, assertThat + ".isTrue()"));
         }
         if (ASSERT_TRUE_DESCRIPTION.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isTrue()"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    1,
+                    (assertThat, fix) ->
+                            fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isTrue()"));
         }
         if (ASSERT_FALSE.matches(tree, state)) {
             return withAssertThat(tree, state, 0, (assertThat, fix) -> fix.replace(tree, assertThat + ".isFalse()"));
         }
         if (ASSERT_FALSE_DESCRIPTION.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isFalse()"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    1,
+                    (assertThat, fix) -> fix.replace(
+                            tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isFalse()"));
         }
         if (ASSERT_NULL.matches(tree, state)) {
             return withAssertThat(tree, state, 0, (assertThat, fix) -> fix.replace(tree, assertThat + ".isNull()"));
         }
         if (ASSERT_NULL_DESCRIPTION.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isNull()"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    1,
+                    (assertThat, fix) ->
+                            fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isNull()"));
         }
         if (ASSERT_NULL_DESCRIPTION_END.matches(tree, state)) {
-            return withAssertThat(tree, state, 0, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 1) + ").isNull()"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    0,
+                    (assertThat, fix) ->
+                            fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 1) + ").isNull()"));
         }
         if (ASSERT_NOT_NULL.matches(tree, state)) {
             return withAssertThat(tree, state, 0, (assertThat, fix) -> fix.replace(tree, assertThat + ".isNotNull()"));
         }
         if (ASSERT_NOT_NULL_DESCRIPTION.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isNotNull()"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    1,
+                    (assertThat, fix) -> fix.replace(
+                            tree, assertThat + ".describedAs(" + argSource(tree, state, 0) + ").isNotNull()"));
         }
         if (ASSERT_NOT_NULL_DESCRIPTION_END.matches(tree, state)) {
-            return withAssertThat(tree, state, 0, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".describedAs(" + argSource(tree, state, 1) + ").isNotNull()"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    0,
+                    (assertThat, fix) -> fix.replace(
+                            tree, assertThat + ".describedAs(" + argSource(tree, state, 1) + ").isNotNull()"));
         }
         if (ASSERT_SAME.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".isSameAs(" + argSource(tree, state, 0) + ")"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    1,
+                    (assertThat, fix) ->
+                            fix.replace(tree, assertThat + ".isSameAs(" + argSource(tree, state, 0) + ")"));
         }
         if (ASSERT_SAME_DESCRIPTION.matches(tree, state)) {
-            return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
+            return withAssertThat(
                     tree,
-                    String.format(
-                            "%s.describedAs(%s).isSameAs(%s)",
-                            assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+                    state,
+                    2,
+                    (assertThat, fix) -> fix.replace(
+                            tree,
+                            String.format(
+                                    "%s.describedAs(%s).isSameAs(%s)",
+                                    assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
         }
         if (ASSERT_SAME_DESCRIPTION_END.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+            return withAssertThat(
                     tree,
-                    String.format(
-                            "%s.describedAs(%s).isSameAs(%s)",
-                            assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
+                    state,
+                    1,
+                    (assertThat, fix) -> fix.replace(
+                            tree,
+                            String.format(
+                                    "%s.describedAs(%s).isSameAs(%s)",
+                                    assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
         }
         if (ASSERT_NOT_SAME.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                    fix.replace(tree, assertThat + ".isNotSameAs(" + argSource(tree, state, 0) + ")"));
+            return withAssertThat(
+                    tree,
+                    state,
+                    1,
+                    (assertThat, fix) ->
+                            fix.replace(tree, assertThat + ".isNotSameAs(" + argSource(tree, state, 0) + ")"));
         }
         if (ASSERT_NOT_SAME_DESCRIPTION.matches(tree, state)) {
-            return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
+            return withAssertThat(
                     tree,
-                    String.format(
-                            "%s.describedAs(%s).isNotSameAs(%s)",
-                            assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+                    state,
+                    2,
+                    (assertThat, fix) -> fix.replace(
+                            tree,
+                            String.format(
+                                    "%s.describedAs(%s).isNotSameAs(%s)",
+                                    assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
         }
         if (ASSERT_NOT_SAME_DESCRIPTION_END.matches(tree, state)) {
-            return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+            return withAssertThat(
                     tree,
-                    String.format(
-                            "%s.describedAs(%s).isNotSameAs(%s)",
-                            assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
+                    state,
+                    1,
+                    (assertThat, fix) -> fix.replace(
+                            tree,
+                            String.format(
+                                    "%s.describedAs(%s).isNotSameAs(%s)",
+                                    assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
         }
         if (FAIL_DESCRIPTION.matches(tree, state) || FAIL.matches(tree, state)) {
             String replacement =
@@ -482,45 +530,69 @@ public final class PreferAssertj extends BugChecker
         if (ASSERT_EQUALS_CATCHALL.matches(tree, state)) {
             int parameters = tree.getArguments().size();
             if (parameters == 2) {
-                return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                        fix.replace(tree, assertThat + ".isEqualTo(" + argSource(tree, state, 0) + ")"));
+                return withAssertThat(
+                        tree,
+                        state,
+                        1,
+                        (assertThat, fix) ->
+                                fix.replace(tree, assertThat + ".isEqualTo(" + argSource(tree, state, 0) + ")"));
             } else if (parameters == 3
                     && ASTHelpers.isSameType(
                             getParameterType(tree, 0), state.getTypeFromString(String.class.getName()), state)) {
-                return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
+                return withAssertThat(
                         tree,
-                        assertThat
-                                + ".describedAs("
-                                + argSource(tree, state, 0)
-                                + ").isEqualTo("
-                                + argSource(tree, state, 1)
-                                + ")"));
+                        state,
+                        2,
+                        (assertThat, fix) -> fix.replace(
+                                tree,
+                                assertThat
+                                        + ".describedAs("
+                                        + argSource(tree, state, 0)
+                                        + ").isEqualTo("
+                                        + argSource(tree, state, 1)
+                                        + ")"));
             } else if (parameters == 3
                     && ASTHelpers.isSameType(
                             getParameterType(tree, 2), state.getTypeFromString(String.class.getName()), state)) {
-                return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                return withAssertThat(
                         tree,
-                        assertThat
-                                + ".describedAs("
-                                + argSource(tree, state, 2)
-                                + ").isEqualTo("
-                                + argSource(tree, state, 0)
-                                + ")"));
+                        state,
+                        1,
+                        (assertThat, fix) -> fix.replace(
+                                tree,
+                                assertThat
+                                        + ".describedAs("
+                                        + argSource(tree, state, 2)
+                                        + ").isEqualTo("
+                                        + argSource(tree, state, 0)
+                                        + ")"));
             } else if (parameters == 3 && isFloatingPointArrayEqualsWithZeroDelta(tree, state, 2)) {
-                return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                        fix.replace(tree, assertThat + ".isEqualTo(" + argSource(tree, state, 0) + ")"));
+                return withAssertThat(
+                        tree,
+                        state,
+                        1,
+                        (assertThat, fix) ->
+                                fix.replace(tree, assertThat + ".isEqualTo(" + argSource(tree, state, 0) + ")"));
             } else if (parameters == 4 && isFloatingPointArrayEqualsWithZeroDelta(tree, state, 3)) {
-                return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
+                return withAssertThat(
                         tree,
-                        String.format(
-                                "%s.describedAs(%s).isEqualTo(%s)",
-                                assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+                        state,
+                        2,
+                        (assertThat, fix) -> fix.replace(
+                                tree,
+                                String.format(
+                                        "%s.describedAs(%s).isEqualTo(%s)",
+                                        assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
             } else if (parameters == 4 && isFloatingPointArrayEqualsWithZeroDelta(tree, state, 2)) {
-                return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                return withAssertThat(
                         tree,
-                        String.format(
-                                "%s.describedAs(%s).isEqualTo(%s)",
-                                assertThat, argSource(tree, state, 3), argSource(tree, state, 0))));
+                        state,
+                        1,
+                        (assertThat, fix) -> fix.replace(
+                                tree,
+                                String.format(
+                                        "%s.describedAs(%s).isEqualTo(%s)",
+                                        assertThat, argSource(tree, state, 3), argSource(tree, state, 0))));
             } else {
                 // Does not fix assertArrayEquals(double[], double[], double)
                 // or assertArrayEquals(float[], float[], float)
@@ -530,24 +602,36 @@ public final class PreferAssertj extends BugChecker
         if (ASSERT_NOT_EQUALS_CATCHALL.matches(tree, state)) {
             int parameters = tree.getArguments().size();
             if (parameters == 2) {
-                return withAssertThat(tree, state, 1, (assertThat, fix) ->
-                        fix.replace(tree, assertThat + ".isNotEqualTo(" + argSource(tree, state, 0) + ")"));
+                return withAssertThat(
+                        tree,
+                        state,
+                        1,
+                        (assertThat, fix) ->
+                                fix.replace(tree, assertThat + ".isNotEqualTo(" + argSource(tree, state, 0) + ")"));
             } else if (parameters == 3
                     && ASTHelpers.isSameType(
                             getParameterType(tree, 0), state.getTypeFromString(String.class.getName()), state)) {
-                return withAssertThat(tree, state, 2, (assertThat, fix) -> fix.replace(
+                return withAssertThat(
                         tree,
-                        String.format(
-                                "%s.describedAs(%s).isNotEqualTo(%s)",
-                                assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
+                        state,
+                        2,
+                        (assertThat, fix) -> fix.replace(
+                                tree,
+                                String.format(
+                                        "%s.describedAs(%s).isNotEqualTo(%s)",
+                                        assertThat, argSource(tree, state, 0), argSource(tree, state, 1))));
             } else if (parameters == 3
                     && ASTHelpers.isSameType(
                             getParameterType(tree, 2), state.getTypeFromString(String.class.getName()), state)) {
-                return withAssertThat(tree, state, 1, (assertThat, fix) -> fix.replace(
+                return withAssertThat(
                         tree,
-                        String.format(
-                                "%s.describedAs(%s).isNotEqualTo(%s)",
-                                assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
+                        state,
+                        1,
+                        (assertThat, fix) -> fix.replace(
+                                tree,
+                                String.format(
+                                        "%s.describedAs(%s).isNotEqualTo(%s)",
+                                        assertThat, argSource(tree, state, 2), argSource(tree, state, 0))));
             } else {
                 // I'm not aware of anything that should hit this.
                 return describeMatch(tree);
