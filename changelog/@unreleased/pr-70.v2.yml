@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Add check for replacing try-catch-fail with assertThatThrownBy
+  links:
+  - https://github.com/palantir/assertj-automation/pull/70
