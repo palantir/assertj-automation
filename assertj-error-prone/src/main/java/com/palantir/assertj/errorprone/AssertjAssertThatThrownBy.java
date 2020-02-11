@@ -95,7 +95,7 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
                 .filter(msg -> !IGNORED_FAIL_MESSAGES.contains(msg));
     }
 
-    private static Optional<Fix> tryFailToAssertThatThrownBy(
+    private static Fix tryFailToAssertThatThrownBy(
             TryTree tree,
             List<? extends StatementTree> throwingStatements,
             VariableTree catchParameter,
@@ -103,6 +103,7 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
             VisitorState state) {
         SuggestedFix.Builder fix = SuggestedFix.builder();
         fix.addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy");
+        // Replace the try line with assertThatThrownBy
         fix.replace(
                 ((JCTree) tree).getStartPosition(),
                 ((JCTree) throwingStatements.iterator().next()).getStartPosition(),
@@ -112,8 +113,10 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
         failMessage.ifPresent(msg -> postFix.append(String.format(".describedAs(%s)", msg)));
         postFix.append(String.format(".isInstanceOf(%s.class)", state.getSourceForNode(catchParameter.getType())));
         postFix.append(";");
+        // Append chained methods below the last method in the try-block
         fix.postfixWith(Iterables.getLast(throwingStatements), postFix.toString());
+        // Remove the catch-block
         fix.replace(state.getEndPosition(Iterables.getLast(throwingStatements)), state.getEndPosition(tree), "");
-        return Optional.of(fix.build());
+        return fix.build();
     }
 }
