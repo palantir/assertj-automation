@@ -49,9 +49,7 @@ public class AssertjAssertThatThrownByTest {
                         "class MyClass {",
                         "  @Test",
                         "  void foo() {",
-                        "    assertThatThrownBy(() -> {",
-                        "      System.out.println();",
-                        "    }).isInstanceOf(RuntimeException.class);",
+                        "    assertThatThrownBy(() -> System.out.println()).isInstanceOf(RuntimeException.class);",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
@@ -125,11 +123,8 @@ public class AssertjAssertThatThrownByTest {
                         "class MyClass {",
                         "  @Test",
                         "  void foo() {",
-                        "    assertThatThrownBy(() -> {",
-                        "      System.out.println();",
-                        "    })",
-                        "    .describedAs(\"My error message.\")",
-                        "    .isInstanceOf(RuntimeException.class);",
+                        "    assertThatThrownBy(() -> System.out.println()).describedAs(\"My error message.\")"
+                                + ".isInstanceOf(RuntimeException.class);",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
@@ -165,11 +160,8 @@ public class AssertjAssertThatThrownByTest {
                         "class MyClass {",
                         "  @Test",
                         "  void foo() {",
-                        "    assertThatThrownBy(() -> {",
-                        "      System.out.println();",
-                        "    })",
-                        "    .describedAs(\"My error message.\")",
-                        "    .isInstanceOf(RuntimeException.class);",
+                        "    assertThatThrownBy(() -> System.out.println()).describedAs(\"My error message.\")"
+                                + ".isInstanceOf(RuntimeException.class);",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);

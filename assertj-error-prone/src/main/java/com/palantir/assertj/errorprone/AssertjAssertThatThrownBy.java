@@ -73,6 +73,7 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
             return Description.NO_MATCH;
         }
         StatementTree lastStatement = Iterables.getLast(tryStatements);
+        // Collect all statements from the try-block without the last fail call
         List<? extends StatementTree> throwingStatements = tryStatements.subList(0, tryStatements.size() - 1);
         if (!FAIL_METHOD.matches(lastStatement, state) || throwingStatements.isEmpty()) {
             return Description.NO_MATCH;
@@ -101,22 +102,32 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
             VariableTree catchParameter,
             Optional<String> failMessage,
             VisitorState state) {
-        SuggestedFix.Builder fix = SuggestedFix.builder();
-        fix.addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy");
-        // Replace the try line with assertThatThrownBy
-        fix.replace(
-                ((JCTree) tree).getStartPosition(),
-                ((JCTree) throwingStatements.iterator().next()).getStartPosition(),
-                "assertThatThrownBy(() -> {");
-        StringBuilder postFix = new StringBuilder();
-        postFix.append("})");
-        failMessage.ifPresent(msg -> postFix.append(String.format(".describedAs(%s)", msg)));
-        postFix.append(String.format(".isInstanceOf(%s.class)", state.getSourceForNode(catchParameter.getType())));
-        postFix.append(";");
-        // Append chained methods below the last method in the try-block
-        fix.postfixWith(Iterables.getLast(throwingStatements), postFix.toString());
-        // Remove the catch-block
-        fix.replace(state.getEndPosition(Iterables.getLast(throwingStatements)), state.getEndPosition(tree), "");
-        return fix.build();
+        int startPos = ((JCTree) throwingStatements.iterator().next()).getStartPosition();
+        int endPos = state.getEndPosition(Iterables.getLast(throwingStatements));
+        CharSequence throwingStatementsLines = state.getSourceCode().subSequence(startPos, endPos);
+
+        boolean useExpressionLambda = throwingStatements.size() == 1
+                && Iterables.getOnlyElement(throwingStatements).getKind() == Tree.Kind.EXPRESSION_STATEMENT;
+
+        StringBuilder replacement = new StringBuilder();
+        replacement.append("assertThatThrownBy(() -> ");
+        if (useExpressionLambda) {
+            // Remove the semicolon from the (single) statement for the in-line lambda
+            replacement.append(throwingStatementsLines
+                    .subSequence(0, throwingStatementsLines.length() - 1)
+                    .toString());
+        } else {
+            replacement.append("{");
+            replacement.append(throwingStatementsLines.toString());
+            replacement.append("}");
+        }
+        replacement.append(")");
+        failMessage.ifPresent(msg -> replacement.append(String.format(".describedAs(%s)", msg)));
+        replacement.append(String.format(".isInstanceOf(%s.class)", state.getSourceForNode(catchParameter.getType())));
+        replacement.append(";");
+        return SuggestedFix.builder()
+                .addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy")
+                .replace(tree, replacement.toString())
+                .build();
     }
 }
