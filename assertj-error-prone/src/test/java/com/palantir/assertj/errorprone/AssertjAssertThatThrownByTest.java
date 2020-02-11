@@ -128,8 +128,8 @@ public class AssertjAssertThatThrownByTest {
                         "    assertThatThrownBy(() -> {",
                         "      System.out.println();",
                         "    })",
-                        "    .isInstanceOf(RuntimeException.class)",
-                        "    .describedAs(\"My error message.\");",
+                        "    .describedAs(\"My error message.\")",
+                        "    .isInstanceOf(RuntimeException.class);",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
@@ -168,8 +168,8 @@ public class AssertjAssertThatThrownByTest {
                         "    assertThatThrownBy(() -> {",
                         "      System.out.println();",
                         "    })",
-                        "    .isInstanceOf(RuntimeException.class)",
-                        "    .describedAs(\"My error message.\");",
+                        "    .describedAs(\"My error message.\")",
+                        "    .isInstanceOf(RuntimeException.class);",
                         "  }",
                         "}")
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);

@@ -108,8 +108,9 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
                 ((JCTree) throwingStatements.iterator().next()).getStartPosition(),
                 "assertThatThrownBy(() -> {");
         StringBuilder postFix = new StringBuilder();
-        postFix.append(String.format("}).isInstanceOf(%s.class)", state.getSourceForNode(catchParameter.getType())));
+        postFix.append("})");
         failMessage.ifPresent(msg -> postFix.append(String.format(".describedAs(%s)", msg)));
+        postFix.append(String.format(".isInstanceOf(%s.class)", state.getSourceForNode(catchParameter.getType())));
         postFix.append(";");
         fix.postfixWith(Iterables.getLast(throwingStatements), postFix.toString());
         fix.replace(state.getEndPosition(Iterables.getLast(throwingStatements)), state.getEndPosition(tree), "");
