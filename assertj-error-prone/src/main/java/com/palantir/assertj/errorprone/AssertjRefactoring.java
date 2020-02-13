@@ -85,9 +85,8 @@ import java.util.ServiceLoader;
         linkType = BugPattern.LinkType.CUSTOM,
         providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
         severity = BugPattern.SeverityLevel.SUGGESTION,
-        summary =
-                "AssertJ statements may be refactored to be more readable or produce more helpful debugging "
-                        + "information on failure.")
+        summary = "AssertJ statements may be refactored to be more readable or produce more helpful debugging "
+                + "information on failure.")
 public final class AssertjRefactoring extends BugChecker
         implements BugChecker.AnnotatedTypeTreeMatcher,
                 BugChecker.AnnotationTreeMatcher,
