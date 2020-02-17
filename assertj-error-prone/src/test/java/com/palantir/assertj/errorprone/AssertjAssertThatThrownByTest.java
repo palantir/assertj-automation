@@ -168,6 +168,45 @@ public class AssertjAssertThatThrownByTest {
     }
 
     @Test
+    public void fix_with_comments_in_try() {
+        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
+                .addInputLines(
+                        "MyClass.java",
+                        "import static org.junit.Assert.fail;",
+                        "",
+                        "import org.junit.jupiter.api.Test;",
+                        "",
+                        "class MyClass {",
+                        "  @Test",
+                        "  void foo() {",
+                        "    try {",
+                        "      // out is closed",
+                        "      System.out.println();",
+                        "      fail(\"My error message.\");",
+                        "    } catch (RuntimeException expected) {",
+                        "        // expected",
+                        "    }",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "MyClass.java",
+                        "import static org.assertj.core.api.Assertions.assertThatThrownBy;",
+                        "import static org.junit.Assert.fail;",
+                        "",
+                        "import org.junit.jupiter.api.Test;",
+                        "",
+                        "class MyClass {",
+                        "  @Test",
+                        "  void foo() {",
+                        "      // out is closed",
+                        "    assertThatThrownBy(() -> System.out.println()).describedAs(\"My error message.\")"
+                                + ".isInstanceOf(RuntimeException.class);",
+                        "  }",
+                        "}")
+                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
+    }
+
+    @Test
     public void skip_empty_try() {
         RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
                 .addInputLines(

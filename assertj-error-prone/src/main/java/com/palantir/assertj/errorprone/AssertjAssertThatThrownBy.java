@@ -17,6 +17,7 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.auto.service.AutoService;
+import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.errorprone.BugPattern;
@@ -28,6 +29,7 @@ import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
+import com.google.errorprone.util.ErrorProneToken;
 import com.sun.source.tree.CatchTree;
 import com.sun.source.tree.ExpressionStatementTree;
 import com.sun.source.tree.ExpressionTree;
@@ -36,6 +38,7 @@ import com.sun.source.tree.StatementTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.TryTree;
 import com.sun.source.tree.VariableTree;
+import com.sun.tools.javac.parser.Tokens;
 import com.sun.tools.javac.tree.JCTree;
 import java.util.List;
 import java.util.Optional;
@@ -110,6 +113,7 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
                 && Iterables.getOnlyElement(throwingStatements).getKind() == Tree.Kind.EXPRESSION_STATEMENT;
 
         StringBuilder replacement = new StringBuilder();
+        getTryBlockComments(tree, state, startPos).ifPresent(replacement::append);
         replacement.append("assertThatThrownBy(() -> ");
         if (useExpressionLambda) {
             // Remove the semicolon from the (single) statement for the in-line lambda
@@ -129,5 +133,24 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
                 .addStaticImport("org.assertj.core.api.Assertions.assertThatThrownBy")
                 .replace(tree, replacement.toString())
                 .build();
+    }
+
+    private static Optional<String> getTryBlockComments(
+            TryTree tree, VisitorState state, int firstStatementStartPosition) {
+        // Preserve comments between 'try {' and the first statement.
+        List<ErrorProneToken> tokens = state.getOffsetTokensForNode(tree);
+        for (int i = 1; i < tokens.size(); i++) {
+            ErrorProneToken last = tokens.get(i - 1);
+            if (last.kind() == Tokens.TokenKind.TRY) {
+                ErrorProneToken token = tokens.get(i);
+                if (token.endPos() < firstStatementStartPosition) {
+                    return Optional.of(CharMatcher.is('\n')
+                            .trimLeadingFrom(
+                                    state.getSourceCode().subSequence(token.endPos(), firstStatementStartPosition)));
+                }
+                return Optional.empty();
+            }
+        }
+        return Optional.empty();
     }
 }
