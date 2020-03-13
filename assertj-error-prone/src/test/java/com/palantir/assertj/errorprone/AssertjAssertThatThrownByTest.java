@@ -291,4 +291,31 @@ public class AssertjAssertThatThrownByTest {
                 .expectUnchanged()
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
     }
+
+    @Test
+    public void ignore_with_non_final_arguments() {
+        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
+                .addInputLines(
+                        "MyClass.java",
+                        "import static org.junit.Assert.fail;",
+                        "",
+                        "import org.junit.jupiter.api.Test;",
+                        "",
+                        "class MyClass {",
+                        "  @Test",
+                        "  void foo(boolean value) {",
+                        "    String st = \"foo\";",
+                        "    if (value) {",
+                        "        st = \"bar\";",
+                        "    }",
+                        "    // BUG: Diagnostic contains:",
+                        "    try {",
+                        "      System.out.println(st);",
+                        "      fail(\"fail\");",
+                        "    } catch (RuntimeException expected) {}",
+                        "  }",
+                        "}")
+                .expectUnchanged()
+                .doTest();
+    }
 }

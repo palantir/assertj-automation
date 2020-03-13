@@ -25,6 +25,7 @@ import com.google.errorprone.VisitorState;
 import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.fixes.Fix;
 import com.google.errorprone.fixes.SuggestedFix;
+import com.google.errorprone.fixes.SuggestedFixes;
 import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
@@ -85,9 +86,10 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
             return Description.NO_MATCH;
         }
         Optional<String> failMessage = getFailMessage(lastStatement, state);
+        Fix fix = tryFailToAssertThatThrownBy(tree, throwingStatements, catchTree.getParameter(), failMessage, state);
+        boolean compiles = SuggestedFixes.compilesWithFix(fix, state, ImmutableList.of(), true);
         return buildDescription(tree)
-                .addFix(tryFailToAssertThatThrownBy(
-                        tree, throwingStatements, catchTree.getParameter(), failMessage, state))
+                .addFix(compiles ? Optional.of(fix) : Optional.empty())
                 .build();
     }
 
