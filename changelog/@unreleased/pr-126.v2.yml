@@ -1,0 +1,6 @@
+type: fix
+fix:
+  description: AssertjAssertThatThrownBy doesn't produce code that won't compile.
+    In these cases the check will fail, but it doesn't provide a broken fix.
+  links:
+  - https://github.com/palantir/assertj-automation/pull/126
