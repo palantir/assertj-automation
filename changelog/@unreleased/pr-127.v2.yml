@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Include AssertjAssertThatThrownBy in AssertjRefactoring
+  links:
+  - https://github.com/palantir/assertj-automation/pull/127
