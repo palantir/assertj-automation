@@ -17,15 +17,15 @@
 package com.palantir.assertj.errorprone;
 
 import com.google.common.base.Preconditions;
-import com.google.errorprone.fixes.SuggestedFix;
+import com.google.errorprone.fixes.Fix;
 import java.util.Optional;
 
 final class AssertjCheckerResult {
 
     private final String description;
-    private final Optional<SuggestedFix> fix;
+    private final Optional<? extends Fix> fix;
 
-    private AssertjCheckerResult(String description, Optional<SuggestedFix> fix) {
+    private AssertjCheckerResult(String description, Optional<? extends Fix> fix) {
         this.description = description;
         this.fix = fix;
     }
@@ -34,7 +34,7 @@ final class AssertjCheckerResult {
         return description;
     }
 
-    Optional<SuggestedFix> fix() {
+    Optional<? extends Fix> fix() {
         return fix;
     }
 
@@ -72,7 +72,7 @@ final class AssertjCheckerResult {
     static final class Builder {
 
         private String description;
-        private Optional<SuggestedFix> fix = Optional.empty();
+        private Optional<? extends Fix> fix = Optional.empty();
 
         private Builder() {}
 
@@ -81,8 +81,13 @@ final class AssertjCheckerResult {
             return this;
         }
 
-        Builder fix(SuggestedFix value) {
+        Builder fix(Fix value) {
             this.fix = Optional.of(Preconditions.checkNotNull(value, "Fix is required"));
+            return this;
+        }
+
+        Builder fix(Optional<? extends Fix> value) {
+            this.fix = Preconditions.checkNotNull(value, "Fix is required");
             return this;
         }
 
