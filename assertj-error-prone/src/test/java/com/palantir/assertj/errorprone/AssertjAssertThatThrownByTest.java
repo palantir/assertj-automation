@@ -23,8 +23,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void fix_with_single_throwing_statement() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -57,8 +56,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void fix_with_multiple_throwing_statements() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -97,8 +95,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void fix_while_preserving_fail_message() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -132,8 +129,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void fix_with_comments_in_catch() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -169,8 +165,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void fix_with_comments_in_try() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -208,8 +203,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void skip_empty_try() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -228,8 +222,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void skip_multiple_catches() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -252,8 +245,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void skip_missing_fail_statement() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -273,8 +265,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void skip_only_fail_in_try() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -294,8 +285,7 @@ public class AssertjAssertThatThrownByTest {
 
     @Test
     public void ignore_with_non_final_arguments() {
-        RefactoringValidator.of(new AssertjAssertThatThrownBy(), getClass())
-                .addInputLines(
+        fix().addInputLines(
                         "MyClass.java",
                         "import static org.junit.Assert.fail;",
                         "",
@@ -317,5 +307,9 @@ public class AssertjAssertThatThrownByTest {
                         "}")
                 .expectUnchanged()
                 .doTest();
+    }
+
+    private RefactoringValidator fix() {
+        return RefactoringValidator.of(new AssertjRefactoring(new AssertjAssertThatThrownBy()), getClass());
     }
 }

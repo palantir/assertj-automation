@@ -20,13 +20,10 @@ import com.google.auto.service.AutoService;
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.google.errorprone.BugPattern;
 import com.google.errorprone.VisitorState;
-import com.google.errorprone.bugpatterns.BugChecker;
 import com.google.errorprone.fixes.Fix;
 import com.google.errorprone.fixes.SuggestedFix;
 import com.google.errorprone.fixes.SuggestedFixes;
-import com.google.errorprone.matchers.Description;
 import com.google.errorprone.matchers.Matcher;
 import com.google.errorprone.matchers.Matchers;
 import com.google.errorprone.matchers.method.MethodMatchers;
@@ -44,15 +41,8 @@ import com.sun.tools.javac.tree.JCTree;
 import java.util.List;
 import java.util.Optional;
 
-@AutoService(BugChecker.class)
-@BugPattern(
-        name = "AssertjAssertThatThrownBy",
-        link = "https://github.com/palantir/assertj-automation",
-        linkType = BugPattern.LinkType.CUSTOM,
-        providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
-        severity = BugPattern.SeverityLevel.SUGGESTION,
-        summary = "Prefer AssertJ assertThatThrownBy assertions over try-catch with fail statements")
-public final class AssertjAssertThatThrownBy extends BugChecker implements BugChecker.TryTreeMatcher {
+@AutoService(AssertjChecker.class)
+public final class AssertjAssertThatThrownBy implements AssertjChecker {
     private static final ImmutableList<String> IGNORED_FAIL_MESSAGES = ImmutableList.of("\"fail\"", "\"\"");
 
     private static final Matcher<StatementTree> FAIL_METHOD = Matchers.anyOf(
@@ -66,31 +56,33 @@ public final class AssertjAssertThatThrownBy extends BugChecker implements BugCh
                     .named("fail")));
 
     @Override
-    public Description matchTry(TryTree tree, VisitorState state) {
+    public Optional<AssertjCheckerResult> matchTry(TryTree tree, VisitorState state) {
         List<? extends StatementTree> tryStatements = tree.getBlock().getStatements();
         if (tryStatements.isEmpty() || tree.getCatches().size() != 1 || tree.getFinallyBlock() != null) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         CatchTree catchTree = Iterables.getOnlyElement(tree.getCatches());
         if (!catchTree.getBlock().getStatements().isEmpty()
                 || catchTree.getParameter().getType().getKind() == Tree.Kind.UNION_TYPE) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         StatementTree lastStatement = Iterables.getLast(tryStatements);
         // Collect all statements from the try-block without the last fail call
         List<? extends StatementTree> throwingStatements = tryStatements.subList(0, tryStatements.size() - 1);
         if (!FAIL_METHOD.matches(lastStatement, state) || throwingStatements.isEmpty()) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         if (!TestCheckUtils.isTestCode(state)) {
-            return Description.NO_MATCH;
+            return Optional.empty();
         }
         Optional<String> failMessage = getFailMessage(lastStatement, state);
         Fix fix = tryFailToAssertThatThrownBy(tree, throwingStatements, catchTree.getParameter(), failMessage, state);
+        // Use onlyInSameCompilationUnit=true to reduce the overhead of the expensive compilesWithFix check.
         boolean compiles = SuggestedFixes.compilesWithFix(fix, state, ImmutableList.of(), true);
-        return buildDescription(tree)
-                .addFix(compiles ? Optional.of(fix) : Optional.empty())
-                .build();
+        return Optional.of(AssertjCheckerResult.builder()
+                .description("Prefer AssertJ assertThatThrownBy assertions over try-catch with fail statements")
+                .fix(compiles ? Optional.of(fix) : Optional.empty())
+                .build());
     }
 
     private static Optional<String> getFailMessage(StatementTree failStatement, VisitorState state) {
