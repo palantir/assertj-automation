@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Remove refactoring from isEqualTo(0) to isZero()
+  links:
+  - https://github.com/palantir/assertj-automation/pull/128
