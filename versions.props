@@ -11,4 +11,4 @@ com.fasterxml.jackson.*:* = 2.10.3
 junit:junit = 4.13
 org.assertj:assertj-core = 3.15.0
 org.hamcrest:hamcrest-core = 2.2
-org.junit.jupiter:* = 5.6.0
+org.junit.jupiter:* = 5.6.1
