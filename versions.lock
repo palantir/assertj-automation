@@ -18,7 +18,7 @@ com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 c
 com.google.j2objc:j2objc-annotations:1.1 (1 constraints: b609eba0)
 com.google.protobuf:protobuf-java:3.4.0 (1 constraints: f4102eb8)
 com.googlecode.java-diff-utils:diffutils:1.3.0 (2 constraints: 3a1dc41d)
-org.assertj:assertj-core:3.16.0 (2 constraints: 751911dd)
+org.assertj:assertj-core:3.16.1 (2 constraints: 76194bdd)
 org.checkerframework:checker-qual:3.0.0 (4 constraints: 0735fc6c)
 org.checkerframework:dataflow:3.0.0 (3 constraints: 2538eb5c)
 org.checkerframework:javacutil:3.0.0 (1 constraints: 400d2d1d)
