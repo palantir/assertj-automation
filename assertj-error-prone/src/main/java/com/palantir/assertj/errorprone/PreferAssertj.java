@@ -64,7 +64,7 @@ import javax.lang.model.type.TypeKind;
         link = "https://github.com/palantir/assertj-automation",
         linkType = BugPattern.LinkType.CUSTOM,
         providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
-        severity = BugPattern.SeverityLevel.SUGGESTION,
+        severity = BugPattern.SeverityLevel.WARNING,
         summary = "Prefer AssertJ fluent assertions")
 public final class PreferAssertj extends BugChecker
         implements BugChecker.AssertTreeMatcher, BugChecker.MethodInvocationTreeMatcher {
