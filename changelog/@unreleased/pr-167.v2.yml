@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: The `assertj-error-prone` checks now have a severity of `WARNING`.
+  links:
+  - https://github.com/palantir/assertj-automation/pull/167
