@@ -22,8 +22,5 @@ dependencies {
 // Incorrectly identifies tests as junit4 usage
 tasks.checkJUnitDependencies.enabled = false
 tasks.withType(JavaCompile) {
-    options.errorprone.errorproneArgs += [
-        '-Xep:StrictUnusedVariable:OFF',
-        '-Xep:PreferSafeLoggingPreconditions:OFF'
-    ]
+    options.errorprone.disable 'StrictUnusedVariable', 'PreferSafeLoggingPreconditions'
 }
