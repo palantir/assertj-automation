@@ -3,11 +3,11 @@ com.google.errorprone:error_prone_annotations = 2.4.0
 com.google.errorprone:error_prone_core = 2.4.0
 com.google.errorprone:error_prone_refaster = 2.4.0
 com.google.errorprone:error_prone_test_helpers = 2.4.0
-com.google.guava:guava = 27.1-jre
+com.google.guava:guava = 29.0-jre
 com.palantir.baseline:baseline-refaster-testing = 2.43.0
 
 # test deps
-com.fasterxml.jackson.*:* = 2.11.2
+com.fasterxml.jackson.*:* = 2.11.3
 junit:junit = 4.13
 org.assertj:assertj-core = 3.17.2
 org.hamcrest:hamcrest-core = 2.2
