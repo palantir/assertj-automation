@@ -2,7 +2,6 @@ buildscript {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
@@ -30,7 +29,6 @@ allprojects {
     apply plugin: 'com.palantir.java-format'
     repositories {
         mavenCentral()
-        jcenter()
     }
 
     group 'com.palantir.assertj-automation'
