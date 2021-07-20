@@ -83,7 +83,6 @@ import java.util.ServiceLoader;
         name = "AssertjRefactoring",
         link = "https://github.com/palantir/assertj-automation",
         linkType = BugPattern.LinkType.CUSTOM,
-        providesFix = BugPattern.ProvidesFix.REQUIRES_HUMAN_ATTENTION,
         severity = BugPattern.SeverityLevel.WARNING,
         summary = "AssertJ statements may be refactored to be more readable or produce more helpful debugging "
                 + "information on failure.")
