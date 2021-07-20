@@ -17,7 +17,7 @@
 package com.palantir.assertj.refaster;
 
 import com.palantir.baseline.refaster.RefasterTestHelper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AssertjBooleanNegationTest {
 

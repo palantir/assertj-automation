@@ -19,7 +19,7 @@ package com.palantir.assertj.refaster;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
 import com.palantir.baseline.refaster.RefasterTestHelper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AssertjCollectionIsEmptyTest {
 
