@@ -16,3 +16,6 @@ dependencies {
 // we don't want to auto-fix all the @BeforeTemplates!
 tasks.compileRefaster.enabled = false
 tasks.compileJava.options.errorprone.enabled = false
+
+sourceCompatibility = 11
+
