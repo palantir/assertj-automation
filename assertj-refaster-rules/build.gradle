@@ -5,8 +5,8 @@ dependencies {
     implementation 'com.google.errorprone:error_prone_refaster'
     implementation 'org.assertj:assertj-core'
 
-    testCompile 'junit:junit'
-    testCompile 'com.palantir.baseline:baseline-refaster-testing'
+    testImplementation 'junit:junit'
+    testImplementation 'com.palantir.baseline:baseline-refaster-testing'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine', {
         because 'allows JUnit 3 and JUnit 4 tests to run'
