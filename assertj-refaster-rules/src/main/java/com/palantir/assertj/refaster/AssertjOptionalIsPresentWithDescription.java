@@ -28,8 +28,23 @@ import java.util.Optional;
 public final class AssertjOptionalIsPresentWithDescription<T> {
 
     @BeforeTemplate
-    void before(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+    void before1(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
         assertThat(thing.isPresent()).describedAs(description, descriptionArgs).isTrue();
+    }
+
+    @BeforeTemplate
+    void before2(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
+    }
+
+    @BeforeTemplate
+    void before3(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(thing.isEmpty()).describedAs(description, descriptionArgs).isFalse();
+    }
+
+    @BeforeTemplate
+    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
     }
 
     @AfterTemplate

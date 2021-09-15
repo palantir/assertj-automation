@@ -24,7 +24,7 @@ import com.google.errorprone.refaster.annotation.BeforeTemplate;
 import com.google.errorprone.refaster.annotation.UseImportPolicy;
 import java.util.Optional;
 
-public final class AssertjOptionalIsNotPresent<T> {
+public final class AssertjOptionalIsEmpty<T> {
 
     @BeforeTemplate
     void before1(Optional<T> thing) {
@@ -38,17 +38,27 @@ public final class AssertjOptionalIsNotPresent<T> {
 
     @BeforeTemplate
     void before3(Optional<T> thing) {
-        assertThat(thing).isEqualTo(Optional.empty());
+        assertThat(thing.isEmpty()).isTrue();
     }
 
     @BeforeTemplate
     void before4(Optional<T> thing) {
+        assertThat(!thing.isEmpty()).isFalse();
+    }
+
+    @BeforeTemplate
+    void before5(Optional<T> thing) {
+        assertThat(thing).isEqualTo(Optional.empty());
+    }
+
+    @BeforeTemplate
+    void before6(Optional<T> thing) {
         assertThat(Optional.empty()).isEqualTo(thing);
     }
 
     @AfterTemplate
     @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
     void after(Optional<T> thing) {
-        assertThat(thing).isNotPresent();
+        assertThat(thing).isEmpty();
     }
 }

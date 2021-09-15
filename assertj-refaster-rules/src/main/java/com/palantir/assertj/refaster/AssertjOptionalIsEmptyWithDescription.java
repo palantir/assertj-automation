@@ -25,7 +25,7 @@ import com.google.errorprone.refaster.annotation.Repeated;
 import com.google.errorprone.refaster.annotation.UseImportPolicy;
 import java.util.Optional;
 
-public final class AssertjOptionalIsNotPresentWithDescription<T> {
+public final class AssertjOptionalIsEmptyWithDescription<T> {
 
     @BeforeTemplate
     void before1(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
@@ -39,17 +39,27 @@ public final class AssertjOptionalIsNotPresentWithDescription<T> {
 
     @BeforeTemplate
     void before3(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(thing).describedAs(description, descriptionArgs).isEqualTo(Optional.empty());
+        assertThat(thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
     }
 
     @BeforeTemplate
     void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isFalse();
+    }
+
+    @BeforeTemplate
+    void before5(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(thing).describedAs(description, descriptionArgs).isEqualTo(Optional.empty());
+    }
+
+    @BeforeTemplate
+    void before6(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
         assertThat(Optional.empty()).describedAs(description, descriptionArgs).isEqualTo(thing);
     }
 
     @AfterTemplate
     @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
     void after(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(thing).describedAs(description, descriptionArgs).isNotPresent();
+        assertThat(thing).describedAs(description, descriptionArgs).isEmpty();
     }
 }

@@ -25,10 +25,10 @@ import com.google.errorprone.refaster.annotation.Repeated;
 import com.google.errorprone.refaster.annotation.UseImportPolicy;
 import java.util.Optional;
 
-public final class AssertjOptionalHasValueRedundantWithDescription<T> {
+public final class AssertjOptionalContainsRedundantWithDescription<T> {
 
     @BeforeTemplate
-    void redundantAssertion(
+    void redundantAssertion1(
             Optional<T> optional,
             T innerValue,
             String description1,
@@ -37,6 +37,18 @@ public final class AssertjOptionalHasValueRedundantWithDescription<T> {
             @Repeated Object descriptionArgs2) {
         assertThat(optional).describedAs(description1, descriptionArgs1).isPresent();
         assertThat(optional).describedAs(description2, descriptionArgs2).hasValue(innerValue);
+    }
+
+    @BeforeTemplate
+    void redundantAssertion2(
+            Optional<T> optional,
+            T innerValue,
+            String description1,
+            @Repeated Object descriptionArgs1,
+            String description2,
+            @Repeated Object descriptionArgs2) {
+        assertThat(optional).describedAs(description1, descriptionArgs1).isPresent();
+        assertThat(optional).describedAs(description2, descriptionArgs2).contains(innerValue);
     }
 
     @AfterTemplate
@@ -49,6 +61,6 @@ public final class AssertjOptionalHasValueRedundantWithDescription<T> {
             @Repeated Object _descriptionArgs1,
             String description2,
             @Repeated Object descriptionArgs2) {
-        assertThat(optional).describedAs(description2, descriptionArgs2).hasValue(innerValue);
+        assertThat(optional).describedAs(description2, descriptionArgs2).contains(innerValue);
     }
 }

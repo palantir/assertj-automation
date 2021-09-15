@@ -27,8 +27,23 @@ import java.util.Optional;
 public final class AssertjOptionalIsPresent<T> {
 
     @BeforeTemplate
-    void before(Optional<T> thing) {
+    void before1(Optional<T> thing) {
         assertThat(thing.isPresent()).isTrue();
+    }
+
+    @BeforeTemplate
+    void before2(Optional<T> thing) {
+        assertThat(!thing.isPresent()).isFalse();
+    }
+
+    @BeforeTemplate
+    void before3(Optional<T> thing) {
+        assertThat(thing.isEmpty()).isFalse();
+    }
+
+    @BeforeTemplate
+    void before4(Optional<T> thing) {
+        assertThat(!thing.isEmpty()).isTrue();
     }
 
     @AfterTemplate

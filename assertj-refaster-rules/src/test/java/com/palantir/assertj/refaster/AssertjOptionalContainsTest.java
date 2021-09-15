@@ -21,14 +21,14 @@ import static org.assertj.core.api.Assumptions.assumeThat;
 import com.palantir.baseline.refaster.RefasterTestHelper;
 import org.junit.jupiter.api.Test;
 
-public final class AssertjOptionalHasValueTest {
+public final class AssertjOptionalContainsTest {
 
     @Test
     public void test() {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjOptionalHasValue.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalContains.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -36,11 +36,16 @@ public final class AssertjOptionalHasValueTest {
                         "public class Test<String> {",
                         "  void f(Optional<String> in, String out) {",
                         "    assertThat(in.get()).isEqualTo(out);",
+                        "    assertThat(in).isEqualTo(Optional.of(out));",
                         "    assertThat(in.isPresent() && in.get().equals(out)).isTrue();",
                         "  }",
                         "  void g(Optional<String> in, String out) {",
                         "    assertThat(in).isPresent();",
                         "    assertThat(in).hasValue(out);",
+                        "  }",
+                        "  void h(Optional<String> in, String out) {",
+                        "    assertThat(in).isPresent();",
+                        "    assertThat(in).contains(out);",
                         "  }",
                         "}")
                 .hasOutputLines(
@@ -48,11 +53,16 @@ public final class AssertjOptionalHasValueTest {
                         "import java.util.Optional;",
                         "public class Test<String> {",
                         "  void f(Optional<String> in, String out) {",
-                        "    assertThat(in).hasValue(out);",
-                        "    assertThat(in).hasValue(out);",
+                        "    assertThat(in).contains(out);",
+                        "    assertThat(in).contains(out);",
+                        "    assertThat(in).contains(out);",
                         "  }",
                         "  void g(Optional<String> in, String out) {",
-                        "    assertThat(in).hasValue(out);",
+                        "    assertThat(in).contains(out);",
+                        "    ",
+                        "  }",
+                        "  void h(Optional<String> in, String out) {",
+                        "    assertThat(in).contains(out);",
                         "    ",
                         "  }",
                         "}");
@@ -63,7 +73,7 @@ public final class AssertjOptionalHasValueTest {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjOptionalHasValueWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalContainsWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -71,6 +81,7 @@ public final class AssertjOptionalHasValueTest {
                         "public class Test<String> {",
                         "  void f(Optional<String> in, String out) {",
                         "    assertThat(in.get()).describedAs(\"desc\").isEqualTo(out);",
+                        "    assertThat(in).describedAs(\"desc\").isEqualTo(Optional.of(out));",
                         "    assertThat(in.isPresent() && in.get().equals(out)).describedAs(\"desc\").isTrue();",
                         "  }",
                         "}")
@@ -79,8 +90,9 @@ public final class AssertjOptionalHasValueTest {
                         "import java.util.Optional;",
                         "public class Test<String> {",
                         "  void f(Optional<String> in, String out) {",
-                        "    assertThat(in).describedAs(\"desc\").hasValue(out);",
-                        "    assertThat(in).describedAs(\"desc\").hasValue(out);",
+                        "    assertThat(in).describedAs(\"desc\").contains(out);",
+                        "    assertThat(in).describedAs(\"desc\").contains(out);",
+                        "    assertThat(in).describedAs(\"desc\").contains(out);",
                         "  }",
                         "}");
     }
@@ -90,23 +102,31 @@ public final class AssertjOptionalHasValueTest {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjOptionalHasValueRedundantWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalContainsRedundantWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.Optional;",
                         "public class Test<String> {",
-                        "  void g(Optional<String> in, String out) {",
+                        "  void f(Optional<String> in, String out) {",
                         "    assertThat(in).describedAs(\"a\").isPresent();",
                         "    assertThat(in).describedAs(\"b\").hasValue(out);",
+                        "  }",
+                        "  void g(Optional<String> in, String out) {",
+                        "    assertThat(in).describedAs(\"a\").isPresent();",
+                        "    assertThat(in).describedAs(\"b\").contains(out);",
                         "  }",
                         "}")
                 .hasOutputLines(
                         "import static org.assertj.core.api.Assertions.assertThat;",
                         "import java.util.Optional;",
                         "public class Test<String> {",
+                        "  void f(Optional<String> in, String out) {",
+                        "    assertThat(in).describedAs(\"b\").contains(out);",
+                        "    ",
+                        "  }",
                         "  void g(Optional<String> in, String out) {",
-                        "    assertThat(in).describedAs(\"b\").hasValue(out);",
+                        "    assertThat(in).describedAs(\"b\").contains(out);",
                         "    ",
                         "  }",
                         "}");
