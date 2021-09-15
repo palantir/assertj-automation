@@ -33,6 +33,9 @@ public class AssertjOptionalPresenceTest {
                         "public class Test {",
                         "  void f(Optional<String> in) {",
                         "    assertThat(in.isPresent()).isTrue();",
+                        "    assertThat(!in.isPresent()).isFalse();",
+                        "    assertThat(in.isEmpty()).isFalse();",
+                        "    assertThat(!in.isEmpty()).isTrue();",
                         "  }",
                         "}")
                 .hasOutputLines(
@@ -40,6 +43,9 @@ public class AssertjOptionalPresenceTest {
                         "import java.util.Optional;",
                         "public class Test {",
                         "  void f(Optional<String> in) {",
+                        "    assertThat(in).isPresent();",
+                        "    assertThat(in).isPresent();",
+                        "    assertThat(in).isPresent();",
                         "    assertThat(in).isPresent();",
                         "  }",
                         "}");
@@ -55,6 +61,9 @@ public class AssertjOptionalPresenceTest {
                         "public class Test {",
                         "  void f(Optional<String> in) {",
                         "    assertThat(in.isPresent()).describedAs(\"desc\").isTrue();",
+                        "    assertThat(!in.isPresent()).describedAs(\"desc\").isFalse();",
+                        "    assertThat(in.isEmpty()).describedAs(\"desc\").isFalse();",
+                        "    assertThat(!in.isEmpty()).describedAs(\"desc\").isTrue();",
                         "  }",
                         "}")
                 .hasOutputLines(
@@ -63,16 +72,19 @@ public class AssertjOptionalPresenceTest {
                         "public class Test {",
                         "  void f(Optional<String> in) {",
                         "    assertThat(in).describedAs(\"desc\").isPresent();",
+                        "    assertThat(in).describedAs(\"desc\").isPresent();",
+                        "    assertThat(in).describedAs(\"desc\").isPresent();",
+                        "    assertThat(in).describedAs(\"desc\").isPresent();",
                         "  }",
                         "}");
     }
 
     @Test
-    public void isNotPresent_simple() {
+    public void isEmpty_simple() {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjOptionalIsNotPresent.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalIsEmpty.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -81,6 +93,8 @@ public class AssertjOptionalPresenceTest {
                         "  void f(Optional<String> in) {",
                         "    assertThat(in.isPresent()).isFalse();",
                         "    assertThat(!in.isPresent()).isTrue();",
+                        "    assertThat(in.isEmpty()).isTrue();",
+                        "    assertThat(!in.isEmpty()).isFalse();",
                         "    assertThat(in).isEqualTo(Optional.empty());",
                         "    assertThat(Optional.empty()).isEqualTo(in);",
                         "  }",
@@ -90,20 +104,22 @@ public class AssertjOptionalPresenceTest {
                         "import java.util.Optional;",
                         "public class Test {",
                         "  void f(Optional<String> in) {",
-                        "    assertThat(in).isNotPresent();",
-                        "    assertThat(in).isNotPresent();",
-                        "    assertThat(in).isNotPresent();",
-                        "    assertThat(in).isNotPresent();",
+                        "    assertThat(in).isEmpty();",
+                        "    assertThat(in).isEmpty();",
+                        "    assertThat(in).isEmpty();",
+                        "    assertThat(in).isEmpty();",
+                        "    assertThat(in).isEmpty();",
+                        "    assertThat(in).isEmpty();",
                         "  }",
                         "}");
     }
 
     @Test
-    public void isNotPresent_description() {
+    public void isEmpty_description() {
         assumeThat(System.getProperty("java.specification.version"))
                 .describedAs("Refaster does not currently support fluent refactors on java 11")
                 .isEqualTo("1.8");
-        RefasterTestHelper.forRefactoring(AssertjOptionalIsNotPresentWithDescription.class)
+        RefasterTestHelper.forRefactoring(AssertjOptionalIsEmptyWithDescription.class)
                 .withInputLines(
                         "Test",
                         "import static org.assertj.core.api.Assertions.assertThat;",
@@ -112,6 +128,8 @@ public class AssertjOptionalPresenceTest {
                         "  void f(Optional<String> in) {",
                         "    assertThat(in.isPresent()).describedAs(\"desc\").isFalse();",
                         "    assertThat(!in.isPresent()).describedAs(\"desc\").isTrue();",
+                        "    assertThat(in.isEmpty()).describedAs(\"desc\").isTrue();",
+                        "    assertThat(!in.isEmpty()).describedAs(\"desc\").isFalse();",
                         "    assertThat(in).describedAs(\"desc\").isEqualTo(Optional.empty());",
                         "    assertThat(Optional.empty()).describedAs(\"desc\").isEqualTo(in);",
                         "  }",
@@ -121,10 +139,12 @@ public class AssertjOptionalPresenceTest {
                         "import java.util.Optional;",
                         "public class Test {",
                         "  void f(Optional<String> in) {",
-                        "    assertThat(in).describedAs(\"desc\").isNotPresent();",
-                        "    assertThat(in).describedAs(\"desc\").isNotPresent();",
-                        "    assertThat(in).describedAs(\"desc\").isNotPresent();",
-                        "    assertThat(in).describedAs(\"desc\").isNotPresent();",
+                        "    assertThat(in).describedAs(\"desc\").isEmpty();",
+                        "    assertThat(in).describedAs(\"desc\").isEmpty();",
+                        "    assertThat(in).describedAs(\"desc\").isEmpty();",
+                        "    assertThat(in).describedAs(\"desc\").isEmpty();",
+                        "    assertThat(in).describedAs(\"desc\").isEmpty();",
+                        "    assertThat(in).describedAs(\"desc\").isEmpty();",
                         "  }",
                         "}");
     }

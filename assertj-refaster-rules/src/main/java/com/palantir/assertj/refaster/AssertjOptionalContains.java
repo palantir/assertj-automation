@@ -24,7 +24,7 @@ import com.google.errorprone.refaster.annotation.BeforeTemplate;
 import com.google.errorprone.refaster.annotation.UseImportPolicy;
 import java.util.Optional;
 
-public final class AssertjOptionalHasValue<T> {
+public final class AssertjOptionalContains<T> {
 
     @BeforeTemplate
     void before(Optional<T> optional, T innerValue) {
@@ -33,18 +33,29 @@ public final class AssertjOptionalHasValue<T> {
 
     @BeforeTemplate
     void before2(Optional<T> optional, T innerValue) {
+        assertThat(optional).isEqualTo(Optional.of(innerValue));
+    }
+
+    @BeforeTemplate
+    void before3(Optional<T> optional, T innerValue) {
         assertThat(optional.isPresent() && optional.get().equals(innerValue)).isTrue();
     }
 
     @BeforeTemplate
-    void redundantAssertion(Optional<T> optional, T innerValue) {
+    void redundantAssertion1(Optional<T> optional, T innerValue) {
         assertThat(optional).isPresent();
         assertThat(optional).hasValue(innerValue);
+    }
+
+    @BeforeTemplate
+    void redundantAssertion2(Optional<T> optional, T innerValue) {
+        assertThat(optional).isPresent();
+        assertThat(optional).contains(innerValue);
     }
 
     @AfterTemplate
     @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
     void after(Optional<T> optional, T innerValue) {
-        assertThat(optional).hasValue(innerValue);
+        assertThat(optional).contains(innerValue);
     }
 }

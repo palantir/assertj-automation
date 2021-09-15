@@ -25,15 +25,20 @@ import com.google.errorprone.refaster.annotation.Repeated;
 import com.google.errorprone.refaster.annotation.UseImportPolicy;
 import java.util.Optional;
 
-public final class AssertjOptionalHasValueWithDescription<T> {
+public final class AssertjOptionalContainsWithDescription<T> {
 
     @BeforeTemplate
-    void before(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
+    void before1(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
         assertThat(optional.get()).describedAs(description, descriptionArgs).isEqualTo(innerValue);
     }
 
     @BeforeTemplate
     void before2(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
+        assertThat(optional).describedAs(description, descriptionArgs).isEqualTo(Optional.of(innerValue));
+    }
+
+    @BeforeTemplate
+    void before3(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
         assertThat(optional.isPresent() && optional.get().equals(innerValue))
                 .describedAs(description, descriptionArgs)
                 .isTrue();
@@ -42,6 +47,6 @@ public final class AssertjOptionalHasValueWithDescription<T> {
     @AfterTemplate
     @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
     void after(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
-        assertThat(optional).describedAs(description, descriptionArgs).hasValue(innerValue);
+        assertThat(optional).describedAs(description, descriptionArgs).contains(innerValue);
     }
 }
