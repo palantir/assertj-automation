@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: Prefer per-element assertions for iterables and maps.
+  links:
+  - https://github.com/palantir/assertj-automation/pull/360
