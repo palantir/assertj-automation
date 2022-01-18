@@ -22,6 +22,7 @@ apply plugin: 'com.palantir.external-publish'
 apply plugin: 'com.palantir.consistent-versions'
 apply plugin: 'com.palantir.baseline'
 apply plugin: 'com.palantir.java-format'
+apply plugin: 'com.palantir.baseline-java-versions'
 
 version System.env.CIRCLE_TAG ?: gitVersion()
 
@@ -36,6 +37,9 @@ allprojects {
 }
 
 subprojects {
-    sourceCompatibility = 1.8
     apply plugin: 'org.inferred.processors'
+}
+
+javaVersions {
+    libraryTarget = 11
 }
