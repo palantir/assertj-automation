@@ -25,5 +25,4 @@ tasks.withType(JavaCompile) {
     options.errorprone.disable 'StrictUnusedVariable', 'PreferSafeLoggingPreconditions'
 }
 
-sourceCompatibility = 11
 
