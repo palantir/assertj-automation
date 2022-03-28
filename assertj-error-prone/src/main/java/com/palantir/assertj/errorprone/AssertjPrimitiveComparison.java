@@ -44,12 +44,12 @@ public final class AssertjPrimitiveComparison implements AssertjChecker {
     private static final Matcher<ExpressionTree> IS_TRUE = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.Assert")
             .named("isTrue")
-            .withParameters();
+            .withNoParameters();
 
     private static final Matcher<ExpressionTree> IS_FALSE = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.Assert")
             .named("isFalse")
-            .withParameters();
+            .withNoParameters();
 
     private static final Matcher<ExpressionTree> BOOLEAN_ASSERT = Matchers.anyOf(IS_TRUE, IS_FALSE);
 

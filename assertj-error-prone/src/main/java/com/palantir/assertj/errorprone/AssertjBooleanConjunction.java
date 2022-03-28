@@ -41,7 +41,7 @@ public final class AssertjBooleanConjunction implements AssertjChecker {
     private static final Matcher<ExpressionTree> isTrue = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.AbstractBooleanAssert")
             .named("isTrue")
-            .withParameters();
+            .withNoParameters();
 
     private static final Matcher<Tree> isStatement =
             Matchers.parentNode(Matchers.kindIs(Tree.Kind.EXPRESSION_STATEMENT));

@@ -43,7 +43,7 @@ public final class AssertjSize implements AssertjChecker {
             MethodMatchers.instanceMethod()
                     .onDescendantOf(CharSequence.class.getName())
                     .named("length")
-                    .withParameters(),
+                    .withNoParameters(),
             MethodMatchers.instanceMethod()
                     // Avoid refactoring maps which implement iterable due to ambiguity between assertThat(Iterable)
                     // and assertThat(Map). This could be improved in a later change to cast to a Map and refactor.
@@ -51,11 +51,11 @@ public final class AssertjSize implements AssertjChecker {
                             TypePredicates.isDescendantOf(Map.class.getName()),
                             TypePredicates.not(TypePredicates.isDescendantOf(Iterable.class.getName()))))
                     .named("size")
-                    .withParameters(),
+                    .withNoParameters(),
             MethodMatchers.instanceMethod()
                     .onDescendantOf(Collection.class.getName())
                     .named("size")
-                    .withParameters(),
+                    .withNoParameters(),
             (Matcher<ExpressionTree>) (expressionTree, state) -> {
                 Symbol symbol = ASTHelpers.getSymbol(expressionTree);
                 return symbol != null
@@ -83,11 +83,11 @@ public final class AssertjSize implements AssertjChecker {
     private static final Matcher<ExpressionTree> isZero = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.Assert")
             .namedAnyOf("isZero")
-            .withParameters();
+            .withNoParameters();
     private static final Matcher<ExpressionTree> isNotZero = MethodMatchers.instanceMethod()
             .onDescendantOf("org.assertj.core.api.Assert")
             .namedAnyOf("isNotZero")
-            .withParameters();
+            .withNoParameters();
     private static final Matcher<ExpressionTree> comparisonTo =
             Matchers.anyOf(isEqualTo, isLessThan, isLessThanOrEqualTo, isGreaterThan, isGreaterThanOrEqualTo);
 

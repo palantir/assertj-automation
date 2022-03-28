@@ -57,7 +57,7 @@ public final class AssertjSameSizeAs implements AssertjChecker {
             MethodMatchers.instanceMethod()
                     .onDescendantOf(Collection.class.getName())
                     .named("size")
-                    .withParameters(),
+                    .withNoParameters(),
             (Matcher<ExpressionTree>) (expressionTree, state) -> {
                 Symbol symbol = ASTHelpers.getSymbol(expressionTree);
                 return symbol != null
@@ -72,12 +72,12 @@ public final class AssertjSameSizeAs implements AssertjChecker {
                     TypePredicates.isDescendantOf(Map.class.getName()),
                     TypePredicates.not(TypePredicates.isDescendantOf(Iterable.class.getName()))))
             .named("size")
-            .withParameters());
+            .withNoParameters());
 
     private static final Matcher<ExpressionTree> csSizeMatcher = Matchers.ignoreParens(MethodMatchers.instanceMethod()
             .onDescendantOf(CharSequence.class.getName())
             .named("length")
-            .withParameters());
+            .withNoParameters());
 
     private static final Matcher<ExpressionTree> matcher = Matchers.anyOf(
             Matchers.methodInvocation(hasSizeMatcher, ChildMultiMatcher.MatchType.ALL, Matchers.anyOf(sizeMatcher)),

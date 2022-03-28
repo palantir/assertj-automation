@@ -166,7 +166,7 @@ public final class PreferAssertj extends BugChecker
     private static final Matcher<ExpressionTree> FAIL = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
             .named("fail")
-            .withParameters();
+            .withNoParameters();
 
     private static final Matcher<ExpressionTree> FAIL_DESCRIPTION = MethodMatchers.staticMethod()
             .onClassAny(LEGACY_ASSERT_CLASSES)
@@ -887,7 +887,7 @@ public final class PreferAssertj extends BugChecker
                 MethodMatchers.staticMethod()
                         .onClass(MATCHERS)
                         .named("nullValue")
-                        .withParameters(),
+                        .withNoParameters(),
                 MethodMatchers.staticMethod()
                         .onClass(MATCHERS)
                         .named("nullValue")
@@ -897,7 +897,7 @@ public final class PreferAssertj extends BugChecker
                 MethodMatchers.staticMethod()
                         .onClass(MATCHERS)
                         .named("notNullValue")
-                        .withParameters(),
+                        .withNoParameters(),
                 MethodMatchers.staticMethod()
                         .onClass(MATCHERS)
                         .named("notNullValue")
@@ -928,7 +928,7 @@ public final class PreferAssertj extends BugChecker
                 MethodMatchers.staticMethod()
                         .onClass(MATCHERS)
                         .namedAnyOf("empty", "emptyIterable", "emptyArray", "anEmptyMap")
-                        .withParameters(),
+                        .withNoParameters(),
                 MethodMatchers.staticMethod()
                         .onClass(MATCHERS)
                         .namedAnyOf("emptyCollectionOf", "emptyIterableOf")
