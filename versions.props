@@ -7,7 +7,7 @@ com.palantir.baseline:baseline-refaster-testing = 2.43.0
 # test deps
 com.fasterxml.jackson.*:* = 2.13.3
 junit:junit = 4.13.2
-org.assertj:assertj-core = 3.22.0
+org.assertj:assertj-core = 3.23.1
 org.hamcrest:hamcrest-core = 2.2
 org.junit.vintage:* = 5.8.2
 org.junit.jupiter:* = 5.8.2
