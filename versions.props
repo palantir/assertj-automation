@@ -9,5 +9,5 @@ com.fasterxml.jackson.*:* = 2.14.2
 junit:junit = 4.13.2
 org.assertj:assertj-core = 3.24.2
 org.hamcrest:hamcrest-core = 2.2
-org.junit.vintage:* = 5.9.2
-org.junit.jupiter:* = 5.9.2
+org.junit.vintage:* = 5.9.3
+org.junit.jupiter:* = 5.9.3
