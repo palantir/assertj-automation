@@ -6,7 +6,7 @@ com.google.guava:guava = 32.1.2-jre
 com.palantir.baseline:baseline-refaster-testing = 2.43.0
 
 # test deps
-com.fasterxml.jackson.*:* = 2.15.2
+com.fasterxml.jackson.*:* = 2.15.3
 junit:junit = 4.13.2
 org.assertj:assertj-core = 3.24.2
 org.hamcrest:hamcrest-core = 2.2
