@@ -1,4 +1,3 @@
 rootProject.name = "assertj-automation-root"
 
 include "assertj-error-prone"
-include "assertj-refaster-rules"
