@@ -22,7 +22,7 @@ io.github.eisop:dataflow-errorprone:3.41.0-eisop1 (3 constraints: 3e40ddde)
 io.github.java-diff-utils:java-diff-utils:4.12 (1 constraints: b412c908)
 javax.inject:javax.inject:1 (2 constraints: ea197bd3)
 net.bytebuddy:byte-buddy:1.14.11 (1 constraints: 7e0bc5ea)
-org.assertj:assertj-core:3.25.2 (1 constraints: 3e054a3b)
+org.assertj:assertj-core:3.25.3 (1 constraints: 3f054b3b)
 org.checkerframework:checker-qual:3.41.0 (4 constraints: 57374241)
 org.pcollections:pcollections:3.1.4 (1 constraints: f51029b8)
 
