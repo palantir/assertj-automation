@@ -132,6 +132,35 @@ class AssertjCollectionAssertTest {
                 .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
     }
 
+    @Test
+    public void do_not_fix_isEqualTo_expected_with_Nullable_annotation() {
+        test().addInputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import com.google.common.collect.ImmutableSet;",
+                        "import java.util.HashSet;",
+                        "import java.util.Set;",
+                        "import javax.annotation.Nullable;",
+                        "public class Test {",
+                        "  void f(Set<String> actual, @Nullable Set<String> expected) {",
+                        "    assertThat(actual).isEqualTo(expected);",
+                        "  }",
+                        "}")
+                .addOutputLines(
+                        "Test.java",
+                        "import static org.assertj.core.api.Assertions.assertThat;",
+                        "import com.google.common.collect.ImmutableSet;",
+                        "import java.util.HashSet;",
+                        "import java.util.Set;",
+                        "import javax.annotation.Nullable;",
+                        "public class Test {",
+                        "  void f(Set<String> actual, @Nullable Set<String> expected) {",
+                        "    assertThat(actual).isEqualTo(expected);",
+                        "  }",
+                        "}")
+                .doTest(BugCheckerRefactoringTestHelper.TestMode.TEXT_MATCH);
+    }
+
     private RefactoringValidator test() {
         return RefactoringValidator.of(new AssertjRefactoring(new AssertjCollectionAssert()), getClass());
     }
