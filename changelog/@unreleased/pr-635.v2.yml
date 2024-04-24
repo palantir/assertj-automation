@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: Refactor instanceof assertions to use isInstanceOf()
+  links:
+  - https://github.com/palantir/assertj-automation/pull/635
