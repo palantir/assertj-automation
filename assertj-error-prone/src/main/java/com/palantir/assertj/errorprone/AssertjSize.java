@@ -37,7 +37,7 @@ import java.util.Optional;
 public final class AssertjSize implements AssertjChecker {
 
     private static final String DESCRIPTION =
-            "Prefer AsssertJ size asserts for more debugging information than simple integer comparisons.";
+            "Prefer AssertJ size asserts for more debugging information than simple integer comparisons.";
 
     private static final Matcher<ExpressionTree> sizeMatcher = Matchers.ignoreParens(Matchers.anyOf(
             MethodMatchers.instanceMethod()
