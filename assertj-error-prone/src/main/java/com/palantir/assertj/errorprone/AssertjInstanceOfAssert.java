@@ -92,7 +92,8 @@ public final class AssertjInstanceOfAssert implements AssertjChecker {
                                 ((MemberSelectTree) match.getCheck().getMethodSelect()).getExpression()),
                         state.getEndPosition(match.getCheck()),
                         String.format(
-                                negatedAssertion ? ".isNotInstanceOf(%s.class)" : ".isInstanceOf(%s.class)", expected))
+                                negatedAssertion ? ".isNotInstanceOf(%s.class)" : ".isInstanceOf(%s.class)",
+                                state.getSourceForNode(expected)))
                 .replace(target, state.getSourceForNode(actual))
                 .build();
         return Optional.of(
