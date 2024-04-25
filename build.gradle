@@ -49,4 +49,5 @@ subprojects {
 
 javaVersions {
     libraryTarget = 11
+    runtime = 21
 }

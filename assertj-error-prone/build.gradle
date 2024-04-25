@@ -31,4 +31,5 @@ moduleJvmArgs {
         'jdk.compiler/com.sun.tools.javac.tree',
         'jdk.compiler/com.sun.tools.javac.util',
     ]
+    opens = ['jdk.compiler/com.sun.tools.javac.comp']
 }
