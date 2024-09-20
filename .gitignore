@@ -17,3 +17,6 @@ docs/node_modules/
 generated_src
 *.log
 *.hprof
+
+# Gradle JDKs setup
+!gradle/*
