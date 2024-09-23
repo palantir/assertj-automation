@@ -27,6 +27,7 @@ apply plugin: 'com.palantir.failure-reports'
 apply plugin: 'com.palantir.consistent-versions'
 apply plugin: 'com.palantir.baseline'
 apply plugin: 'com.palantir.java-format'
+apply plugin: 'com.palantir.jdks'
 apply plugin: 'com.palantir.baseline-java-versions'
 apply plugin: 'com.palantir.jdks.latest'
 
@@ -50,4 +51,8 @@ subprojects {
 javaVersions {
     libraryTarget = 11
     runtime = 21
+}
+
+jdks {
+    daemonTarget = 17
 }
