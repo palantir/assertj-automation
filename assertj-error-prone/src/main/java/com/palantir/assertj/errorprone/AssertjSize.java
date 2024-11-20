@@ -39,6 +39,7 @@ public final class AssertjSize implements AssertjChecker {
     private static final String DESCRIPTION =
             "Prefer AssertJ size asserts for more debugging information than simple integer comparisons.";
 
+    @SuppressWarnings("for-rollout:ASTHelpersSuggestions")
     private static final Matcher<ExpressionTree> sizeMatcher = Matchers.ignoreParens(Matchers.anyOf(
             MethodMatchers.instanceMethod()
                     .onDescendantOf(CharSequence.class.getName())

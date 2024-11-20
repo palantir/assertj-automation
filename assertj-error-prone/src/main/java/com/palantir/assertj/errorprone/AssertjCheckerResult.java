@@ -76,21 +76,25 @@ final class AssertjCheckerResult {
 
         private Builder() {}
 
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         Builder description(String value) {
             this.description = Preconditions.checkNotNull(value, "Description is required");
             return this;
         }
 
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         Builder fix(Fix value) {
             this.fix = Optional.of(Preconditions.checkNotNull(value, "Fix is required"));
             return this;
         }
 
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         Builder fix(Optional<? extends Fix> value) {
             this.fix = Preconditions.checkNotNull(value, "Fix is required");
             return this;
         }
 
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         AssertjCheckerResult build() {
             return new AssertjCheckerResult(Preconditions.checkNotNull(description, "Description is required"), fix);
         }
