@@ -76,6 +76,7 @@ public final class AssertjBooleanConjunction implements AssertjChecker {
         int endPosition = state.getEndPosition(match.getCheck());
         int firstSegmentStart = getStartPosition(argument);
         int firstSegmentEnd = state.getEndPosition(argument);
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         CharSequence sourceCode = Preconditions.checkNotNull(state.getSourceCode(), "Unable to find source");
         return Optional.of(AssertjCheckerResult.builder()
                 .description(DESCRIPTION)

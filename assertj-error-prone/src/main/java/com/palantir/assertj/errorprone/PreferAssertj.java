@@ -58,6 +58,7 @@ import javax.lang.model.type.TypeKind;
  * assertions provided by AssertJ, because those should be implemented in such a way to improve poor uses of AssertJ as
  * well, which may run after the suggested fixes provided by this checker.
  */
+@SuppressWarnings("for-rollout:BugPatternNaming")
 @AutoService(BugChecker.class)
 @BugPattern(
         name = "PreferAssertj",
@@ -753,6 +754,7 @@ public final class PreferAssertj extends BugChecker
         String actualArgumentString = argSource(tree, state, actualIndex);
         ExpressionTree actualArgument = tree.getArguments().get(actualIndex);
         if (isIterableMap(actualArgument, state)) {
+            @SuppressWarnings("for-rollout:MemoizeConstantVisitorStateLookups")
             String qualifiedMap = MoreSuggestedFixes.prettyType(
                     state,
                     fix,
@@ -818,15 +820,19 @@ public final class PreferAssertj extends BugChecker
                 ASTHelpers.getType(memberSelectTree.getExpression()), state.getTypeFromString(type), state);
     }
 
+    @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
     private static String argSource(MethodInvocationTree invocation, VisitorState state, int index) {
         checkArgument(index >= 0, "Index must be non-negative");
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         List<? extends ExpressionTree> arguments =
                 checkNotNull(invocation, "MethodInvocationTree").getArguments();
         checkArgument(index < arguments.size(), "Index is out of bounds");
         ExpressionTree argument = arguments.get(index);
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         Symbol.VarSymbol symbol = checkNotNull(ASTHelpers.getSymbol(invocation), "symbol")
                 .getParameters()
                 .get(index);
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         String argumentSource = checkNotNull(state.getSourceForNode(argument), "Failed to find argument source");
         if (symbol.type.isPrimitive()
                 // Limit to only float and double because assertEquals for ints uses assertEquals(long, long),
@@ -1045,7 +1051,9 @@ public final class PreferAssertj extends BugChecker
         }
     }
 
+    @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
     private static boolean isObjectVarArgs(MethodInvocationTree tree, VisitorState state) {
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         Symbol.MethodSymbol methodSymbol = checkNotNull(ASTHelpers.getSymbol(tree), "symbol");
         if (!methodSymbol.isVarArgs()) {
             return false;
@@ -1058,6 +1066,7 @@ public final class PreferAssertj extends BugChecker
     }
 
     private static Type getParameterType(MethodInvocationTree tree, int parameterIndex) {
+        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
         Symbol.MethodSymbol methodSymbol = checkNotNull(ASTHelpers.getSymbol(tree), "symbol");
         List<Symbol.VarSymbol> parameters = methodSymbol.getParameters();
         checkArgument(parameterIndex >= 0, "index must be greater than zero, was %s", parameterIndex);
