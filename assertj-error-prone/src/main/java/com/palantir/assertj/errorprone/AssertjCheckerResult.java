@@ -76,25 +76,25 @@ final class AssertjCheckerResult {
 
         private Builder() {}
 
-        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
+        @SuppressWarnings({"for-rollout:PreferSafeLoggingPreconditions", "for-rollout:RemoveRolloutSuppressions"})
         Builder description(String value) {
             this.description = Preconditions.checkNotNull(value, "Description is required");
             return this;
         }
 
-        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
+        @SuppressWarnings({"for-rollout:PreferSafeLoggingPreconditions", "for-rollout:RemoveRolloutSuppressions"})
         Builder fix(Fix value) {
             this.fix = Optional.of(Preconditions.checkNotNull(value, "Fix is required"));
             return this;
         }
 
-        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
+        @SuppressWarnings({"for-rollout:PreferSafeLoggingPreconditions", "for-rollout:RemoveRolloutSuppressions"})
         Builder fix(Optional<? extends Fix> value) {
             this.fix = Preconditions.checkNotNull(value, "Fix is required");
             return this;
         }
 
-        @SuppressWarnings("for-rollout:PreferSafeLoggingPreconditions")
+        @SuppressWarnings({"for-rollout:PreferSafeLoggingPreconditions", "for-rollout:RemoveRolloutSuppressions"})
         AssertjCheckerResult build() {
             return new AssertjCheckerResult(Preconditions.checkNotNull(description, "Description is required"), fix);
         }

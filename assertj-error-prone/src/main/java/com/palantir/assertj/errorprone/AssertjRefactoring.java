@@ -78,7 +78,7 @@ import com.sun.source.tree.WildcardTree;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
-@SuppressWarnings("for-rollout:BugPatternNaming")
+@SuppressWarnings({"for-rollout:BugPatternNaming", "for-rollout:RemoveRolloutSuppressions"})
 @AutoService(BugChecker.class)
 @BugPattern(
         name = "AssertjRefactoring",

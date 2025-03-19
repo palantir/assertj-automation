@@ -63,7 +63,7 @@ public final class AssertjBooleanAssert implements AssertjChecker {
      * Matches references to Boolean.TRUE and Boolean.FALSE. This method differs from Matchers.booleanConstant because
      * it does not match the opposite value. See https://github.com/google/error-prone/issues/1454.
      */
-    @SuppressWarnings("for-rollout:ASTHelpersSuggestions")
+    @SuppressWarnings({"for-rollout:ASTHelpersSuggestions", "for-rollout:RemoveRolloutSuppressions"})
     static Matcher<ExpressionTree> booleanConstant(boolean value) {
         return (expressionTree, state) -> {
             if (expressionTree instanceof JCTree.JCFieldAccess) {
