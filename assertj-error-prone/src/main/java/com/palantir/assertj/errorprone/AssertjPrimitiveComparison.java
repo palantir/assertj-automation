@@ -70,10 +70,10 @@ public final class AssertjPrimitiveComparison implements AssertjChecker {
             return Optional.empty();
         }
         ExpressionTree target = match.getAssertThat().getArguments().get(0);
-        if (!(target instanceof BinaryTree)) {
+        if (!(target instanceof BinaryTree binaryTree)) {
             return Optional.empty();
         }
-        BinaryTree binaryTree = (BinaryTree) target;
+
         Optional<Type> maybeTarget = getPromotionType(binaryTree.getLeftOperand(), binaryTree.getRightOperand(), state);
         if (!maybeTarget.isPresent()) {
             return Optional.empty();
@@ -153,7 +153,7 @@ public final class AssertjPrimitiveComparison implements AssertjChecker {
         return Optional.of(symtab.intType);
     }
 
-    @SuppressWarnings("SwitchStatementDefaultCase")
+    @SuppressWarnings({"SwitchStatementDefaultCase", "for-rollout:StatementSwitchToExpressionSwitch"})
     private static Optional<String> getAssertionName(Tree.Kind binaryExpression) {
         switch (binaryExpression) {
             case EQUAL_TO:
@@ -173,7 +173,7 @@ public final class AssertjPrimitiveComparison implements AssertjChecker {
         }
     }
 
-    @SuppressWarnings("SwitchStatementDefaultCase")
+    @SuppressWarnings({"SwitchStatementDefaultCase", "for-rollout:StatementSwitchToExpressionSwitch"})
     private static Optional<Tree.Kind> negate(Tree.Kind binaryExpression) {
         switch (binaryExpression) {
             case EQUAL_TO:
