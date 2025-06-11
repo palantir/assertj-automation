@@ -791,10 +791,10 @@ public final class PreferAssertj extends BugChecker
                 continue;
             }
             Tree identifier = importTree.getQualifiedIdentifier();
-            if (!(identifier instanceof MemberSelectTree)) {
+            if (!(identifier instanceof MemberSelectTree memberSelectTree)) {
                 continue;
             }
-            MemberSelectTree memberSelectTree = (MemberSelectTree) identifier;
+
             if (!memberSelectTree.getIdentifier().contentEquals("assertThat")) {
                 continue;
             }
@@ -812,7 +812,7 @@ public final class PreferAssertj extends BugChecker
 
     private static boolean isConstantZero(Tree tree) {
         Object constantValue = ASTHelpers.constValue(tree);
-        return constantValue instanceof Number && ((Number) constantValue).doubleValue() == 0D;
+        return constantValue instanceof Number number && number.doubleValue() == 0D;
     }
 
     private static boolean isExpressionSameType(VisitorState state, MemberSelectTree memberSelectTree, String type) {

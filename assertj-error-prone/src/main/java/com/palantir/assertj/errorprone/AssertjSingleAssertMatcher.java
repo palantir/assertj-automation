@@ -93,8 +93,8 @@ final class AssertjSingleAssertMatcher {
             return Optional.empty();
         }
         ExpressionTree expressionTree = ASTHelpers.stripParentheses(inputExpressionTree);
-        if (expressionTree instanceof MethodInvocationTree) {
-            MethodInvocationTree methodInvocationTree = (MethodInvocationTree) expressionTree;
+        if (expressionTree instanceof MethodInvocationTree methodInvocationTree) {
+
             if (ASSERT_THAT.matches(methodInvocationTree, state)
                     && methodInvocationTree.getArguments().size() == 1) {
                 List<MethodInvocationTree> results = new ArrayList<>();

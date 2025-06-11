@@ -70,8 +70,8 @@ public final class AssertjInstanceOfAssert implements AssertjChecker {
         ExpressionTree target = match.getAssertThat().getArguments().get(0);
         ExpressionTree instanceOfExpression = target;
 
-        if (target instanceof UnaryTree) {
-            UnaryTree unaryTree = (UnaryTree) target;
+        if (target instanceof UnaryTree unaryTree) {
+
             if (unaryTree.getExpression() instanceof ParenthesizedTree) {
                 negatedAssertion = !negatedAssertion;
                 ParenthesizedTree parenthesizedTree = (ParenthesizedTree) unaryTree.getExpression();
