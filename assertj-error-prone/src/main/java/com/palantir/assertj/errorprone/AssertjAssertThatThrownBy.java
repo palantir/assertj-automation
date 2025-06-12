@@ -86,7 +86,6 @@ public final class AssertjAssertThatThrownBy implements AssertjChecker {
     }
 
     private static Optional<String> getFailMessage(StatementTree failStatement, VisitorState state) {
-        @SuppressWarnings("for-rollout:PreferredInterfaceType")
         Iterable<? extends ExpressionTree> failArgs =
                 ((MethodInvocationTree) ((ExpressionStatementTree) failStatement).getExpression()).getArguments();
         return Optional.ofNullable(Iterables.get(failArgs, 0, null))
