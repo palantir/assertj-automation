@@ -21,7 +21,6 @@ buildscript {
 
 plugins {
  id 'com.palantir.git-version' version '4.0.0'
-id 'org.inferred.processors' version '3.7.0'
 }
 
 apply plugin: 'com.palantir.external-publish'
@@ -47,7 +46,6 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'org.inferred.processors'
 }
 
 javaVersions {
