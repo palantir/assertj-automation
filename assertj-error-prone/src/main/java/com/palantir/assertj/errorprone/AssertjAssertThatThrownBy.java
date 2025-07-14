@@ -33,8 +33,8 @@ import com.sun.source.tree.ExpressionStatementTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.source.tree.StatementTree;
-import com.sun.source.tree.Tree;
 import com.sun.source.tree.TryTree;
+import com.sun.source.tree.UnionTypeTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.tools.javac.parser.Tokens;
 import com.sun.tools.javac.tree.JCTree;
@@ -63,7 +63,7 @@ public final class AssertjAssertThatThrownBy implements AssertjChecker {
         }
         CatchTree catchTree = Iterables.getOnlyElement(tree.getCatches());
         if (!catchTree.getBlock().getStatements().isEmpty()
-                || catchTree.getParameter().getType().getKind() == Tree.Kind.UNION_TYPE) {
+                || catchTree.getParameter().getType() instanceof UnionTypeTree) {
             return Optional.empty();
         }
         StatementTree lastStatement = Iterables.getLast(tryStatements);
@@ -104,7 +104,7 @@ public final class AssertjAssertThatThrownBy implements AssertjChecker {
         CharSequence throwingStatementsLines = state.getSourceCode().subSequence(startPos, endPos);
 
         boolean useExpressionLambda = throwingStatements.size() == 1
-                && Iterables.getOnlyElement(throwingStatements).getKind() == Tree.Kind.EXPRESSION_STATEMENT;
+                && Iterables.getOnlyElement(throwingStatements) instanceof ExpressionStatementTree;
 
         StringBuilder replacement = new StringBuilder();
         getTryBlockComments(tree, state, startPos).ifPresent(replacement::append);
