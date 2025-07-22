@@ -153,43 +153,29 @@ public final class AssertjPrimitiveComparison implements AssertjChecker {
         return Optional.of(symtab.intType);
     }
 
-    @SuppressWarnings({"SwitchStatementDefaultCase", "for-rollout:StatementSwitchToExpressionSwitch"})
+    @SuppressWarnings("SwitchStatementDefaultCase")
     private static Optional<String> getAssertionName(Tree.Kind binaryExpression) {
-        switch (binaryExpression) {
-            case EQUAL_TO:
-                return Optional.of("isEqualTo");
-            case NOT_EQUAL_TO:
-                return Optional.of("isNotEqualTo");
-            case LESS_THAN:
-                return Optional.of("isLessThan");
-            case LESS_THAN_EQUAL:
-                return Optional.of("isLessThanOrEqualTo");
-            case GREATER_THAN:
-                return Optional.of("isGreaterThan");
-            case GREATER_THAN_EQUAL:
-                return Optional.of("isGreaterThanOrEqualTo");
-            default:
-                return Optional.empty();
-        }
+        return switch (binaryExpression) {
+            case EQUAL_TO -> Optional.of("isEqualTo");
+            case NOT_EQUAL_TO -> Optional.of("isNotEqualTo");
+            case LESS_THAN -> Optional.of("isLessThan");
+            case LESS_THAN_EQUAL -> Optional.of("isLessThanOrEqualTo");
+            case GREATER_THAN -> Optional.of("isGreaterThan");
+            case GREATER_THAN_EQUAL -> Optional.of("isGreaterThanOrEqualTo");
+            default -> Optional.empty();
+        };
     }
 
-    @SuppressWarnings({"SwitchStatementDefaultCase", "for-rollout:StatementSwitchToExpressionSwitch"})
+    @SuppressWarnings("SwitchStatementDefaultCase")
     private static Optional<Tree.Kind> negate(Tree.Kind binaryExpression) {
-        switch (binaryExpression) {
-            case EQUAL_TO:
-                return Optional.of(Tree.Kind.NOT_EQUAL_TO);
-            case NOT_EQUAL_TO:
-                return Optional.of(Tree.Kind.EQUAL_TO);
-            case LESS_THAN:
-                return Optional.of(Tree.Kind.GREATER_THAN_EQUAL);
-            case LESS_THAN_EQUAL:
-                return Optional.of(Tree.Kind.GREATER_THAN);
-            case GREATER_THAN:
-                return Optional.of(Tree.Kind.LESS_THAN_EQUAL);
-            case GREATER_THAN_EQUAL:
-                return Optional.of(Tree.Kind.LESS_THAN);
-            default:
-                return Optional.empty();
-        }
+        return switch (binaryExpression) {
+            case EQUAL_TO -> Optional.of(Tree.Kind.NOT_EQUAL_TO);
+            case NOT_EQUAL_TO -> Optional.of(Tree.Kind.EQUAL_TO);
+            case LESS_THAN -> Optional.of(Tree.Kind.GREATER_THAN_EQUAL);
+            case LESS_THAN_EQUAL -> Optional.of(Tree.Kind.GREATER_THAN);
+            case GREATER_THAN -> Optional.of(Tree.Kind.LESS_THAN_EQUAL);
+            case GREATER_THAN_EQUAL -> Optional.of(Tree.Kind.LESS_THAN);
+            default -> Optional.empty();
+        };
     }
 }
