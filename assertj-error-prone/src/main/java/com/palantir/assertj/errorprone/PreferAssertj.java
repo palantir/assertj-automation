@@ -1085,6 +1085,7 @@ public final class PreferAssertj extends BugChecker
         }
         @SuppressWarnings("for-rollout:MemoizeConstantVisitorStateLookups")
         Type floatType = state.getTypeFromString("float");
+        @SuppressWarnings("for-rollout:MemoizeConstantVisitorStateLookups")
         Type doubleType = state.getTypeFromString("double");
         return (ASTHelpers.isSameType(getParameterType(tree, deltaParameterIndex), floatType, state)
                         || ASTHelpers.isSameType(getParameterType(tree, deltaParameterIndex), doubleType, state))
