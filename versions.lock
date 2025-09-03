@@ -1,6 +1,6 @@
 # Run ./gradlew writeVersionsLocks to regenerate this file. Blank lines are to minimize merge conflicts.
 
-com.github.ben-manes.caffeine:caffeine:3.2.0 (2 constraints: e917e956)
+com.github.ben-manes.caffeine:caffeine:3.2.2 (2 constraints: eb175357)
 
 com.github.kevinstern:software-and-algorithms:1.0 (1 constraints: 7e12fcf5)
 
@@ -12,23 +12,21 @@ com.google.auto.service:auto-service-annotations:1.1.1 (2 constraints: 8a20341c)
 
 com.google.auto.value:auto-value-annotations:1.10.4 (3 constraints: ac2df2f5)
 
-com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 170aecb4)
+com.google.code.findbugs:jsr305:3.0.2 (0 constraints: 01000000)
 
-com.google.errorprone:error_prone_annotation:2.36.0 (4 constraints: 073ea75f)
+com.google.errorprone:error_prone_annotation:2.40.0 (4 constraints: f83d5d5c)
 
-com.google.errorprone:error_prone_annotations:2.36.0 (6 constraints: d95d099a)
+com.google.errorprone:error_prone_annotations:2.40.0 (6 constraints: c55da08e)
 
-com.google.errorprone:error_prone_check_api:2.36.0 (3 constraints: f22ad15a)
+com.google.errorprone:error_prone_check_api:2.40.0 (3 constraints: e82a9d59)
 
-com.google.errorprone:error_prone_core:2.36.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_core:2.40.0 (1 constraints: 3b05403b)
 
-com.google.errorprone:error_prone_type_annotations:2.36.0 (1 constraints: 28115cc9)
+com.google.googlejavaformat:google-java-format:1.27.0 (2 constraints: b6258eff)
 
-com.google.googlejavaformat:google-java-format:1.19.1 (2 constraints: ba251300)
+com.google.guava:failureaccess:1.0.3 (1 constraints: 160ae3b4)
 
-com.google.guava:failureaccess:1.0.2 (1 constraints: 150ae2b4)
-
-com.google.guava:guava:33.4.0-jre (9 constraints: 3b8f190d)
+com.google.guava:guava:33.4.8-jre (9 constraints: 498fbb1e)
 
 com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 constraints: bd17c918)
 
@@ -44,11 +42,9 @@ javax.inject:javax.inject:1 (2 constraints: 51221d52)
 
 net.bytebuddy:byte-buddy:1.15.11 (1 constraints: 7f0bc9ea)
 
-org.assertj:assertj-core:3.27.3 (1 constraints: 4105513b)
+org.assertj:assertj-core:3.27.4 (1 constraints: 4205523b)
 
-org.checkerframework:checker-qual:3.43.0 (3 constraints: 29272f3b)
-
-org.jspecify:jspecify:1.0.0 (4 constraints: 15487995)
+org.jspecify:jspecify:1.0.0 (5 constraints: 27525b05)
 
 org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
@@ -58,7 +54,7 @@ org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
 com.google.auto.value:auto-value:1.10 (1 constraints: e711f8e8)
 
-com.google.errorprone:error_prone_test_helpers:2.36.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_test_helpers:2.40.0 (1 constraints: 3b05403b)
 
 com.google.jimfs:jimfs:1.3.0 (1 constraints: 5a141061)
 
@@ -70,27 +66,29 @@ junit:junit:4.13.2 (4 constraints: b7468923)
 
 org.apiguardian:apiguardian-api:1.1.2 (7 constraints: 677be455)
 
+org.checkerframework:checker-qual:3.42.0 (2 constraints: de1c0d1b)
+
 org.hamcrest:hamcrest:2.2 (1 constraints: 720b95d5)
 
 org.hamcrest:hamcrest-core:2.2 (3 constraints: 84262b80)
 
 org.hamcrest:hamcrest-library:2.2 (1 constraints: fc138e38)
 
-org.junit.jupiter:junit-jupiter:5.12.1 (1 constraints: 7a071a77)
+org.junit.jupiter:junit-jupiter:5.13.4 (1 constraints: 7e074077)
 
-org.junit.jupiter:junit-jupiter-api:5.12.1 (4 constraints: 3d4566f9)
+org.junit.jupiter:junit-jupiter-api:5.13.4 (4 constraints: 4d454efe)
 
-org.junit.jupiter:junit-jupiter-engine:5.12.1 (1 constraints: 360e044a)
+org.junit.jupiter:junit-jupiter-engine:5.13.4 (1 constraints: 3a0e0a4a)
 
-org.junit.jupiter:junit-jupiter-migrationsupport:5.12.1 (1 constraints: 3b05483b)
+org.junit.jupiter:junit-jupiter-migrationsupport:5.13.4 (1 constraints: 3f054e3b)
 
-org.junit.jupiter:junit-jupiter-params:5.12.1 (1 constraints: 360e044a)
+org.junit.jupiter:junit-jupiter-params:5.13.4 (1 constraints: 3a0e0a4a)
 
-org.junit.platform:junit-platform-commons:1.12.1 (2 constraints: 3121bd83)
+org.junit.platform:junit-platform-commons:1.13.4 (2 constraints: 39219184)
 
-org.junit.platform:junit-platform-engine:1.12.1 (2 constraints: 49230245)
+org.junit.platform:junit-platform-engine:1.13.4 (2 constraints: 5123de45)
 
-org.junit.platform:junit-platform-launcher:1.12.1 (1 constraints: 3705303b)
+org.junit.platform:junit-platform-launcher:1.13.4 (1 constraints: 3b05363b)
 
 org.opentest4j:opentest4j:1.3.0 (2 constraints: cf209249)
 
