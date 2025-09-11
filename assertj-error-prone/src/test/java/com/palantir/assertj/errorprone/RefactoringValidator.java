@@ -34,6 +34,7 @@ final class RefactoringValidator {
     private String outputPath;
     private String[] outputLines;
 
+    @SuppressWarnings("for-rollout:deprecation")
     private RefactoringValidator(BugChecker refactoringBugChecker, Class<?> clazz) {
         this.delegate = BugCheckerRefactoringTestHelper.newInstance(refactoringBugChecker, clazz);
         this.compilationHelper = CompilationTestHelper.newInstance(refactoringBugChecker.getClass(), clazz);
