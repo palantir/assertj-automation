@@ -563,6 +563,7 @@ public final class AssertjRefactoring extends BugChecker
         return Description.NO_MATCH;
     }
 
+    @SuppressWarnings("for-rollout:deprecation")
     private void describe(Optional<AssertjCheckerResult> result, Tree tree, VisitorState state) {
         if (result.isPresent()) {
             AssertjCheckerResult value = result.get();
