@@ -12,6 +12,8 @@ com.google.auto.service:auto-service-annotations:1.1.1 (2 constraints: 8a20341c)
 
 com.google.auto.value:auto-value-annotations:1.10.4 (3 constraints: ac2df2f5)
 
+com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 0705fc35)
+
 com.google.errorprone:error_prone_annotation:2.41.0 (4 constraints: fb3d065d)
 
 com.google.errorprone:error_prone_annotations:2.41.0 (6 constraints: c45d7e8f)
