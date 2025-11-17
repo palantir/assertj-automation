@@ -145,7 +145,7 @@ public final class AssertjRefactoring extends BugChecker
 
     private final AssertjChecker[] checks;
 
-    @SuppressWarnings("unused") // Required by ServiceLoader
+    // Required by ServiceLoader
     public AssertjRefactoring() {
         this(discoveredChecks.toArray(new AssertjChecker[0]));
     }
