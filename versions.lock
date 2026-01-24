@@ -40,9 +40,9 @@ io.github.java-diff-utils:java-diff-utils:4.12 (1 constraints: b412c908)
 
 javax.inject:javax.inject:1 (2 constraints: 51221d52)
 
-net.bytebuddy:byte-buddy:1.17.7 (1 constraints: 560b56df)
+net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
-org.assertj:assertj-core:3.27.6 (1 constraints: 4405543b)
+org.assertj:assertj-core:3.27.7 (1 constraints: 4505553b)
 
 org.jspecify:jspecify:1.0.0 (12 constraints: 78cd7c0a)
 
