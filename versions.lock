@@ -14,19 +14,19 @@ com.google.auto.value:auto-value-annotations:1.11.0 (4 constraints: ee3fa36e)
 
 com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 0705fc35)
 
-com.google.errorprone:error_prone_annotation:2.43.0 (4 constraints: 013e585e)
+com.google.errorprone:error_prone_annotation:2.47.0 (4 constraints: 0d3efc60)
 
-com.google.errorprone:error_prone_annotations:2.43.0 (6 constraints: cb5dee94)
+com.google.errorprone:error_prone_annotations:2.47.0 (6 constraints: dd5d649b)
 
-com.google.errorprone:error_prone_check_api:2.43.0 (3 constraints: ee2a575a)
+com.google.errorprone:error_prone_check_api:2.47.0 (3 constraints: f62a4f5b)
 
-com.google.errorprone:error_prone_core:2.43.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_core:2.47.0 (1 constraints: 3b05403b)
 
 com.google.googlejavaformat:google-java-format:1.27.0 (2 constraints: b6258eff)
 
 com.google.guava:failureaccess:1.0.3 (1 constraints: 160ae3b4)
 
-com.google.guava:guava:33.5.0-jre (9 constraints: b48fbc27)
+com.google.guava:guava:33.6.0-jre (9 constraints: b78f0e2b)
 
 com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 constraints: bd17c918)
 
@@ -52,7 +52,7 @@ org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
 [Test dependencies]
 
-com.google.errorprone:error_prone_test_helpers:2.43.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_test_helpers:2.47.0 (1 constraints: 3b05403b)
 
 com.google.jimfs:jimfs:1.3.0 (1 constraints: 5a141061)
 
