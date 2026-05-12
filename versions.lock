@@ -1,6 +1,6 @@
 # Run ./gradlew writeVersionsLocks to regenerate this file. Blank lines are to minimize merge conflicts.
 
-com.github.ben-manes.caffeine:caffeine:3.2.3 (2 constraints: ec178857)
+com.github.ben-manes.caffeine:caffeine:3.2.4 (2 constraints: ed17bd57)
 
 com.github.kevinstern:software-and-algorithms:1.0 (1 constraints: 7e12fcf5)
 
@@ -14,15 +14,15 @@ com.google.auto.value:auto-value-annotations:1.11.0 (4 constraints: ee3fa36e)
 
 com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 0705fc35)
 
-com.google.errorprone:error_prone_annotation:2.47.0 (4 constraints: 0d3efc60)
+com.google.errorprone:error_prone_annotation:2.49.0 (4 constraints: 133e4e62)
 
-com.google.errorprone:error_prone_annotations:2.47.0 (6 constraints: dd5d649b)
+com.google.errorprone:error_prone_annotations:2.49.0 (6 constraints: e95d76a3)
 
-com.google.errorprone:error_prone_check_api:2.47.0 (3 constraints: f62a4f5b)
+com.google.errorprone:error_prone_check_api:2.49.0 (3 constraints: fa2acb5b)
 
-com.google.errorprone:error_prone_core:2.47.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_core:2.49.0 (1 constraints: 3b05403b)
 
-com.google.googlejavaformat:google-java-format:1.27.0 (2 constraints: b6258eff)
+com.google.googlejavaformat:google-java-format:1.35.0 (2 constraints: b42552ff)
 
 com.google.guava:failureaccess:1.0.3 (1 constraints: 160ae3b4)
 
@@ -32,7 +32,7 @@ com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 c
 
 com.google.j2objc:j2objc-annotations:3.1 (1 constraints: b809f1a0)
 
-com.google.protobuf:protobuf-java:3.25.5 (1 constraints: 2c1160c9)
+com.google.protobuf:protobuf-java:4.33.2 (1 constraints: 291161c9)
 
 io.github.eisop:dataflow-errorprone:3.41.0-eisop1 (3 constraints: 3e40ddde)
 
@@ -52,7 +52,7 @@ org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
 [Test dependencies]
 
-com.google.errorprone:error_prone_test_helpers:2.47.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_test_helpers:2.49.0 (1 constraints: 3b05403b)
 
 com.google.jimfs:jimfs:1.3.0 (1 constraints: 5a141061)
 
