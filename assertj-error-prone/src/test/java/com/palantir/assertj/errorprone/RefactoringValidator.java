@@ -92,6 +92,7 @@ final class RefactoringValidator {
                     .doTest();
         }
 
+        @SuppressWarnings("for-rollout:deprecation")
         void doTest(BugCheckerRefactoringTestHelper.TestMode testMode) {
             delegate.doTest(testMode);
             helper.compilationHelper
@@ -99,6 +100,7 @@ final class RefactoringValidator {
                     .doTest();
         }
 
+        @SuppressWarnings("for-rollout:deprecation")
         void doTestExpectingFailure(BugCheckerRefactoringTestHelper.TestMode testMode) {
             delegate.doTest(testMode);
             assertThatThrownBy(() -> helper.compilationHelper
