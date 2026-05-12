@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 class AssertjEqualityOrderTest {
 
+    @SuppressWarnings("for-rollout:deprecation")
     @Test
     void testFix() {
         fix().addInputLines(
