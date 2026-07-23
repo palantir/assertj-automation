@@ -70,7 +70,7 @@ org.hamcrest:hamcrest-core:2.2 (3 constraints: 84262b80)
 
 org.hamcrest:hamcrest-library:2.2 (1 constraints: fc138e38)
 
-org.junit.jupiter:junit-jupiter:6.1.2 (1 constraints: 4a070f70)
+org.junit.jupiter:junit-jupiter:6.1.2 (1 constraints: 75070d77)
 
 org.junit.jupiter:junit-jupiter-api:6.1.2 (4 constraints: 7d44f219)
 
