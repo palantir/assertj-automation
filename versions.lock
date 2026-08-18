@@ -14,19 +14,19 @@ com.google.auto.value:auto-value-annotations:1.11.0 (4 constraints: ee3fa36e)
 
 com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 0705fc35)
 
-com.google.errorprone:error_prone_annotation:2.49.0 (4 constraints: 133e4e62)
+com.google.errorprone:error_prone_annotation:2.50.0 (4 constraints: fb3d095d)
 
-com.google.errorprone:error_prone_annotations:2.49.0 (6 constraints: e95d76a3)
+com.google.errorprone:error_prone_annotations:2.50.0 (6 constraints: cb5d6097)
 
-com.google.errorprone:error_prone_check_api:2.49.0 (3 constraints: fa2acb5b)
+com.google.errorprone:error_prone_check_api:2.50.0 (3 constraints: ea2add59)
 
-com.google.errorprone:error_prone_core:2.49.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_core:2.50.0 (1 constraints: 3b05403b)
 
 com.google.googlejavaformat:google-java-format:1.35.0 (2 constraints: b42552ff)
 
 com.google.guava:failureaccess:1.0.3 (1 constraints: 160ae3b4)
 
-com.google.guava:guava:33.6.0-jre (9 constraints: b78f0e2b)
+com.google.guava:guava:33.7.0-jre (9 constraints: b88f9e2c)
 
 com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 constraints: bd17c918)
 
@@ -44,7 +44,7 @@ net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
 org.assertj:assertj-core:3.27.7 (1 constraints: 4505553b)
 
-org.jspecify:jspecify:1.0.0 (14 constraints: e3e93c8f)
+org.jspecify:jspecify:1.0.1 (14 constraints: e4e9e890)
 
 org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
@@ -52,7 +52,7 @@ org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
 [Test dependencies]
 
-com.google.errorprone:error_prone_test_helpers:2.49.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_test_helpers:2.50.0 (1 constraints: 3b05403b)
 
 com.google.jimfs:jimfs:1.3.0 (1 constraints: 5a141061)
 
