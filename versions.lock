@@ -26,7 +26,7 @@ com.google.googlejavaformat:google-java-format:1.35.0 (2 constraints: b42552ff)
 
 com.google.guava:failureaccess:1.0.3 (1 constraints: 160ae3b4)
 
-com.google.guava:guava:33.7.0-jre (9 constraints: b88f9e2c)
+com.google.guava:guava:33.7.1-jre (9 constraints: b98f2c2e)
 
 com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 constraints: bd17c918)
 
