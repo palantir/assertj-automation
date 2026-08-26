@@ -1,5 +1,0 @@
-type: improvement
-improvement:
-  description: AssertjAssertThatThrownBy preserves 'try {' comments
-  links:
-  - https://github.com/palantir/assertj-automation/pull/78
