@@ -53,7 +53,6 @@ public final class AssertjSameSizeAs implements AssertjChecker {
             .onDescendantOf("org.assertj.core.api.AbstractCharSequenceAssert")
             .named("hasSize");
 
-    @SuppressWarnings("for-rollout:ASTHelpersSuggestions")
     private static final Matcher<ExpressionTree> sizeMatcher = Matchers.ignoreParens(Matchers.anyOf(
             MethodMatchers.instanceMethod()
                     .onDescendantOf(Collection.class.getName())

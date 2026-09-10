@@ -58,7 +58,6 @@ import javax.lang.model.type.TypeKind;
  * assertions provided by AssertJ, because those should be implemented in such a way to improve poor uses of AssertJ as
  * well, which may run after the suggested fixes provided by this checker.
  */
-@SuppressWarnings("for-rollout:BugPatternNaming")
 @AutoService(BugChecker.class)
 @BugPattern(
         name = "PreferAssertj",
@@ -754,7 +753,6 @@ public final class PreferAssertj extends BugChecker
         String actualArgumentString = argSource(tree, state, actualIndex);
         ExpressionTree actualArgument = tree.getArguments().get(actualIndex);
         if (isIterableMap(actualArgument, state)) {
-            @SuppressWarnings("for-rollout:MemoizeConstantVisitorStateLookups")
             String qualifiedMap = MoreSuggestedFixes.prettyType(
                     state,
                     fix,
