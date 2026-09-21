@@ -1,6 +1,6 @@
 # Run ./gradlew writeVersionsLocks to regenerate this file. Blank lines are to minimize merge conflicts.
 
-com.github.ben-manes.caffeine:caffeine:3.2.4 (2 constraints: ed17bd57)
+com.github.ben-manes.caffeine:caffeine:3.3.0 (2 constraints: ea172057)
 
 com.github.kevinstern:software-and-algorithms:1.0 (1 constraints: 7e12fcf5)
 
@@ -16,7 +16,7 @@ com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 0705fc35)
 
 com.google.errorprone:error_prone_annotation:2.50.0 (4 constraints: fb3d095d)
 
-com.google.errorprone:error_prone_annotations:2.50.0 (6 constraints: cb5d6097)
+com.google.errorprone:error_prone_annotations:2.50.0 (6 constraints: c35d6190)
 
 com.google.errorprone:error_prone_check_api:2.50.0 (3 constraints: ea2add59)
 
@@ -44,7 +44,7 @@ net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
 org.assertj:assertj-core:3.27.7 (1 constraints: 4505553b)
 
-org.jspecify:jspecify:1.0.1 (14 constraints: e4e9e890)
+org.jspecify:jspecify:1.0.1 (14 constraints: e5e94d93)
 
 org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
 
