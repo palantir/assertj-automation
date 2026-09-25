@@ -34,7 +34,6 @@ final class RefactoringValidator {
     private String outputPath;
     private String[] outputLines;
 
-    @SuppressWarnings("for-rollout:deprecation")
     private RefactoringValidator(BugChecker refactoringBugChecker, Class<?> clazz) {
         this.delegate = BugCheckerRefactoringTestHelper.newInstance(refactoringBugChecker, clazz);
         this.compilationHelper = CompilationTestHelper.newInstance(refactoringBugChecker.getClass(), clazz);
@@ -92,7 +91,6 @@ final class RefactoringValidator {
                     .doTest();
         }
 
-        @SuppressWarnings("for-rollout:deprecation")
         void doTest(BugCheckerRefactoringTestHelper.TestMode testMode) {
             delegate.doTest(testMode);
             helper.compilationHelper
@@ -100,7 +98,6 @@ final class RefactoringValidator {
                     .doTest();
         }
 
-        @SuppressWarnings("for-rollout:deprecation")
         void doTestExpectingFailure(BugCheckerRefactoringTestHelper.TestMode testMode) {
             delegate.doTest(testMode);
             assertThatThrownBy(() -> helper.compilationHelper
