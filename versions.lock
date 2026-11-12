@@ -1,6 +1,6 @@
 # Run ./gradlew writeVersionsLocks to regenerate this file. Blank lines are to minimize merge conflicts.
 
-com.github.ben-manes.caffeine:caffeine:3.3.1 (2 constraints: eb175557)
+com.github.ben-manes.caffeine:caffeine:3.3.1 (2 constraints: ea175a57)
 
 com.github.kevinstern:software-and-algorithms:1.0 (1 constraints: 7e12fcf5)
 
@@ -8,35 +8,35 @@ com.google.auto:auto-common:1.2.2 (3 constraints: a532fd93)
 
 com.google.auto.service:auto-service:1.1.1 (1 constraints: 0505f435)
 
-com.google.auto.service:auto-service-annotations:1.1.1 (2 constraints: 8a20341c)
+com.google.auto.service:auto-service-annotations:1.1.1 (2 constraints: 8b20371c)
 
-com.google.auto.value:auto-value-annotations:1.11.0 (4 constraints: ee3fa36e)
+com.google.auto.value:auto-value-annotations:1.11.1 (4 constraints: ff408584)
 
 com.google.code.findbugs:jsr305:3.0.2 (1 constraints: 0705fc35)
 
-com.google.errorprone:error_prone_annotation:2.50.0 (4 constraints: fb3d095d)
+com.google.errorprone:error_prone_annotation:2.52.0 (4 constraints: 013e5b5e)
 
-com.google.errorprone:error_prone_annotations:2.50.0 (6 constraints: c35d6190)
+com.google.errorprone:error_prone_annotations:2.52.0 (6 constraints: cb5d7993)
 
-com.google.errorprone:error_prone_check_api:2.50.0 (3 constraints: ea2add59)
+com.google.errorprone:error_prone_check_api:2.52.0 (3 constraints: ee2a595a)
 
-com.google.errorprone:error_prone_core:2.50.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_core:2.52.0 (1 constraints: 3b05403b)
 
-com.google.googlejavaformat:google-java-format:1.35.0 (2 constraints: b42552ff)
+com.google.googlejavaformat:google-java-format:1.37.0 (2 constraints: b825ceff)
 
 com.google.guava:failureaccess:1.0.3 (1 constraints: 160ae3b4)
 
-com.google.guava:guava:33.7.2-jre (9 constraints: ba8fba2f)
+com.google.guava:guava:33.8.0-jre (9 constraints: c88f2939)
 
 com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava (1 constraints: bd17c918)
 
 com.google.j2objc:j2objc-annotations:3.1 (1 constraints: b809f1a0)
 
-com.google.protobuf:protobuf-java:4.33.2 (1 constraints: 291161c9)
+com.google.protobuf:protobuf-java:4.36.2 (1 constraints: 2c116ac9)
 
 io.github.eisop:dataflow-errorprone:3.41.0-eisop1 (3 constraints: 3e40ddde)
 
-io.github.java-diff-utils:java-diff-utils:4.12 (1 constraints: b412c908)
+io.github.java-diff-utils:java-diff-utils:4.18 (1 constraints: ba12cf08)
 
 javax.inject:javax.inject:1 (2 constraints: 51221d52)
 
@@ -44,31 +44,39 @@ net.bytebuddy:byte-buddy:1.18.3 (1 constraints: 530b55df)
 
 org.assertj:assertj-core:3.27.7 (1 constraints: 4505553b)
 
-org.jspecify:jspecify:1.0.1 (14 constraints: e5e94d93)
+org.commonmark:commonmark:0.29.0 (2 constraints: 4625402c)
 
-org.pcollections:pcollections:4.0.1 (1 constraints: f21028b8)
+org.commonmark:commonmark-ext-gfm-tables:0.29.0 (1 constraints: cf13dd63)
+
+org.jspecify:jspecify:1.0.1 (14 constraints: e9e9c49a)
+
+org.pcollections:pcollections:5.0.0 (1 constraints: f2102cb8)
+
+org.safere:safere:1.1.0 (1 constraints: dd12961b)
+
+org.yaml:snakeyaml:2.7 (1 constraints: 98107696)
 
 
 
 [Test dependencies]
 
-com.google.errorprone:error_prone_test_helpers:2.50.0 (1 constraints: 3b05403b)
+com.google.errorprone:error_prone_test_helpers:2.52.0 (1 constraints: 3b05403b)
 
-com.google.jimfs:jimfs:1.3.0 (1 constraints: 5a141061)
+com.google.jimfs:jimfs:1.3.2 (1 constraints: 5c141261)
 
-com.google.testing.compile:compile-testing:0.23.0 (1 constraints: 8b149b75)
+com.google.testing.compile:compile-testing:0.24.0 (1 constraints: 8c149e75)
 
-com.google.truth:truth:1.4.5 (2 constraints: 7726656a)
+com.google.truth:truth:1.4.5 (2 constraints: 7c26696b)
 
 junit:junit:4.13.2 (4 constraints: b7468923)
 
 org.apiguardian:apiguardian-api:1.1.2 (7 constraints: 677be455)
 
-org.hamcrest:hamcrest:2.2 (1 constraints: 720b95d5)
+org.hamcrest:hamcrest:3.0 (1 constraints: 710b96d5)
 
-org.hamcrest:hamcrest-core:2.2 (3 constraints: 84262b80)
+org.hamcrest:hamcrest-core:3.0 (3 constraints: 8226f77f)
 
-org.hamcrest:hamcrest-library:2.2 (1 constraints: fc138e38)
+org.hamcrest:hamcrest-library:3.0 (1 constraints: fb138f38)
 
 org.junit.jupiter:junit-jupiter:6.1.3 (1 constraints: 76070f77)
 
